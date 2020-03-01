@@ -11,10 +11,13 @@ import Container from '../shared/styled/container';
 import { ThemeType } from '../../styles/theme';
 import useOnScreen from '../../hooks/useOnScreen';
 import SubTitle from '../shared/styled/sub-title';
+import { graphql, useStaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 
 const Bonus: React.FC = () => {
   const { color, fontWeight } = useTheme<ThemeType>();
   const [ref, onScreen] = useOnScreen();
+  const { product } = useStaticQuery(query);
 
   return (
     <section
@@ -32,27 +35,37 @@ const Bonus: React.FC = () => {
           css={css`
             ${mq(`md`)} {
               display: flex;
-              margin: 0 -1rem;
+              margin: 0 -2rem;
             }
           `}
         >
           <div
             css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 0 1rem;
+                padding: 0 2rem;
               }
             `}
           >
-            w
+            <div
+              css={css`
+                width: 600px;
+              `}
+            >
+              <Img fluid={product.childImageSharp.fluid} />
+            </div>
           </div>
           <div
             css={css`
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 0 1rem;
+                padding: 50px 2rem 0 2rem;
               }
             `}
           >
@@ -85,5 +98,17 @@ const Bonus: React.FC = () => {
     </section>
   );
 };
+
+const query = graphql`
+  {
+    product: file(name: { eq: "computer" }, relativeDirectory: { eq: "home" }) {
+      childImageSharp {
+        fluid(maxWidth: 600, maxHeight: 380) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;
 
 export default Bonus;

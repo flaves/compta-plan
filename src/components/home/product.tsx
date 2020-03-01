@@ -187,8 +187,8 @@ const Product: React.FC = () => {
                 margin-bottom: 40px;
               `}
             >
-              Aliquam dictum, libero non malesuada vehicula, augue est tempor
-              urna, sit amet accumsan nisl eros nec erat.
+              Si vous êtes client chez comptaplan, vous bénéficiez gratuitement
+              d’un accès illimités à nos outils digitaux.
             </p>
             <Link to="/nos-solutions/my-comptaplan" size="lg">
               En savoir plus
