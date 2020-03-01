@@ -1,13 +1,91 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 
-import { ThemeType } from '../../styles/theme';
-import { css } from '@emotion/core';
 import mq from '../../styles/mq';
 
+import { ThemeType } from '../../styles/theme';
+
+export type Size = `sm` | `md` | `lg`;
+export type Variant = `primary` | `accent` | `success` | `white`;
+
+export const renderSize = (size?: Size) => {
+  switch (size) {
+    case 'sm':
+      return css`
+        padding: 10px 20px;
+      `;
+    case 'md':
+      return css`
+        padding: 12px 25px;
+      `;
+    case 'lg':
+      return css`
+        padding: 10px 30px;
+
+        ${mq(`lg`)} {
+          padding: 12px 40px;
+        }
+      `;
+    default:
+      return css`
+        padding: 12px 25px;
+      `;
+  }
+};
+
+export const renderVariant = (variant?: Variant) => ({ color }: ThemeType) => {
+  switch (variant) {
+    case 'primary':
+      return css`
+        background-color: ${color.primary};
+        border-color: ${color.primary};
+        color: ${color.white};
+
+        &:hover {
+          background-color: hsl(34, 98%, 43%);
+          border-color: hsl(34, 98%, 43%);
+        }
+      `;
+    case 'accent':
+      return css`
+        background-color: ${color.accent};
+        border-color: ${color.accent};
+        color: ${color.white};
+      `;
+    case 'success':
+      return css`
+        background-color: ${color.success};
+        border-color: ${color.success};
+        color: ${color.white};
+      `;
+    case 'white':
+      return css`
+        background-color: ${color.white};
+        border-color: ${color.white};
+        color: ${color.black};
+
+        &:hover {
+          background-color: transparent;
+          color: ${color.white};
+        }
+      `;
+    default:
+      return css`
+        background-color: ${color.primary};
+        color: ${color.white};
+
+        &:hover {
+          background-color: hsl(34, 98%, 43%);
+          border-color: hsl(34, 98%, 43%);
+        }
+      `;
+  }
+};
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: `sm` | `md` | `lg`;
-  variant?: `primary` | `accent` | `success` | `white`;
+  size?: Size;
+  variant?: Variant;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,71 +94,9 @@ const Button: React.FC<ButtonProps> = ({
   variant,
   ...props
 }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const theme = useTheme<ThemeType>();
 
-  const renderSize = () => {
-    switch (size) {
-      case 'sm':
-        return css`
-          padding: 10px 20px;
-        `;
-      case 'md':
-        return css`
-          padding: 12px 25px;
-        `;
-      case 'lg':
-        return css`
-          padding: 10px 30px;
-
-          ${mq(`lg`)} {
-            padding: 12px 40px;
-          }
-        `;
-      default:
-        return css`
-          padding: 12px 25px;
-        `;
-    }
-  };
-
-  const renderVariant = () => {
-    switch (variant) {
-      case 'primary':
-        return css`
-          background-color: ${color.primary};
-          border-color: ${color.primary};
-          color: ${color.white};
-        `;
-      case 'accent':
-        return css`
-          background-color: ${color.accent};
-          border-color: ${color.accent};
-          color: ${color.white};
-        `;
-      case 'success':
-        return css`
-          background-color: ${color.success};
-          border-color: ${color.success};
-          color: ${color.white};
-        `;
-      case 'white':
-        return css`
-          background-color: ${color.white};
-          border-color: ${color.white};
-          color: ${color.black};
-
-          &:hover {
-            background-color: transparent;
-            color: ${color.white};
-          }
-        `;
-      default:
-        return css`
-          background-color: ${color.primary};
-          color: ${color.white};
-        `;
-    }
-  };
+  const { color, fontWeight } = theme;
 
   return (
     <button
@@ -88,8 +104,8 @@ const Button: React.FC<ButtonProps> = ({
       css={css`
         border: 2px solid ${color.primary};
 
-        ${renderSize()}
-        ${renderVariant()}
+        ${renderSize(size)}
+        ${renderVariant(variant)(theme)}
         
         font-size: 14px;
         font-weight: ${fontWeight.semiBold};

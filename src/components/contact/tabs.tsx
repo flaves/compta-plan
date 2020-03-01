@@ -1,34 +1,13 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
+import { graphql, useStaticQuery } from 'gatsby';
 import { animated as a, useTrail } from 'react-spring';
 
-import { ThemeType } from '../../styles/theme';
 import mq from '../../styles/mq';
 
-interface TabType {
-  label: string;
-  value: string;
-}
-
-const tabs: TabType[] = [
-  {
-    label: `Brabant Wallon`,
-    value: `bw`,
-  },
-  {
-    label: `Namur`,
-    value: `namur`,
-  },
-  {
-    label: `Hainaut`,
-    value: `hainaut`,
-  },
-  {
-    label: `Luxembourg`,
-    value: `lux`,
-  },
-];
+import { ThemeType } from '../../styles/theme';
+import AddressType from '../../types/address';
 
 interface TabsProps {
   current: string;
@@ -37,7 +16,11 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
   const { color, fontWeight } = useTheme<ThemeType>();
-  const trail = useTrail(tabs?.length, {
+  const { allContentfulAddress } = useStaticQuery(query);
+  const addresses: AddressType[] = allContentfulAddress?.edges?.map(
+    (item: { node: any }) => item?.node
+  );
+  const trail = useTrail(addresses?.length, {
     from: {
       opacity: 0,
     },
@@ -62,22 +45,22 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
       `}
     >
       {trail?.map((props, key) => {
-        const tab = tabs[key];
+        const tab = addresses[key];
 
         return (
           <a.li
             key={key}
             css={css`
-              color: ${current === tab?.value ? color.primary : `#a9a9a9`};
+              color: ${current === tab?.id ? color.primary : `#a9a9a9`};
               cursor: pointer;
-              font-size: 24px;
+              font-size: 20px;
               font-weight: ${fontWeight.semiBold};
               transition: color 0.3s;
             `}
             style={props}
-            onClick={() => setCurrent(tab?.value)}
+            onClick={() => setCurrent(tab?.id)}
           >
-            {tab?.label}
+            {tab?.name}
           </a.li>
         );
       })}
@@ -94,5 +77,18 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
     </section>
   );
 };
+
+const query = graphql`
+  {
+    allContentfulAddress(sort: { fields: name, order: ASC }) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 
 export default Tabs;

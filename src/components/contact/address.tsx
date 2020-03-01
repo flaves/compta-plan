@@ -1,55 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
+import { graphql, useStaticQuery } from 'gatsby';
 import { animated as a, useSprings } from 'react-spring';
+import ReactMapGL, { Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerCheck } from '@fortawesome/pro-solid-svg-icons';
 
 import mq from '../../styles/mq';
 
 import { ThemeType } from '../../styles/theme';
+import AddressType from '../../types/address';
 
-interface AddressType {
-  id: number;
-  title: string;
-  street: string;
-  city: string;
-  phone: string;
-  value: string;
+interface ViewportProps {
+  width: string;
+  height: string;
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
-
-const addresses: AddressType[] = [
-  {
-    id: 0,
-    title: `Brabant Wallon`,
-    street: `Avenue de la Fontaine 4`,
-    city: `BE-1435 Mont-Saint-Guibert`,
-    phone: `+32 10 65 07 76`,
-    value: `bw`,
-  },
-  {
-    id: 1,
-    title: `Namur`,
-    street: `Rue Comte Cornet, 19`,
-    city: `BE-7020 Mons-Maisières`,
-    phone: `+32 10 65 38 91`,
-    value: `namur`,
-  },
-  {
-    id: 2,
-    title: `Hainaut`,
-    street: `Rue Comte Cornet, 19`,
-    city: `BE-7020 Mons-Maisières`,
-    phone: `+32 10 65 38 91`,
-    value: `hainaut`,
-  },
-  {
-    id: 3,
-    title: `Luxembourg`,
-    street: `Wohlber, 11`,
-    city: `LU-9638 Pommerloch`,
-    phone: `+352 691 854 003`,
-    value: `lux`,
-  },
-];
 
 interface AddressProps {
   current: string;
@@ -57,13 +27,52 @@ interface AddressProps {
 
 const Address: React.FC<AddressProps> = ({ current }) => {
   const { color, fontWeight } = useTheme<ThemeType>();
+  const [viewport, setViewport] = useState<ViewportProps>({
+    width: `100%`,
+    height: `100%`,
+    latitude: 37.7577,
+    longitude: -122.4376,
+    zoom: 8,
+  });
+  const {
+    allContentfulAddress,
+    site: {
+      siteMetadata: { mapboxAccessToken },
+    },
+  } = useStaticQuery(query);
+  const [marker, setMarker] = useState<{
+    latitude: number;
+    longitude: number;
+  }>({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  const addresses: AddressType[] = allContentfulAddress?.edges?.map(
+    (item: { node: any }) => item?.node
+  );
+
   const fade = useSprings(
     addresses?.length,
     addresses?.map(item => ({
-      opacity: item?.value === current ? 1 : 0,
+      opacity: item?.id === current ? 1 : 0,
       position: `absolute`,
     }))
   );
+
+  useEffect(() => {
+    const address = addresses?.find(address => address?.id === current);
+
+    setMarker({
+      latitude: address?.position?.lat || 0,
+      longitude: address?.position?.lon || 0,
+    });
+    setViewport({
+      ...viewport,
+      latitude: address?.position?.lat || 0,
+      longitude: address?.position?.lon || 0,
+    });
+  }, [current]);
 
   return (
     <section
@@ -80,7 +89,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       <div
         css={css`
           min-height: 300px;
-          background-color: red;
+          background-color: black;
           order: 2;
 
           ${mq(`md`)} {
@@ -92,7 +101,19 @@ const Address: React.FC<AddressProps> = ({ current }) => {
           }
         `}
       >
-        Map
+        <ReactMapGL
+          {...viewport}
+          mapboxApiAccessToken={mapboxAccessToken}
+          onViewportChange={(viewport: ViewportProps) => setViewport(viewport)}
+        >
+          <Marker longitude={marker?.longitude} latitude={marker?.latitude}>
+            <FontAwesomeIcon
+              icon={faMapMarkerCheck}
+              size="3x"
+              color={color.primary}
+            />
+          </Marker>
+        </ReactMapGL>
       </div>
       <div
         css={css`
@@ -140,7 +161,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
                   }
                 `}
               >
-                {item?.title}
+                {item?.name}
               </h2>
               <address
                 css={css`
@@ -151,7 +172,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
               >
                 {item?.street}
                 <br />
-                {item?.city}
+                {item?.zip} {item?.city}
                 <br />
                 <br />
                 {item?.phone}
@@ -163,5 +184,31 @@ const Address: React.FC<AddressProps> = ({ current }) => {
     </section>
   );
 };
+
+const query = graphql`
+  {
+    site {
+      siteMetadata {
+        mapboxAccessToken
+      }
+    }
+    allContentfulAddress {
+      edges {
+        node {
+          id
+          name
+          position {
+            lat
+            lon
+          }
+          street
+          zip
+          city
+          phone
+        }
+      }
+    }
+  }
+`;
 
 export default Address;

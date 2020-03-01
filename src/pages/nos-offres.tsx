@@ -11,7 +11,7 @@ import Services from '../components/shared/services';
 import MeetUp from '../components/shared/meet-up';
 import Advice from '../components/shared/advice';
 
-import H1 from '../components/shared/heading/h1';
+import H1 from '../components/shared/styled/h1';
 
 import { ThemeType } from '../styles/theme';
 

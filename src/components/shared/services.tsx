@@ -4,7 +4,7 @@ import { useTheme } from 'emotion-theming';
 
 import mq from '../../styles/mq';
 
-import H2 from '../shared/heading/h2';
+import H2 from './styled/h2';
 
 import { ThemeType } from '../../styles/theme';
 

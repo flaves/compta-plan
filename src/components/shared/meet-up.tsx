@@ -4,13 +4,15 @@ import { useTheme } from 'emotion-theming';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 
-import Button from './button';
+import Link from './link';
 
 import mq from '../../styles/mq';
+import useParallax from '../../hooks/useParallax';
 
 import { ThemeType } from '../../styles/theme';
 
 const MeetUp: React.FC = () => {
+  const [ref, parallax] = useParallax();
   const { hero } = useStaticQuery(query);
   const { color, fontWeight } = useTheme<ThemeType>();
 
@@ -23,6 +25,7 @@ const MeetUp: React.FC = () => {
           display: flex;
         }
       `}
+      ref={ref}
     >
       <div
         css={css`
@@ -72,19 +75,28 @@ const MeetUp: React.FC = () => {
             votre entreprise et identifier ensemble les solutions et outils
             adaptés.{' '}
           </p>
-          <Button variant="white" size="lg">
+          <Link to="/contact" size="lg">
             Prendre rendez-vous
-          </Button>
+          </Link>
         </div>
       </div>
       <div
         css={css`
+          overflow: hidden;
+          max-height: 500px;
+
           ${mq(`md`)} {
             flex: 0 0 40%;
           }
         `}
       >
-        <Img fluid={hero.childImageSharp.fluid} />
+        <div
+          style={{
+            transform: `translate3d(0, -${parallax / 2}px, 0)`,
+          }}
+        >
+          <Img fluid={hero.childImageSharp.fluid} />
+        </div>
       </div>
     </section>
   );
@@ -92,14 +104,9 @@ const MeetUp: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(name: { eq: "hero" }) {
+    hero: file(name: { eq: "meet-up" }, relativeDirectory: { eq: "shared" }) {
       childImageSharp {
-        fluid(
-          maxWidth: 500
-          maxHeight: 400
-          cropFocus: ATTENTION
-          quality: 90
-        ) {
+        fluid(maxWidth: 800, maxHeight: 800, cropFocus: WEST) {
           ...GatsbyImageSharpFluid
         }
       }

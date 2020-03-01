@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 
-import H2 from '../shared/heading/h2';
+import H2 from '../shared/styled/h2';
 
 const Intro: React.FC = () => {
   return (

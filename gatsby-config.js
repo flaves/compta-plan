@@ -8,6 +8,7 @@ module.exports = {
     description: `Gatsby starter for personal project.`,
     author: `@flaves`,
     siteUrl: `https://www.example.com`,
+    mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
   },
   plugins: [
     `gatsby-plugin-catch-links`,
@@ -53,7 +54,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sharp`,
       options: {
-        defaultQuality: 80,
+        defaultQuality: 70,
       },
     },
     {
@@ -61,6 +62,13 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `n7jonmrvv2j0`,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
   ],

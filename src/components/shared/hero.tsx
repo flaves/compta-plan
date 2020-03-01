@@ -10,13 +10,13 @@ import { ThemeType } from '../../styles/theme';
 interface HeroProps {
   background: any;
   children: React.ReactNode;
-  defaultHeight?: number;
+  defaultHeight?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({
   background,
   children,
-  defaultHeight = 700,
+  defaultHeight = `600px`,
 }) => {
   const { color } = useTheme<ThemeType>();
   const [ref, value] = useParallax();
@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({
     <section
       css={css`
         background-color: ${color.black};
-        height: ${defaultHeight}px;
+        height: ${defaultHeight};
         position: relative;
         overflow: hidden;
       `}
@@ -59,13 +59,9 @@ const Hero: React.FC<HeroProps> = ({
           left: 0;
           width: 100%;
           height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
         `}
       >
-        <div>{children}</div>
+        {children}
       </div>
     </section>
   );

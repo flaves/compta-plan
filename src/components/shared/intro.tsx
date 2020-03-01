@@ -1,14 +1,15 @@
 import React from 'react';
 import { css } from '@emotion/core';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import H2 from './heading/h2';
+import H2 from './styled/h2';
 
 interface IntroProps {
   title: string;
-  subTitle: string;
+  content: any;
 }
 
-const Intro: React.FC<IntroProps> = ({ title, subTitle }) => {
+const Intro: React.FC<IntroProps> = ({ title, content }) => {
   return (
     <section
       css={css`
@@ -19,13 +20,17 @@ const Intro: React.FC<IntroProps> = ({ title, subTitle }) => {
       `}
     >
       <H2>{title}</H2>
-      <p
+      <div
         css={css`
           max-width: 800px;
+
+          p {
+            margin-bottom: 1rem;
+          }
         `}
       >
-        {subTitle}
-      </p>
+        {documentToReactComponents(content)}
+      </div>
     </section>
   );
 };

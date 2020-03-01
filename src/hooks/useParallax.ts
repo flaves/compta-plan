@@ -20,8 +20,6 @@ const useParallax = (): [
     return () => window.removeEventListener(`scroll`, onScroll);
   });
 
-  console.log(value);
-
   return [ref, value, bounds];
 };
 

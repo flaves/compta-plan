@@ -1,51 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'gatsby';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { animated as a, useSpring } from 'react-spring';
 
+import Dropdown from './dropdown';
+
 import mq from '../../styles/mq';
+import useGetNavLinks from '../../hooks/useGetNavLinks';
+import useOutsideClick from '../../hooks/useOutsideClick';
+
 import Logo from '../../svg/ball.svg';
 
 import { ThemeType } from '../../styles/theme';
 
+import Chevron from '../../svg/chevron.svg';
+
 export interface LinkType {
   label: string;
   path: string;
+  dropdown?: LinkType[];
 }
-
-const links: LinkType[] = [
-  {
-    label: `Nos Solutions`,
-    path: `/nos-solutions`,
-  },
-  {
-    label: `Nos Offres`,
-    path: `/nos-offres`,
-  },
-  {
-    label: `Nos Services`,
-    path: `/nos-services`,
-  },
-  {
-    label: `Primes & Subsides`,
-    path: `/primes-subsides`,
-  },
-  {
-    label: `Contact`,
-    path: `/contact`,
-  },
-];
 
 const Header: React.FC = () => {
   const [active, setActive] = useState<boolean>(false);
   const sticky = useSpring({
     background: active ? `hsla(0, 0%, 100%, 100%)` : `hsla(0, 0%, 100%, 0%)`,
+    boxShadow: active
+      ? `0 5px 10px hsla(0, 0%, 0%, .1)`
+      : `0 0 0 hsla(0, 0%, 0%, 0%)`,
   });
   const { color, fontWeight } = useTheme<ThemeType>();
+  const links = useGetNavLinks();
+  const [open, setOpen] = useState<number | undefined>();
+  const nav = useRef(null);
+  useOutsideClick(nav, () => open && setOpen(undefined));
 
   const onScroll = () =>
-    window.pageYOffset > 50 ? setActive(true) : setActive(false);
+    window.pageYOffset > 200 ? setActive(true) : setActive(false);
 
   useEffect(() => {
     document.addEventListener(`scroll`, onScroll);
@@ -58,12 +50,15 @@ const Header: React.FC = () => {
       css={css`
         height: 100%;
       `}
+      ref={nav}
     >
       <ul
         css={css`
+          display: none;
           height: 100%;
+          position: relative;
 
-          ${mq(`md`)} {
+          ${mq(`lg`)} {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -75,23 +70,63 @@ const Header: React.FC = () => {
             key={key}
             css={css`
               padding: 0 25px;
+              position: relative;
             `}
           >
             <Link
               to={link.path}
               css={css`
+                color: ${open === key ? color.primary : `#959595`};
                 font-size: 16px;
-                font-weight: 600;
-                color: #959595;
+                font-weight: ${fontWeight.medium};
                 transition: color 0.3s;
+
+                &:hover {
+                  color: ${color.primary};
+
+                  svg {
+                    fill: ${color.primary};
+                  }
+                }
               `}
+              style={{
+                fill: open === key ? color.primary : `#959595`,
+              }}
               activeStyle={{
                 color: color.primary,
+                fill: `${color.primary}`,
               }}
               partiallyActive
+              onClick={e => {
+                if (link?.dropdown) {
+                  e.preventDefault();
+                  if (open === key) {
+                    setOpen(undefined);
+                  } else {
+                    setOpen(key);
+                  }
+                }
+              }}
             >
               {link.label}
+              {link?.dropdown && (
+                <Chevron
+                  css={css`
+                    width: 14px;
+                    height: 14px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%)
+                      rotate(${open === key ? `270deg` : `90deg`});
+                    bottom: -18px;
+                    transition: fill 0.3s, transform 0.3s;
+                  `}
+                />
+              )}
             </Link>
+            {link?.dropdown && (
+              <Dropdown links={link?.dropdown} open={open === key} />
+            )}
           </li>
         ))}
       </ul>
