@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { Link } from 'gatsby';
-import { animated as a, useSpring, useTrail } from 'react-spring';
+import { animated as a, useSpring, useSprings, useTrail } from 'react-spring';
 
 import mq from '../../styles/mq';
 import useGetNavLinks from '../../hooks/useGetNavLinks';
@@ -27,6 +27,8 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
     },
     delay: 200,
   });
+  const [springs, set] = useSprings(links.length, () => ({ opacity: 0 }));
+  const [current, setCurrent] = useState<number | undefined>();
 
   const renderLinks = (links: LinkType[]) => (trail: any) => (
     <ul>
@@ -39,7 +41,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
             css={css`
               margin-bottom: 50px;
 
-              a {
+              & > a {
                 color: #959595;
                 font-size: 32px;
                 font-weight: ${fontWeight.regular};
@@ -53,9 +55,54 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
               activeStyle={{
                 color: color.primary,
               }}
+              onClick={e => {
+                if (link?.dropdown) {
+                  e.preventDefault();
+                  setCurrent(current === key ? undefined : key);
+                }
+              }}
+              partiallyActive
             >
               {link?.label}
             </Link>
+            {link?.dropdown && (
+              <ul
+                css={css`
+                  margin-top: 10px;
+                  max-height: ${current === key ? `160px` : `0px`};
+                  overflow: hidden;
+                  transition: max-height 0.5s;
+                `}
+              >
+                {link?.dropdown?.map((item, key) => {
+                  return (
+                    <li
+                      key={key}
+                      css={css`
+                        margin-bottom: 10px;
+
+                        & > a {
+                          color: hsl(0, 0%, 48%);
+                          font-size: 16px;
+                          font-weight: ${fontWeight.regular};
+                          transition: color 0.3s;
+                        }
+                      `}
+                    >
+                      <Link
+                        to={item?.path}
+                        activeStyle={{
+                          color: color.primary,
+                        }}
+                        partiallyActive
+                      >
+                        {item?.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </a.li>
         );
       })}
