@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../components/layout';
@@ -9,14 +8,17 @@ import Tabs from '../components/contact/tabs';
 import Address from '../components/contact/address';
 import Email from '../components/contact/email';
 
-import { ThemeType } from '../styles/theme';
+import H1 from '../components/shared/styled/h1';
 
 const Contact: React.FC = () => {
-  const [current, setCurrent] = useState<string>(
-    `3522bae8-dc6e-5ff4-be6a-c4ea6212287e`
-  );
-  const { hero } = useStaticQuery(query);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const [current, setCurrent] = useState<string>(``);
+  const { hero, allContentfulAddress } = useStaticQuery(query);
+
+  useEffect(() => {
+    allContentfulAddress?.edges?.map((item: { node: { id: string } }) => {
+      setCurrent(item?.node?.id);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -30,15 +32,7 @@ const Contact: React.FC = () => {
             text-align: center;
           `}
         >
-          <h1
-            css={css`
-              color: ${color.white};
-              font-size: 60px;
-              font-weight: ${fontWeight.bold};
-            `}
-          >
-            Contactez-nous
-          </h1>
+          <H1>Contactez-nous</H1>
         </div>
       </Hero>
       <Tabs current={current} setCurrent={setCurrent} />
@@ -54,6 +48,13 @@ const query = graphql`
       childImageSharp {
         fluid(maxWidth: 1440, maxHeight: 800, cropFocus: ATTENTION) {
           ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    allContentfulAddress(limit: 1, sort: { fields: name, order: ASC }) {
+      edges {
+        node {
+          id
         }
       }
     }

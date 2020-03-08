@@ -7,6 +7,8 @@ import ReactMapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerCheck } from '@fortawesome/pro-solid-svg-icons';
+import useMeasure from 'react-use-measure';
+import { ResizeObserver as polyfill } from '@juggle/resize-observer/lib/ResizeObserver';
 
 import mq from '../../styles/mq';
 
@@ -14,8 +16,8 @@ import { ThemeType } from '../../styles/theme';
 import AddressType from '../../types/address';
 
 interface ViewportProps {
-  width: string;
-  height: string;
+  width: number;
+  height: number;
   latitude: number;
   longitude: number;
   zoom: number;
@@ -26,10 +28,11 @@ interface AddressProps {
 }
 
 const Address: React.FC<AddressProps> = ({ current }) => {
+  const [ref, { width, height }] = useMeasure({ polyfill });
   const { color, fontWeight } = useTheme<ThemeType>();
   const [viewport, setViewport] = useState<ViewportProps>({
-    width: `100%`,
-    height: `100%`,
+    width: 300,
+    height: 300,
     latitude: 37.7577,
     longitude: -122.4376,
     zoom: 8,
@@ -47,6 +50,14 @@ const Address: React.FC<AddressProps> = ({ current }) => {
     latitude: 0,
     longitude: 0,
   });
+
+  useEffect(() => {
+    setViewport({
+      ...viewport,
+      width,
+      height,
+    });
+  }, [width, height]);
 
   const addresses: AddressType[] = allContentfulAddress?.edges?.map(
     (item: { node: any }) => item?.node
@@ -87,9 +98,9 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       `}
     >
       <div
+        ref={ref}
         css={css`
           min-height: 300px;
-          background-color: black;
           order: 2;
 
           ${mq(`md`)} {

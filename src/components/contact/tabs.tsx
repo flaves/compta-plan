@@ -37,8 +37,11 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
   const renderTabs = () => (
     <ul
       css={css`
+        display: flex;
+        flex-wrap: wrap;
+
         ${mq(`md`)} {
-          display: flex;
+          flex-wrap: initial;
           justify-content: space-between;
           align-items: center;
         }
@@ -56,6 +59,17 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
               font-size: 20px;
               font-weight: ${fontWeight.semiBold};
               transition: color 0.3s;
+              flex: 0 0 50%;
+              max-width: 50%;
+              margin-bottom: 20px;
+              text-align: center;
+
+              ${mq(`md`)} {
+                flex: initial;
+                max-width: initial;
+                margin-bottom: 0;
+                text-align: initial;
+              }
             `}
             style={props}
             onClick={() => setCurrent(tab?.id)}
@@ -70,7 +84,11 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
   return (
     <section
       css={css`
-        padding: 50px 100px;
+        padding: 50px 25px;
+
+        ${mq(`md`)} {
+          padding: 50px 100px;
+        }
       `}
     >
       {renderTabs()}
