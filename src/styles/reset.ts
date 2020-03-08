@@ -66,25 +66,25 @@ const reset = css`
     text-decoration: none;
   }
 
-  body {
-    border: 5px solid pink;
-
-    ${mq(`sm`)} {
-      border-color: orange;
-    }
-
-    ${mq(`md`)} {
-      border-color: red;
-    }
-
-    ${mq(`lg`)} {
-      border-color: green;
-    }
-
-    ${mq(`xl`)} {
-      border-color: blue;
-    }
-  }
+  // body {
+  //   border: 5px solid pink;
+  //
+  //   ${mq(`sm`)} {
+  //     border-color: orange;
+  //   }
+  //
+  //   ${mq(`md`)} {
+  //     border-color: red;
+  //   }
+  //
+  //   ${mq(`lg`)} {
+  //     border-color: green;
+  //   }
+  //
+  //   ${mq(`xl`)} {
+  //     border-color: blue;
+  //   }
+  // }
 `;
 
 export default reset;

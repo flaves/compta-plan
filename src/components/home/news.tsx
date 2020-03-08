@@ -19,7 +19,6 @@ const News: React.FC = () => {
     <section
       css={css`
         overflow: hidden;
-        padding: 100px 0;
       `}
     >
       <Container>

@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ mobileOpen }) => {
   useOutsideClick(nav, () => open && setOpen(undefined));
 
   const onScroll = () =>
-    window.pageYOffset > 200 ? setActive(true) : setActive(false);
+    window.pageYOffset > 100 ? setActive(true) : setActive(false);
 
   useEffect(() => {
     document.addEventListener(`scroll`, onScroll);

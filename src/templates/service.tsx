@@ -93,7 +93,7 @@ export const query = graphql`
       }
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(maxWidth: 770, maxHeight: 400, quality: 70, toFormat: JPG) {
+      fluid(maxWidth: 720, maxHeight: 400, quality: 70, toFormat: JPG) {
         ...GatsbyContentfulFluid
       }
     }

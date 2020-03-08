@@ -130,7 +130,7 @@ const query = graphql`
       name: { eq: "contact" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 768, maxHeight: 800, cropFocus: CENTER) {
+        fluid(maxWidth: 768, maxHeight: 700, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -140,7 +140,7 @@ const query = graphql`
       name: { eq: "contact" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 1000, cropFocus: CENTER) {
+        fluid(maxWidth: 1440, maxHeight: 700, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid
         }
       }
