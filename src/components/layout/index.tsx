@@ -42,6 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             display: none;
           }
         `}
+        onClick={() => setOpen(!open)}
       >
         <button
           css={css`
@@ -52,7 +53,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             font-weight: ${fontWeight.medium};
             outline: none;
           `}
-          onClick={() => setOpen(!open)}
         >
           {open ? `fermer` : `menu`}
         </button>
