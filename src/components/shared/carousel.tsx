@@ -91,16 +91,16 @@ const Carousel: React.FC<CarouselProps> = ({
         >
           {desc}
         </p>
-        <div>
-          <FontAwesomeIcon
-            icon={faArrowCircleLeft}
-            size="2x"
-            css={css`
-              margin-right: 10px;
-            `}
-          />
-          <FontAwesomeIcon icon={faArrowCircleRight} size="2x" />
-        </div>
+        {/*<div>*/}
+        {/*  <FontAwesomeIcon*/}
+        {/*    icon={faArrowCircleLeft}*/}
+        {/*    size="2x"*/}
+        {/*    css={css`*/}
+        {/*      margin-right: 10px;*/}
+        {/*    `}*/}
+        {/*  />*/}
+        {/*  <FontAwesomeIcon icon={faArrowCircleRight} size="2x" />*/}
+        {/*</div>*/}
       </div>
       <div
         css={css`

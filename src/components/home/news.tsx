@@ -26,8 +26,7 @@ const News: React.FC = () => {
           items={articles}
           title="Les dernières
 actualités."
-          desc="Aliquam dictum, libero non malesuada vehicula, augue est
-tempor urna, sit amet accumsan nisl eros nec erat."
+          desc="Découvrez les dernières nouveautés en matière de comptabilité, fiscalité, droit, etc."
           to="blog"
           prefix="blog"
         />
@@ -45,7 +44,7 @@ const query = graphql`
           name
           slug
           cover {
-            fluid(maxWidth: 140, maxHeight: 175) {
+            fluid(maxWidth: 240, maxHeight: 300, quality: 90, toFormat: JPG) {
               ...GatsbyContentfulFluid
             }
           }

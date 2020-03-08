@@ -30,21 +30,18 @@ const features: FeatureType[] = [
   {
     icon: faFolders,
     label: `Déposez vos fichiers`,
-    content: `Etiam tellus nunc, facilisis sit amet mattis eu, congue eget dolor.
-Integer semper commodo est.`,
+    content: `Envoi de vos documents par mail mais aussi via l’export d’un PDF.`,
   },
   {
     icon: faChartPie,
     label: `Consultez vos chiffres`,
-    content: `Etiam tellus nunc, facilisis sit amet mattis eu, congue eget dolor.
-Integer semper commodo est.`,
+    content: `Gestion de vos statistiques via un dashboard très intuitif.`,
   },
   {
     icon: faFileInvoice,
     label: `Créez vos
 factures`,
-    content: `Etiam tellus nunc, facilisis sit amet mattis eu, congue eget dolor.
-Integer semper commodo est.`,
+    content: `Gestion de vos contact clients, de vos devis, factures et rappels.`,
   },
 ];
 
@@ -127,6 +124,7 @@ const Product: React.FC = () => {
               <p
                 css={css`
                   color: #a9a9a9;
+                  max-width: 300px;
                 `}
               >
                 {feature?.content}
@@ -179,7 +177,7 @@ const Product: React.FC = () => {
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 50px 2rem 0 2rem;
+                padding: 75px 2rem 0 2rem;
               }
             `}
           >
@@ -188,7 +186,7 @@ const Product: React.FC = () => {
                 max-width: 450px;
               `}
             >
-              Votre situation au bout du doigt.
+              My Compta Plan
             </H2>
             <p
               css={css`
@@ -196,10 +194,12 @@ const Product: React.FC = () => {
                 font-weight: ${fontWeight.medium};
                 color: #a9a9a9;
                 margin-bottom: 40px;
+                max-width: 500px;
               `}
             >
-              Si vous êtes client chez comptaplan, vous bénéficiez gratuitement
-              d’un accès illimités à nos outils digitaux.
+              Via votre espace <b>My Compta Plan</b>, vous gardez un oeil sur
+              l’évolution quotidienne de votre activité et gérez en ligne tous
+              les aspects de votre comptabilité.
             </p>
             <Link to="/nos-solutions/my-comptaplan" size="lg">
               En savoir plus

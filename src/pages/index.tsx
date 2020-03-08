@@ -85,6 +85,7 @@ const Home: React.FC = () => {
                   font-size: 16px;
                   font-weight: ${fontWeight.medium};
                   margin-bottom: 50px;
+                  max-width: 800px;
 
                   ${mq(`md`)} {
                     margin-bottom: 70px;
@@ -93,6 +94,11 @@ const Home: React.FC = () => {
               >
                 Compta Plan est une fiduciaire de talents qui vous portent pour
                 aller plus loin.
+                <br />
+                <br />
+                Au quotidien, nous étudions de nouvelles solutions, nous créons
+                de nouveaux outils, nous innovons pour améliorer vos
+                performances et être force de proposition.
               </p>
               <Link to="/contact">Choisir Compta Plan</Link>
             </div>

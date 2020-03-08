@@ -15,6 +15,7 @@ import H1 from '../components/shared/styled/h1';
 import SubTitle from '../components/shared/styled/sub-title';
 
 import ArticleType from '../types/article';
+import Contact from '../components/shared/contact';
 
 const options = {
   renderNode: {
@@ -116,6 +117,7 @@ const Article: React.FC<ArticleProps> = ({
           {documentToReactComponents(article?.content?.json, options)}
         </Container>
       </section>
+      <Contact />
     </Layout>
   );
 };

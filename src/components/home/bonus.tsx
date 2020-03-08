@@ -56,7 +56,7 @@ const Bonus: React.FC = () => {
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 50px 2rem 0 2rem;
+                padding: 75px 2rem 0 2rem;
               }
             `}
           >
@@ -80,7 +80,7 @@ const Bonus: React.FC = () => {
               Vous êtes un porteur de projet, une starter, une PME,
               <br /> un indépendant, un indépendant à titre complémentaire ?
             </p>
-            <Link to="/primes-subsides" size="lg">
+            <Link to="/nos-solutions/primes-subsides" size="lg">
               En savoir plus
             </Link>
           </div>
