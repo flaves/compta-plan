@@ -79,7 +79,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
                     <li
                       key={key}
                       css={css`
-                        margin-bottom: 10px;
+                        margin-bottom: 20px;
 
                         & > a {
                           color: hsl(0, 0%, 48%);
@@ -130,7 +130,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
     >
       <div
         css={css`
-          padding: 200px 50px;
+          padding: 150px 50px;
         `}
       >
         {renderLinks(links)(trail)}

@@ -22,17 +22,24 @@ export interface LinkType {
   dropdown?: LinkType[];
 }
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  mobileOpen: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ mobileOpen }) => {
   const [active, setActive] = useState<boolean>(false);
+  const [open, setOpen] = useState<number | undefined>();
   const sticky = useSpring({
-    background: active ? `hsla(0, 0%, 100%, 100%)` : `hsla(0, 0%, 100%, 0%)`,
+    background:
+      active && !mobileOpen
+        ? `hsla(0, 0%, 100%, 100%)`
+        : `hsla(0, 0%, 100%, 0%)`,
     boxShadow: active
       ? `0 5px 10px hsla(0, 0%, 0%, .1)`
       : `0 0 0 hsla(0, 0%, 0%, 0%)`,
   });
   const { color, fontWeight } = useTheme<ThemeType>();
   const links = useGetNavLinks();
-  const [open, setOpen] = useState<number | undefined>();
   const nav = useRef(null);
   useOutsideClick(nav, () => open && setOpen(undefined));
 

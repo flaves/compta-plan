@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <section>
-      <Header />
+      <Header mobileOpen={open} />
       <main role="main">{children}</main>
       <Footer />
       <Mobile open={open} />
