@@ -52,9 +52,16 @@ const Carousel: React.FC<CarouselProps> = ({
             padding: 0 20px;
           `}
         >
-          <GatsbyLink to={`/${prefix}/${item?.slug}`}>
-            <Img fluid={item?.cover?.fluid} />
-          </GatsbyLink>
+          <div
+            css={css`
+              border-radius: 5px;
+              overflow: hidden;
+            `}
+          >
+            <GatsbyLink to={`/${prefix}/${item?.slug}`}>
+              <Img fluid={item?.cover?.fluid} />
+            </GatsbyLink>
+          </div>
         </li>
       ))}
     </ul>

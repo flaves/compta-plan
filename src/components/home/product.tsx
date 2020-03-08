@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
-import { graphql, useStaticQuery } from 'gatsby';
 import { animated as a, useSpring } from 'react-spring';
-import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFolders,
   faChartPie,
   faFileInvoice,
 } from '@fortawesome/pro-solid-svg-icons';
+
+import Dashboard from '../../svg/home/dashboard.svg';
 
 import mq from '../../styles/mq';
 import useOnScreen from '../../hooks/useOnScreen';
@@ -54,7 +54,6 @@ const Product: React.FC = () => {
       friction: 80,
     },
   });
-  const { product } = useStaticQuery(query);
 
   const renderFeatures = useCallback(
     () => (
@@ -143,6 +142,7 @@ const Product: React.FC = () => {
         <div
           css={css`
             margin-bottom: 120px;
+            padding-top: 50px;
 
             ${mq(`md`)} {
               display: flex;
@@ -166,10 +166,10 @@ const Product: React.FC = () => {
           >
             <div
               css={css`
-                width: 600px;
+                width: 400px;
               `}
             >
-              <Img fluid={product.childImageSharp.fluid} />
+              <Dashboard />
             </div>
           </div>
           <div
@@ -177,7 +177,7 @@ const Product: React.FC = () => {
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 80px 2rem 0 2rem;
+                padding: 10px 2rem 0 2rem;
               }
             `}
           >
@@ -211,17 +211,5 @@ const Product: React.FC = () => {
     </a.section>
   );
 };
-
-const query = graphql`
-  {
-    product: file(name: { eq: "computer" }, relativeDirectory: { eq: "home" }) {
-      childImageSharp {
-        fluid(maxWidth: 600, maxHeight: 380) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-  }
-`;
 
 export default React.memo(Product);

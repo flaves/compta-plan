@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
-import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+
+import BonusImage from '../../svg/home/bonus.svg';
 
 import mq from '../../styles/mq';
 import Link from '../shared/link';
@@ -16,7 +16,6 @@ import { ThemeType } from '../../styles/theme';
 const Bonus: React.FC = () => {
   const { fontWeight } = useTheme<ThemeType>();
   const [ref] = useOnScreen();
-  const { product } = useStaticQuery(query);
 
   return (
     <section ref={ref}>
@@ -45,10 +44,10 @@ const Bonus: React.FC = () => {
           >
             <div
               css={css`
-                width: 600px;
+                width: 300px;
               `}
             >
-              <Img fluid={product.childImageSharp.fluid} />
+              <BonusImage />
             </div>
           </div>
           <div
@@ -56,7 +55,7 @@ const Bonus: React.FC = () => {
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 75px 2rem 0 2rem;
+                padding: 10px 2rem 0 2rem;
               }
             `}
           >
@@ -89,17 +88,5 @@ const Bonus: React.FC = () => {
     </section>
   );
 };
-
-const query = graphql`
-  {
-    product: file(name: { eq: "computer" }, relativeDirectory: { eq: "home" }) {
-      childImageSharp {
-        fluid(maxWidth: 600, maxHeight: 380) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-  }
-`;
 
 export default Bonus;
