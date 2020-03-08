@@ -68,13 +68,37 @@ const Footer: React.FC = () => {
   const renderLinks = (links: LinkType[]) => (title: string) => (
     prefix?: string
   ) => (
-    <>
+    <div
+      css={css`
+        margin-bottom: 50px;
+
+        ${mq(`md`)} {
+          flex: 0 0 50%;
+          max-width: 50%;
+          padding: 0 1rem;
+        }
+
+        ${mq(`lg`)} {
+          flex: 0 0 25%;
+          max-width: 25%;
+        }
+
+        ${mq(`xl`)} {
+          flex: initial;
+          max-width: initial;
+        }
+      `}
+    >
       <h4
         css={css`
           color: ${color.black};
           font-size: 16px;
           font-weight: ${fontWeight.bold};
-          margin-bottom: 30px;
+          margin-bottom: 10px;
+
+          ${mq(`md`)} {
+            margin-bottom: 30px;
+          }
         `}
       >
         {title}
@@ -105,13 +129,13 @@ const Footer: React.FC = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 
   const renderBottomLinks = () => (
     <ul
       css={css`
-        ${mq(`md`)} {
+        ${mq(`lg`)} {
           display: flex;
         }
       `}
@@ -122,7 +146,7 @@ const Footer: React.FC = () => {
           css={css`
             margin-bottom: 10px;
 
-            ${mq(`md`)} {
+            ${mq(`lg`)} {
               margin-right: 50px;
               margin-bottom: 0;
             }
@@ -173,16 +197,27 @@ const Footer: React.FC = () => {
     >
       <div
         css={css`
-          display: flex;
-          justify-content: space-between;
           margin-bottom: 100px;
+
+          ${mq(`md`)} {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 0 -1rem 100px -1rem;
+          }
         `}
       >
-        <div>{renderLinks(solutions)(`Nos Solutions`)(`nos-solutions`)}</div>
-        <div>{renderLinks(offers)(`Nos Offers`)(`nos-offres`)}</div>
-        <div>{renderLinks(services)(`Nos Services`)(`nos-services`)}</div>
-        <div>{renderLinks(bonus)(`Primes & Subsides`)()}</div>
-        <div>
+        {renderLinks(solutions)(`Nos Solutions`)(`nos-solutions`)}
+        {renderLinks(offers)(`Nos Offers`)(`nos-offres`)}
+        {renderLinks(services)(`Nos Services`)(`nos-services`)}
+        {renderLinks(bonus)(`Primes & Subsides`)()}
+        <div
+          css={css`
+            ${mq(`md`)} {
+              padding: 0 1rem;
+            }
+          `}
+        >
           <h4
             css={css`
               color: ${color.black};

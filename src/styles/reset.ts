@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { fonts } from '../fonts/fonts';
+import mq from './mq';
 
 const reset = css`
   ${fonts}
@@ -63,6 +64,26 @@ const reset = css`
   a {
     color: black;
     text-decoration: none;
+  }
+
+  body {
+    border: 5px solid pink;
+
+    ${mq(`sm`)} {
+      border-color: orange;
+    }
+
+    ${mq(`md`)} {
+      border-color: red;
+    }
+
+    ${mq(`lg`)} {
+      border-color: green;
+    }
+
+    ${mq(`xl`)} {
+      border-color: blue;
+    }
   }
 `;
 
