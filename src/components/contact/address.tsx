@@ -28,7 +28,7 @@ interface AddressProps {
 }
 
 const Address: React.FC<AddressProps> = ({ current }) => {
-  const [ref, { width, height }] = useMeasure({ polyfill });
+  const [ref, bounds] = useMeasure({ polyfill });
   const { color, fontWeight } = useTheme<ThemeType>();
   const [viewport, setViewport] = useState<ViewportProps>({
     width: 300,
@@ -50,26 +50,22 @@ const Address: React.FC<AddressProps> = ({ current }) => {
     latitude: 0,
     longitude: 0,
   });
+  const [addresses, setAddresses] = useState<AddressType[]>([]);
 
   useEffect(() => {
     setViewport(viewport => ({
       ...viewport,
-      width,
-      height,
+      width: bounds?.width,
+      height: bounds?.height,
     }));
-  }, [width, height]);
+  }, [bounds]);
 
-  const addresses: AddressType[] = allContentfulAddress?.edges?.map(
-    (item: { node: any }) => item?.node
-  );
-
-  const fade = useSprings(
-    addresses?.length,
-    addresses?.map(item => ({
-      opacity: item?.id === current ? 1 : 0,
-      position: `absolute`,
-    }))
-  );
+  useEffect(() => {
+    const addresses: AddressType[] = allContentfulAddress?.edges?.map(
+      (item: { node: any }) => item?.node
+    );
+    setAddresses(addresses);
+  }, [allContentfulAddress]);
 
   useEffect(() => {
     const address = addresses?.find(address => address?.id === current);
@@ -84,6 +80,14 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       longitude: address?.position?.lon || 0,
     }));
   }, [addresses, current]);
+
+  const fade = useSprings(
+    addresses?.length,
+    addresses?.map(item => ({
+      opacity: item?.id === current ? 1 : 0,
+      position: `absolute`,
+    }))
+  );
 
   return (
     <section
@@ -100,7 +104,6 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       <div
         ref={ref}
         css={css`
-          min-height: 300px;
           order: 2;
 
           ${mq(`md`)} {
@@ -115,7 +118,13 @@ const Address: React.FC<AddressProps> = ({ current }) => {
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={mapboxAccessToken}
-          onViewportChange={(viewport: ViewportProps) => setViewport(viewport)}
+          onViewportChange={(viewport: ViewportProps) =>
+            setViewport({
+              ...viewport,
+              width: bounds?.width,
+              height: bounds?.height,
+            })
+          }
         >
           <Marker longitude={marker?.longitude} latitude={marker?.latitude}>
             <FontAwesomeIcon

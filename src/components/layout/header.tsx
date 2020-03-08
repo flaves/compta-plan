@@ -69,8 +69,12 @@ const Header: React.FC = () => {
           <li
             key={key}
             css={css`
-              padding: 0 25px;
+              padding: 0 15px;
               position: relative;
+
+              ${mq(`xl`)} {
+                padding: 0 25px;
+              }
             `}
           >
             <Link
@@ -151,7 +155,7 @@ const Header: React.FC = () => {
           height: 100%;
           padding: 0 20px;
 
-          ${mq(`lg`)} {
+          ${mq(`xl`)} {
             padding: 0 50px;
           }
         `}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { Link } from 'gatsby';
-import { animated as a, useSpring, useSprings, useTrail } from 'react-spring';
+import { animated as a, useSpring, useTrail } from 'react-spring';
 
 import mq from '../../styles/mq';
 import useGetNavLinks from '../../hooks/useGetNavLinks';
@@ -27,7 +27,6 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
     },
     delay: 200,
   });
-  const [springs, set] = useSprings(links.length, () => ({ opacity: 0 }));
   const [current, setCurrent] = useState<number | undefined>();
 
   const renderLinks = (links: LinkType[]) => (trail: any) => (
@@ -39,7 +38,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
           <a.li
             key={key}
             css={css`
-              margin-bottom: 50px;
+              margin-bottom: 40px;
 
               & > a {
                 color: #959595;
@@ -68,10 +67,11 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
             {link?.dropdown && (
               <ul
                 css={css`
-                  margin-top: 10px;
-                  max-height: ${current === key ? `160px` : `0px`};
+                  margin-top: ${current === key ? `20px` : `0px`};
+                  max-height: ${current === key ? `185px` : `0px`};
                   overflow: hidden;
                   transition: max-height 0.5s;
+                  padding-left: 10px;
                 `}
               >
                 {link?.dropdown?.map((item, key) => {
@@ -83,7 +83,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
 
                         & > a {
                           color: hsl(0, 0%, 48%);
-                          font-size: 16px;
+                          font-size: 20px;
                           font-weight: ${fontWeight.regular};
                           transition: color 0.3s;
                         }
@@ -120,6 +120,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
         width: 100%;
         height: 100%;
         background-color: ${color.black};
+        overflow: auto;
 
         ${mq(`lg`)} {
           display: none;

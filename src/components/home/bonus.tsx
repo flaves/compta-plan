@@ -34,6 +34,7 @@ const Bonus: React.FC = () => {
               display: flex;
               justify-content: center;
               align-items: center;
+              margin-bottom: 2rem;
 
               ${mq(`md`)} {
                 flex: 0 0 50%;

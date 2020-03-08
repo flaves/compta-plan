@@ -56,11 +56,18 @@ const MeetUp: React.FC = () => {
           <h3
             css={css`
               color: ${color.white};
-              font-size: 24px;
               font-weight: ${fontWeight.bold};
               margin-bottom: 15px;
 
+              ${mq(`md`)} {
+                font-size: 24px;
+              }
+
               ${mq(`lg`)} {
+                font-size: 36px;
+              }
+
+              ${mq(`xl`)} {
                 font-size: 48px;
               }
             `}

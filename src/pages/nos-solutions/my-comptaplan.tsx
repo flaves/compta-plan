@@ -13,11 +13,19 @@ import Product from '../../components/home/product';
 import Link from '../../components/shared/link';
 
 const MyComptaplan: React.FC = () => {
-  const { hero } = useStaticQuery(query);
+  const { mobileHero, desktopHero } = useStaticQuery(query);
+
+  const sources = [
+    mobileHero.childImageSharp.fluid,
+    {
+      ...desktopHero.childImageSharp.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <Layout>
-      <Hero background={hero.childImageSharp.fluid} defaultHeight="800px">
+      <Hero background={sources} defaultHeight="800px">
         <div
           css={css`
             display: flex;
@@ -46,7 +54,20 @@ const MyComptaplan: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(name: { eq: "hero" }, relativeDirectory: { eq: "solutions" }) {
+    mobileHero: file(
+      name: { eq: "hero" }
+      relativeDirectory: { eq: "solutions" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 768, maxHeight: 800) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopHero: file(
+      name: { eq: "hero" }
+      relativeDirectory: { eq: "solutions" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1440, maxHeight: 1000) {
           ...GatsbyImageSharpFluid

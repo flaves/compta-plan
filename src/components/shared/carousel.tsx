@@ -13,6 +13,7 @@ import mq from '../../styles/mq';
 
 import ArticleType from '../../types/article';
 import { ThemeType } from '../../styles/theme';
+import H2 from './styled/h2';
 
 type Items = ArticleType[];
 
@@ -31,7 +32,7 @@ const Carousel: React.FC<CarouselProps> = ({
   to,
   prefix,
 }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme<ThemeType>();
 
   const renderItems = (items: Items) => (
     <ul
@@ -78,19 +79,7 @@ const Carousel: React.FC<CarouselProps> = ({
           }
         `}
       >
-        <h3
-          css={css`
-            color: ${color.black};
-            font-size: 24px;
-            margin-bottom: 15px;
-
-            ${mq(`md`)} {
-              font-size: 48px;
-            }
-          `}
-        >
-          {title}
-        </h3>
+        <H2>{title}</H2>
         <p
           css={css`
             color: #a9a9a9;

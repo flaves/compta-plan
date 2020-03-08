@@ -64,6 +64,14 @@ const Home: React.FC = () => {
 
                   ${mq(`md`)} {
                     margin-bottom: 15px;
+                    font-size: 50px;
+                  }
+
+                  ${mq(`lg`)} {
+                    font-size: 70px;
+                  }
+
+                  ${mq(`xl`)} {
                     font-size: 90px;
                   }
                 `}
