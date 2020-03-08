@@ -31,7 +31,10 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO
+        title="Home"
+        description="La fiduciaire qui coach votre entreprise."
+      />
       <section>
         <Hero background={sources} defaultHeight="100vh">
           <div

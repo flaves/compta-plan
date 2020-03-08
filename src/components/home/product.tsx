@@ -177,7 +177,7 @@ const Product: React.FC = () => {
               ${mq(`md`)} {
                 flex: 0 0 50%;
                 max-width: 50%;
-                padding: 75px 2rem 0 2rem;
+                padding: 80px 2rem 0 2rem;
               }
             `}
           >

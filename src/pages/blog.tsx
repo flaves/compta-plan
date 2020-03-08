@@ -39,12 +39,11 @@ const Blog: React.FC = () => {
       >
         <Container>
           {categories?.map(category => (
-            <div>
+            <div key={category?.id}>
               <Carousel
                 items={category?.articles}
                 title={category?.name}
-                desc="Aliquam dictum, libero non malesuada vehicula, augue est
-tempor urna, sit amet accumsan nisl eros nec erat."
+                desc="Découvrez les dernères actualités comptables."
                 to="blog"
                 prefix="blog"
               />
@@ -103,6 +102,7 @@ const query = graphql`
     allContentfulCategories {
       edges {
         node {
+          id
           name
           articles {
             id

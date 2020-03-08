@@ -4,10 +4,10 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Flaves`,
-    description: `Gatsby starter for personal project.`,
+    title: `Compta Plan`,
+    description: `La fiduciaire qui coach votre entreprise.`,
     author: `@flaves`,
-    siteUrl: `https://www.example.com`,
+    siteUrl: `https://www.comptaplan.be`,
     mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
   },
   plugins: [

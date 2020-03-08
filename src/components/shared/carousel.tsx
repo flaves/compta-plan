@@ -3,11 +3,11 @@ import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { Link as GatsbyLink } from 'gatsby';
 import Img from 'gatsby-image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowCircleLeft,
-  faArrowCircleRight,
-} from '@fortawesome/pro-light-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+//   faArrowCircleLeft,
+//   faArrowCircleRight,
+// } from '@fortawesome/pro-light-svg-icons';
 
 import mq from '../../styles/mq';
 
