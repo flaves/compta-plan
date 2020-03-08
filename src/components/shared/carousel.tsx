@@ -11,9 +11,10 @@ import {
 
 import mq from '../../styles/mq';
 
+import H2 from './styled/h2';
+
 import ArticleType from '../../types/article';
 import { ThemeType } from '../../styles/theme';
-import H2 from './styled/h2';
 
 type Items = ArticleType[];
 
