@@ -12,6 +12,8 @@ import Contact from '../../components/shared/contact';
 import Product from '../../components/home/product';
 import Link from '../../components/shared/link';
 
+import Video from '../../videos/dashboard.mp4';
+
 const MyComptaplan: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);
 
@@ -46,6 +48,23 @@ const MyComptaplan: React.FC = () => {
         </div>
       </Hero>
       <Product />
+      <section
+        css={css`
+          max-width: 800px;
+          margin: 0 auto 100px auto;
+        `}
+      >
+        <video
+          controls
+          muted
+          autoPlay
+          css={css`
+            max-width: 800px;
+          `}
+        >
+          <source src={Video} type="video/mp4" />
+        </video>
+      </section>
       <MeetUp />
       <Contact />
     </Layout>
