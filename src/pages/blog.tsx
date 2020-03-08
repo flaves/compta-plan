@@ -53,7 +53,7 @@ tempor urna, sit amet accumsan nisl eros nec erat."
         </Container>
       </section>
     ),
-    []
+    [categories]
   );
 
   return (

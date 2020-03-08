@@ -2,18 +2,18 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import Layout from '../components/layout';
-import Hero from '../components/shared/hero';
-import Intro from '../components/primes/intro';
-import Content from '../components/primes/content';
-import MeetUp from '../components/shared/meet-up';
-import Link from '../components/shared/link';
+import Layout from '../../components/layout';
+import Hero from '../../components/shared/hero';
+import Intro from '../../components/primes/intro';
+import Content from '../../components/primes/content';
+import MeetUp from '../../components/shared/meet-up';
+import Link from '../../components/shared/link';
 
-import H1 from '../components/shared/styled/h1';
+import H1 from '../../components/shared/styled/h1';
 
-import Contact from '../components/shared/contact';
-import SubTitle from '../components/shared/styled/sub-title';
-import mq from '../styles/mq';
+import Contact from '../../components/shared/contact';
+import SubTitle from '../../components/shared/styled/sub-title';
+import mq from '../../styles/mq';
 
 const PrimesSubsides: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);

@@ -82,12 +82,18 @@ export const query = graphql`
       services
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(maxWidth: 768, maxHeight: 1000, quality: 70, cropFocus: LEFT) {
+      fluid(
+        maxWidth: 384
+        maxHeight: 500
+        quality: 70
+        cropFocus: LEFT
+        toFormat: JPG
+      ) {
         ...GatsbyContentfulFluid
       }
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(maxWidth: 1440, maxHeight: 800, quality: 70) {
+      fluid(maxWidth: 770, maxHeight: 400, quality: 70, toFormat: JPG) {
         ...GatsbyContentfulFluid
       }
     }

@@ -24,11 +24,15 @@ const useGetNavLinks = () => {
   const links: LinkType[] = [
     {
       label: `Nos Solutions`,
-      path: `/nos-solutions/my-comptaplan`,
+      path: `/nos-solutions`,
       dropdown: [
         {
           label: `My ComptaPlan`,
           path: `/nos-solutions/my-comptaplan`,
+        },
+        {
+          label: `Primes & Subsides`,
+          path: `/nos-solutions/primes-subsides`,
         },
       ],
     },
@@ -43,8 +47,8 @@ const useGetNavLinks = () => {
       dropdown: services,
     },
     {
-      label: `Primes & Subsides`,
-      path: `/primes-subsides`,
+      label: `Blog`,
+      path: `/blog`,
     },
     {
       label: `Contact`,

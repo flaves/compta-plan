@@ -3,6 +3,9 @@ interface ArticleType {
   name: string;
   description: string;
   slug: string;
+  content: {
+    json: any;
+  };
   cover: {
     fluid: any;
   };

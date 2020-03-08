@@ -11,13 +11,12 @@ import Container from '../shared/styled/container';
 
 import ArticleType from '../../types/article';
 import { ThemeType } from '../../styles/theme';
-import Button from '../shared/button';
 import Link from '../shared/link';
 
 const Featured: React.FC = () => {
   const [featured, setFeatured] = useState<ArticleType>();
   const { allContentfulArticles } = useStaticQuery(query);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme<ThemeType>();
 
   useEffect(() => {
     setFeatured([...allContentfulArticles?.edges]?.shift()?.node);
@@ -107,7 +106,7 @@ const query = graphql`
           description
           slug
           cover {
-            fluid(maxWidth: 550, maxHeight: 380) {
+            fluid(maxWidth: 275, maxHeight: 190, toFormat: JPG) {
               ...GatsbyContentfulFluid
             }
           }

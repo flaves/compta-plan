@@ -1,8 +1,36 @@
 const path = require(`path`);
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
+  const articleTemplate = path.resolve(`src/templates/article.tsx`);
   const offerTemplate = path.resolve(`src/templates/offer.tsx`);
   const serviceTemplate = path.resolve(`src/templates/service.tsx`);
+
+  const articles = await graphql(`
+    {
+      allContentfulArticles {
+        edges {
+          node {
+            id
+            slug
+            cover {
+              id
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  articles.data.allContentfulArticles.edges.forEach(({ node }) => {
+    createPage({
+      path: `/blog/${node.slug}`,
+      component: articleTemplate,
+      context: {
+        id: node.id,
+        cover: node.cover.id,
+      },
+    });
+  });
 
   const offers = await graphql(`
     {

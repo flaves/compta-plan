@@ -29,10 +29,29 @@ const Footer: React.FC = () => {
   const { color, fontWeight } = useTheme<ThemeType>();
   const { allContentfulOffer, allContentfulService } = useStaticQuery(query);
 
+  const pages = [
+    {
+      label: `Accueil`,
+      path: ``,
+    },
+    {
+      label: `Blog`,
+      path: `blog`,
+    },
+    {
+      label: `Contact`,
+      path: `contact`,
+    },
+  ];
+
   const solutions = [
     {
       label: `My Compta Plan`,
       path: `my-comptaplan`,
+    },
+    {
+      label: `Primes & Subsides`,
+      path: `primes-subsides`,
     },
   ];
 
@@ -49,21 +68,6 @@ const Footer: React.FC = () => {
       path: item?.node?.slug,
     })
   );
-
-  const bonus = [
-    {
-      label: `Chèques entreprises`,
-      path: `primes-subsides`,
-    },
-    {
-      label: `Soutien à l'emploi`,
-      path: `primes-subsides`,
-    },
-    {
-      label: `Primes à l'investissement`,
-      path: `primes-subsides`,
-    },
-  ];
 
   const renderLinks = (links: LinkType[]) => (title: string) => (
     prefix?: string
@@ -113,6 +117,9 @@ const Footer: React.FC = () => {
           >
             <Link
               to={`${prefix ? `/${prefix}` : ``}/${link?.path}`}
+              activeStyle={{
+                color: color.primary,
+              }}
               css={css`
                 color: #a9a9a9;
                 font-size: 14px;
@@ -207,10 +214,10 @@ const Footer: React.FC = () => {
           }
         `}
       >
+        {renderLinks(pages)(`Pages`)(``)}
         {renderLinks(solutions)(`Nos Solutions`)(`nos-solutions`)}
         {renderLinks(offers)(`Nos Offers`)(`nos-offres`)}
         {renderLinks(services)(`Nos Services`)(`nos-services`)}
-        {renderLinks(bonus)(`Primes & Subsides`)()}
         <div
           css={css`
             ${mq(`md`)} {
