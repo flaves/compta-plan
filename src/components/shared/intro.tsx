@@ -1,36 +1,48 @@
 import React from 'react';
 import { css } from '@emotion/core';
+import { useTheme } from 'emotion-theming';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { Document } from '@contentful/rich-text-types';
+
+import mq from '../../styles/mq';
 
 import H2 from './styled/h2';
+import Container from './styled/container';
+
+import { ThemeType } from '../../styles/theme';
 
 interface IntroProps {
   title: string;
-  content: any;
+  content: Document;
 }
 
 const Intro: React.FC<IntroProps> = ({ title, content }) => {
+  const { fontWeight } = useTheme<ThemeType>();
+
   return (
     <section
       css={css`
         color: #a9a9a9;
         font-size: 16px;
-        font-weight: 400;
-        padding: 70px 100px;
+        font-weight: ${fontWeight.regular};
       `}
     >
-      <H2>{title}</H2>
-      <div
-        css={css`
-          max-width: 800px;
+      <Container>
+        <H2>{title}</H2>
+        <div
+          css={css`
+            ${mq(`md`)} {
+              max-width: 800px;
+            }
 
-          p {
-            margin-bottom: 1rem;
-          }
-        `}
-      >
-        {documentToReactComponents(content)}
-      </div>
+            p {
+              margin-bottom: 1rem;
+            }
+          `}
+        >
+          {documentToReactComponents(content)}
+        </div>
+      </Container>
     </section>
   );
 };

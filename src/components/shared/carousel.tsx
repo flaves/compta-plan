@@ -13,7 +13,6 @@ import mq from '../../styles/mq';
 
 import ArticleType from '../../types/article';
 import { ThemeType } from '../../styles/theme';
-import Link from './link';
 
 type Items = ArticleType[];
 
@@ -70,16 +69,24 @@ const Carousel: React.FC<CarouselProps> = ({
     >
       <div
         css={css`
-          flex: 0 0 40%;
-          max-width: 40%;
-          padding: 0 2rem;
+          margin-bottom: 2rem;
+
+          ${mq(`md`)} {
+            flex: 0 0 40%;
+            max-width: 40%;
+            padding: 0 2rem;
+          }
         `}
       >
         <h3
           css={css`
             color: ${color.black};
-            font-size: 48px;
+            font-size: 24px;
             margin-bottom: 15px;
+
+            ${mq(`md`)} {
+              font-size: 48px;
+            }
           `}
         >
           {title}
@@ -107,9 +114,11 @@ const Carousel: React.FC<CarouselProps> = ({
       </div>
       <div
         css={css`
-          flex: 0 0 60%;
-          max-width: 60%;
-          padding: 0 2rem;
+          ${mq(`md`)} {
+            flex: 0 0 60%;
+            max-width: 60%;
+            padding: 0 2rem;
+          }
         `}
       >
         {renderItems(items)}

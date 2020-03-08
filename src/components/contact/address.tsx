@@ -52,11 +52,11 @@ const Address: React.FC<AddressProps> = ({ current }) => {
   });
 
   useEffect(() => {
-    setViewport({
+    setViewport(viewport => ({
       ...viewport,
       width,
       height,
-    });
+    }));
   }, [width, height]);
 
   const addresses: AddressType[] = allContentfulAddress?.edges?.map(
@@ -78,12 +78,12 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
     });
-    setViewport({
+    setViewport(viewport => ({
       ...viewport,
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
-    });
-  }, [current]);
+    }));
+  }, [addresses, current]);
 
   return (
     <section

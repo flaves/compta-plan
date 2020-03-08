@@ -12,7 +12,7 @@ const useOnScreen = (
     if (bounds?.top <= (offset || 0) && bounds?.top >= -bounds?.height)
       setOnScreen(true);
     else setOnScreen(false);
-  }, [bounds?.y]);
+  }, [bounds, offset]);
 
   useEffect(() => {
     window.addEventListener(`scroll`, onScroll);

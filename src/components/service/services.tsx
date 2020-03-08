@@ -4,6 +4,7 @@ import { useTheme } from 'emotion-theming';
 
 import mq from '../../styles/mq';
 
+import Container from '../shared/styled/container';
 import H2 from '../shared/styled/h2';
 
 import { ThemeType } from '../../styles/theme';
@@ -48,24 +49,25 @@ const Services: React.FC<ServicesProps> = ({ title, services }) => {
         ))}
       </ul>
     ),
-    []
+    [fontWeight.medium]
   );
 
   return (
     <section
       css={css`
         background-color: #f5f5f5;
-        padding: 75px 100px;
       `}
     >
-      <H2
-        css={css`
-          margin-bottom: 50px;
-        `}
-      >
-        {title}
-      </H2>
-      {renderServices(services)}
+      <Container>
+        <H2
+          css={css`
+            margin-bottom: 50px;
+          `}
+        >
+          {title}
+        </H2>
+        {renderServices(services)}
+      </Container>
     </section>
   );
 };

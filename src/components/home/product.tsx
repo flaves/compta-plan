@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -59,78 +59,88 @@ const Product: React.FC = () => {
   });
   const { product } = useStaticQuery(query);
 
-  const renderFeatures = () => (
-    <ul
-      css={css`
-        ${mq(`md`)} {
-          display: flex;
-          margin: 0 -2rem;
-        }
-      `}
-    >
-      {features?.map((feature, key) => (
-        <li
-          key={key}
-          css={css`
-            ${mq(`md`)} {
-              flex: 0 0 33.3333333%;
-              max-width: 33.3333333%;
-              padding: 0 2rem;
-            }
-          `}
-        >
-          <article>
-            <div
-              css={css`
-                margin-bottom: 15px;
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <FontAwesomeIcon
-                icon={feature?.icon}
-                size="2x"
+  const renderFeatures = useCallback(
+    () => (
+      <ul
+        css={css`
+          ${mq(`md`)} {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -2rem;
+          }
+
+          ${mq(`lg`)} {
+            flex-wrap: initial;
+          }
+        `}
+      >
+        {features?.map((feature, key) => (
+          <li
+            key={key}
+            css={css`
+              margin-bottom: 2rem;
+
+              ${mq(`md`)} {
+                flex: 0 0 50%;
+                max-width: 50%;
+                padding: 0 2rem;
+              }
+
+              ${mq(`lg`)} {
+                flex: 0 0 33.3333333%;
+                max-width: 33.3333333%;
+                padding: 0 2rem;
+              }
+            `}
+          >
+            <article>
+              <div
                 css={css`
-                  margin-right: 30px;
-                `}
-                color="#afafaf"
-              />
-              <h3
-                css={css`
-                  color: ${color.heading};
-                  font-size: 24px;
-                  font-weight: ${fontWeight.semiBold};
-                  max-width: 170px;
+                  margin-bottom: 15px;
+                  display: flex;
+                  align-items: center;
                 `}
               >
-                {feature?.label}
-              </h3>
-            </div>
-            <p
-              css={css`
-                color: #a9a9a9;
-              `}
-            >
-              {feature?.content}
-            </p>
-          </article>
-        </li>
-      ))}
-    </ul>
+                <FontAwesomeIcon
+                  icon={feature?.icon}
+                  size="2x"
+                  css={css`
+                    margin-right: 30px;
+                  `}
+                  color="#afafaf"
+                />
+                <h3
+                  css={css`
+                    color: ${color.heading};
+                    font-size: 20px;
+                    font-weight: ${fontWeight.semiBold};
+                    max-width: 170px;
+
+                    ${mq(`md`)} {
+                      font-size: 24px;
+                    }
+                  `}
+                >
+                  {feature?.label}
+                </h3>
+              </div>
+              <p
+                css={css`
+                  color: #a9a9a9;
+                `}
+              >
+                {feature?.content}
+              </p>
+            </article>
+          </li>
+        ))}
+      </ul>
+    ),
+    [color.heading, fontWeight.semiBold]
   );
 
   return (
-    <a.section
-      css={css`
-        padding: 0 20px;
-
-        ${mq(`md`)} {
-          padding: 150px 0;
-        }
-      `}
-      ref={ref}
-      style={reveal}
-    >
+    <a.section ref={ref} style={reveal}>
       <Container>
         <div
           css={css`
@@ -147,6 +157,7 @@ const Product: React.FC = () => {
               display: flex;
               justify-content: center;
               align-items: center;
+              margin-bottom: 2rem;
 
               ${mq(`md`)} {
                 flex: 0 0 50%;
@@ -213,4 +224,4 @@ const query = graphql`
   }
 `;
 
-export default Product;
+export default React.memo(Product);

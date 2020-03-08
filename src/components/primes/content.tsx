@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { ThemeType } from '../../styles/theme';
 import mq from '../../styles/mq';
+import Container from '../shared/styled/container';
 
 interface TabType {
   label: string;
@@ -152,6 +153,11 @@ const Content: React.FC = () => {
             font-size: 18px;
             font-weight: ${fontWeight.medium};
             transition: color 0.3s;
+            margin-bottom: 20px;
+
+            ${mq(`md`)} {
+              margin-bottom: 0;
+            }
           `}
         >
           {tab?.label}
@@ -164,17 +170,14 @@ const Content: React.FC = () => {
     <section
       css={css`
         background-color: #f7f7f7;
-        padding: 25px 100px;
-
-        ${mq(`md`)} {
-          padding: 50px 100px;
-        }
       `}
     >
-      {renderTabs(tabs)}
-      {current === 0 ? <Bonus /> : <Jobs />}
+      <Container>
+        {renderTabs(tabs)}
+        {current === 0 ? <Bonus /> : <Jobs />}
+      </Container>
     </section>
   );
 };
 
-export default Content;
+export default React.memo(Content);

@@ -149,7 +149,11 @@ const Header: React.FC = () => {
           justify-content: space-between;
           align-items: center;
           height: 100%;
-          padding: 0 50px;
+          padding: 0 20px;
+
+          ${mq(`lg`)} {
+            padding: 0 50px;
+          }
         `}
       >
         <Link to="/">

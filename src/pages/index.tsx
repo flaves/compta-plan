@@ -19,22 +19,43 @@ import { ThemeType } from '../styles/theme';
 
 const Home: React.FC = () => {
   const { color, fontWeight } = useTheme<ThemeType>();
-  const { hero } = useStaticQuery(query);
+  const { mobileHero, desktopHero } = useStaticQuery(query);
+
+  const sources = [
+    mobileHero.childImageSharp.fluid,
+    {
+      ...desktopHero.childImageSharp.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <Layout>
       <SEO title="Home" />
       <section>
-        <Hero background={hero.childImageSharp.fluid} defaultHeight="100vh">
+        <Hero background={sources} defaultHeight="100vh">
           <div
             css={css`
               display: flex;
+              justify-content: center;
               align-items: center;
               height: 100%;
-              padding-left: 100px;
+
+              ${mq(`md`)} {
+                justify-content: initial;
+                padding-left: 100px;
+              }
             `}
           >
-            <div>
+            <div
+              css={css`
+                text-align: center;
+
+                ${mq(`md`)} {
+                  text-align: initial;
+                }
+              `}
+            >
               <h1
                 css={css`
                   color: ${color.white};
@@ -52,9 +73,9 @@ const Home: React.FC = () => {
               </h1>
               <p
                 css={css`
+                  color: #a9a9a9;
                   font-size: 16px;
                   font-weight: ${fontWeight.medium};
-                  color: #a9a9a9;
                   margin-bottom: 50px;
 
                   ${mq(`md`)} {
@@ -81,7 +102,14 @@ const Home: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
+    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
+      childImageSharp {
+        fluid(maxWidth: 768, maxHeight: 1000, cropFocus: CENTER) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
       childImageSharp {
         fluid(maxWidth: 1440, maxHeight: 1000) {
           ...GatsbyImageSharpFluid

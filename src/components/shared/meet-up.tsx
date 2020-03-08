@@ -13,16 +13,26 @@ import { ThemeType } from '../../styles/theme';
 
 const MeetUp: React.FC = () => {
   const [ref, parallax] = useParallax();
-  const { hero } = useStaticQuery(query);
+  const { mobileHero, desktopHero } = useStaticQuery(query);
   const { color, fontWeight } = useTheme<ThemeType>();
+
+  const sources = [
+    mobileHero.childImageSharp.fluid,
+    {
+      ...desktopHero.childImageSharp.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <section
       css={css`
         background-color: ${color.black};
+        display: flex;
+        flex-direction: column;
 
         ${mq(`md`)} {
-          display: flex;
+          flex-direction: initial;
         }
       `}
       ref={ref}
@@ -32,11 +42,13 @@ const MeetUp: React.FC = () => {
           display: flex;
           align-items: center;
           padding: 50px;
+          order: 2;
 
           ${mq(`md`)} {
             flex: 0 0 60%;
             max-width: 60%;
             padding: 0 20px 0 100px;
+            order: initial;
           }
         `}
       >
@@ -83,19 +95,39 @@ const MeetUp: React.FC = () => {
       <div
         css={css`
           overflow: hidden;
-          max-height: 500px;
+          max-height: 400px;
 
           ${mq(`md`)} {
             flex: 0 0 40%;
+            max-height: 450px;
           }
         `}
       >
         <div
+          css={css`
+            height: 500px;
+
+            ${mq(`md`)} {
+              height: 700px;
+            }
+          `}
           style={{
             transform: `translate3d(0, -${parallax / 2}px, 0)`,
           }}
         >
-          <Img fluid={hero.childImageSharp.fluid} />
+          <Img
+            fluid={sources}
+            css={css`
+              position: initial !important;
+              max-width: 768px;
+              margin: 0 auto;
+
+              ${mq(`md`)} {
+                max-width: initial;
+                margin: initial;
+              }
+            `}
+          />
         </div>
       </div>
     </section>
@@ -104,7 +136,20 @@ const MeetUp: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(name: { eq: "meet-up" }, relativeDirectory: { eq: "shared" }) {
+    mobileHero: file(
+      name: { eq: "meet-up" }
+      relativeDirectory: { eq: "shared" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 768, maxHeight: 800, cropFocus: WEST) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopHero: file(
+      name: { eq: "meet-up" }
+      relativeDirectory: { eq: "shared" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 800, maxHeight: 800, cropFocus: WEST) {
           ...GatsbyImageSharpFluid
@@ -114,4 +159,4 @@ const query = graphql`
   }
 `;
 
-export default MeetUp;
+export default React.memo(MeetUp);

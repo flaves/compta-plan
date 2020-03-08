@@ -7,7 +7,6 @@ import Img from 'gatsby-image';
 import mq from '../../styles/mq';
 
 import H2 from '../shared/styled/h2';
-import Container from '../shared/styled/container';
 
 import Chevron from '../../svg/chevron.svg';
 
@@ -181,18 +180,18 @@ const Offers: React.FC = () => {
         background-color: #f4f4f4;
         padding: 100px 25px;
 
-        ${mq(`md`)} {
+        ${mq(`lg`)} {
           padding: 150px 200px;
         }
       `}
     >
       <H2
         css={css`
-          max-width: 800px;
+          max-width: 700px;
           margin-bottom: 100px;
         `}
       >
-        Des offres et des services adaptés à vos besoins.
+        Des offres et services adaptés à vos besoins.
       </H2>
       {renderOffers([...offers, ...services])}
     </section>

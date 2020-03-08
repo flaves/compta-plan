@@ -10,11 +10,12 @@ interface H1Props {
 
 const SubTitle = styled.p<H1Props>`
   color: #a9a9a9;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   margin-bottom: 50px;
 
   ${mq(`md`)} {
+    font-size: 16px;
     margin: 0 auto 70px auto;
     max-width: 650px;
   }

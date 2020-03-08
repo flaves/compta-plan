@@ -2,16 +2,26 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-
-import Button from './button';
+import { useTheme } from 'emotion-theming';
 
 import useParallax from '../../hooks/useParallax';
-import Container from './styled/container';
 import Link from './link';
+import mq from '../../styles/mq';
+
+import { ThemeType } from '../../styles/theme';
 
 const Contact: React.FC = () => {
   const [ref, value] = useParallax();
-  const { hero } = useStaticQuery(query);
+  const { mobileHero, desktopHero } = useStaticQuery(query);
+  const { color } = useTheme<ThemeType>();
+
+  const sources = [
+    mobileHero.childImageSharp.fluid,
+    {
+      ...desktopHero.childImageSharp.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <section
@@ -24,19 +34,25 @@ const Contact: React.FC = () => {
     >
       <div
         css={css`
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          height: 120%;
         `}
         style={{
           transform: `translate3d(0, -${value}px, 0)`,
         }}
       >
-        <Img fluid={hero.childImageSharp.fluid} />
+        <Img
+          fluid={sources}
+          css={css`
+            position: initial !important;
+            max-width: 768px;
+            margin: 0 auto;
+
+            ${mq(`md`)} {
+              max-width: initial;
+              margin: initial;
+            }
+          `}
+        />
       </div>
       <div
         css={css`
@@ -64,18 +80,35 @@ const Contact: React.FC = () => {
         <div
           css={css`
             display: flex;
+            justify-content: center;
             align-items: center;
             height: 100%;
-            padding-left: 100px;
+            padding: 50px;
+
+            ${mq(`md`)} {
+              justify-content: initial;
+              padding-left: 100px;
+            }
           `}
         >
-          <div>
+          <div
+            css={css`
+              text-align: center;
+
+              ${mq(`md`)} {
+                text-align: left;
+              }
+            `}
+          >
             <h3
               css={css`
-                color: white;
-                font-size: 60px;
-                font-weight: bold;
+                color: ${color.white};
+                font-size: 30px;
                 margin-bottom: 50px;
+
+                ${mq(`md`)} {
+                  font-size: 60px;
+                }
               `}
             >
               Un coaching ou
@@ -92,7 +125,20 @@ const Contact: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(relativeDirectory: { eq: "shared" }, name: { eq: "contact" }) {
+    mobileHero: file(
+      relativeDirectory: { eq: "shared" }
+      name: { eq: "contact" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 768, maxHeight: 800, cropFocus: CENTER) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopHero: file(
+      relativeDirectory: { eq: "shared" }
+      name: { eq: "contact" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1440, maxHeight: 1000, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid
@@ -102,4 +148,4 @@ const query = graphql`
   }
 `;
 
-export default Contact;
+export default React.memo(Contact);

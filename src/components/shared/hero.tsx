@@ -4,6 +4,7 @@ import { useTheme } from 'emotion-theming';
 import Img from 'gatsby-image';
 
 import useParallax from '../../hooks/useParallax';
+import mq from '../../styles/mq';
 
 import { ThemeType } from '../../styles/theme';
 
@@ -32,11 +33,38 @@ const Hero: React.FC<HeroProps> = ({
       ref={ref}
     >
       <div
+        css={css`
+          height: 100%;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: hsla(0, 0%, 0%, 0.6);
+          }
+        `}
         style={{
           transform: `translate3d(0, ${value}px, 0)`,
         }}
       >
-        <Img fluid={background} />
+        <Img
+          fluid={background}
+          css={css`
+            position: initial !important;
+            max-width: 768px;
+            margin: 0 auto;
+
+            ${mq(`md`)} {
+              max-width: initial;
+              margin: initial;
+            }
+          `}
+        />
       </div>
       <div
         css={css`
@@ -47,18 +75,7 @@ const Hero: React.FC<HeroProps> = ({
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: hsla(0, 0%, 0%, 0.6);
-        `}
-      />
-      <div
-        css={css`
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          padding: 1rem;
         `}
       >
         {children}

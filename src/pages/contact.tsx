@@ -12,17 +12,27 @@ import H1 from '../components/shared/styled/h1';
 
 const Contact: React.FC = () => {
   const [current, setCurrent] = useState<string>(``);
-  const { hero, allContentfulAddress } = useStaticQuery(query);
+  const { mobileHero, desktopHero, allContentfulAddress } = useStaticQuery(
+    query
+  );
 
   useEffect(() => {
     allContentfulAddress?.edges?.map((item: { node: { id: string } }) => {
       setCurrent(item?.node?.id);
     });
-  }, []);
+  }, [allContentfulAddress]);
+
+  const sources = [
+    mobileHero.childImageSharp.fluid,
+    {
+      ...desktopHero.childImageSharp.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <Layout>
-      <Hero background={hero.childImageSharp.fluid}>
+      <Hero background={sources}>
         <div
           css={css`
             display: flex;
@@ -44,7 +54,20 @@ const Contact: React.FC = () => {
 
 const query = graphql`
   {
-    hero: file(name: { eq: "hero" }, relativeDirectory: { eq: "contact" }) {
+    mobileHero: file(
+      name: { eq: "hero" }
+      relativeDirectory: { eq: "contact" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 768, maxHeight: 600, cropFocus: ATTENTION) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopHero: file(
+      name: { eq: "hero" }
+      relativeDirectory: { eq: "contact" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1440, maxHeight: 800, cropFocus: ATTENTION) {
           ...GatsbyImageSharpFluid

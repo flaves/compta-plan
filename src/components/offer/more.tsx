@@ -5,6 +5,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import Carousel from '../shared/carousel';
 
 import OfferType from '../../types/offer';
+import Container from '../shared/styled/container';
 
 const More: React.FC = () => {
   const { allContentfulOffer } = useStaticQuery(query);
@@ -17,16 +18,17 @@ const More: React.FC = () => {
     <section
       css={css`
         overflow: hidden;
-        padding: 100px;
       `}
     >
-      <Carousel
-        items={offers}
-        title="Découvrez aussi"
-        desc="Compta Plan vous propose une gamme d'offre complète."
-        to="/"
-        prefix="nos-offres"
-      />
+      <Container>
+        <Carousel
+          items={offers}
+          title="Découvrez aussi"
+          desc="Compta Plan vous propose une gamme d'offre complète."
+          to="/"
+          prefix="nos-offres"
+        />
+      </Container>
     </section>
   );
 };

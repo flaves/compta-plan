@@ -6,11 +6,11 @@ import Layout from '../../components/layout';
 import Hero from '../../components/shared/hero';
 
 import H1 from '../../components/shared/styled/h1';
-import Link from '../../components/shared/link';
 import SubTitle from '../../components/shared/styled/sub-title';
 import MeetUp from '../../components/shared/meet-up';
 import Contact from '../../components/shared/contact';
 import Product from '../../components/home/product';
+import Link from '../../components/shared/link';
 
 const MyComptaplan: React.FC = () => {
   const { hero } = useStaticQuery(query);

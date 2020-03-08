@@ -25,7 +25,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
     config: {
       tension: 80,
     },
-    delay: 1000,
+    delay: 200,
   });
 
   const renderLinks = (links: LinkType[]) => (trail: any) => (

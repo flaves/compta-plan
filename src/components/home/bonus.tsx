@@ -1,35 +1,25 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
+import { graphql, useStaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 
 import mq from '../../styles/mq';
 import Link from '../shared/link';
+import useOnScreen from '../../hooks/useOnScreen';
 
 import H2 from '../shared/styled/h2';
 import Container from '../shared/styled/container';
 
 import { ThemeType } from '../../styles/theme';
-import useOnScreen from '../../hooks/useOnScreen';
-import SubTitle from '../shared/styled/sub-title';
-import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
 
 const Bonus: React.FC = () => {
-  const { color, fontWeight } = useTheme<ThemeType>();
-  const [ref, onScreen] = useOnScreen();
+  const { fontWeight } = useTheme<ThemeType>();
+  const [ref] = useOnScreen();
   const { product } = useStaticQuery(query);
 
   return (
-    <section
-      css={css`
-        padding: 0 20px;
-
-        ${mq(`md`)} {
-          padding: 150px 0;
-        }
-      `}
-      ref={ref}
-    >
+    <section ref={ref}>
       <Container>
         <div
           css={css`

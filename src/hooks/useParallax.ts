@@ -11,8 +11,11 @@ const useParallax = (): [
   const [value, setValue] = useState<number>(0);
 
   const onScroll = useCallback(() => {
-    setValue(Math.round((Math.abs(bounds?.y) / bounds?.height) * 100));
-  }, [bounds?.y]);
+    const y = Math.abs(bounds?.y);
+    const height = bounds?.height;
+
+    setValue(Math.round((y / height) * 100));
+  }, [bounds]);
 
   useEffect(() => {
     window.addEventListener(`scroll`, onScroll);

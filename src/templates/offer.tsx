@@ -20,16 +20,28 @@ import OfferType from '../types/offer';
 interface ServicesProps {
   data: {
     offer: OfferType;
+    mobileHero: any;
+    desktopHero: any;
   };
 }
 
-const Offer: React.FC<ServicesProps> = ({ data: { offer } }) => {
+const Offer: React.FC<ServicesProps> = ({
+  data: { offer, mobileHero, desktopHero },
+}) => {
   const content = offer?.content?.json;
+
+  const sources = [
+    mobileHero.fluid,
+    {
+      ...desktopHero.fluid,
+      media: `(min-width: 768px)`,
+    },
+  ];
 
   return (
     <Layout>
       <section>
-        <Hero background={offer?.cover?.fluid}>
+        <Hero background={sources}>
           <div
             css={css`
               display: flex;
@@ -59,7 +71,7 @@ const Offer: React.FC<ServicesProps> = ({ data: { offer } }) => {
 };
 
 export const query = graphql`
-  query($id: String!) {
+  query($id: String!, $cover: String!) {
     offer: contentfulOffer(id: { eq: $id }) {
       id
       name
@@ -68,10 +80,15 @@ export const query = graphql`
         json
       }
       services
-      cover {
-        fluid(maxWidth: 1440, maxHeight: 800, quality: 70) {
-          ...GatsbyContentfulFluid
-        }
+    }
+    mobileHero: contentfulAsset(id: { eq: $cover }) {
+      fluid(maxWidth: 768, maxHeight: 1000, quality: 70, cropFocus: LEFT) {
+        ...GatsbyContentfulFluid
+      }
+    }
+    desktopHero: contentfulAsset(id: { eq: $cover }) {
+      fluid(maxWidth: 1440, maxHeight: 800, quality: 70) {
+        ...GatsbyContentfulFluid
       }
     }
   }

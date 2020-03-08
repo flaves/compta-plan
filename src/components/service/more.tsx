@@ -4,6 +4,8 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 import Carousel from '../shared/carousel';
 
+import Container from '../shared/styled/container';
+
 import ArticleType from '../../types/article';
 
 const More: React.FC = () => {
@@ -17,16 +19,17 @@ const More: React.FC = () => {
     <section
       css={css`
         overflow: hidden;
-        padding: 100px;
       `}
     >
-      <Carousel
-        items={services}
-        title="Découvrez aussi"
-        desc="Compta Plan vous propose une large gamme de service."
-        to="/"
-        prefix="nos-services"
-      />
+      <Container>
+        <Carousel
+          items={services}
+          title="Découvrez aussi"
+          desc="Compta Plan vous propose une large gamme de service."
+          to="/"
+          prefix="nos-services"
+        />
+      </Container>
     </section>
   );
 };
