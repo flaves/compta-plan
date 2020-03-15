@@ -215,7 +215,8 @@ const query = graphql`
               maxWidth: 420
               maxHeight: 200
               cropFocus: CENTER
-              quality: 100
+              quality: 90
+              resizingBehavior: FILL
             ) {
               ...GatsbyContentfulFluid
             }
@@ -241,7 +242,8 @@ const query = graphql`
               maxWidth: 420
               maxHeight: 200
               cropFocus: CENTER
-              quality: 100
+              quality: 90
+              resizingBehavior: FILL
             ) {
               ...GatsbyContentfulFluid
             }

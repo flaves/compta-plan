@@ -106,7 +106,7 @@ const query = graphql`
           description
           slug
           cover {
-            fluid(maxWidth: 275, maxHeight: 190, toFormat: JPG) {
+            fluid(maxWidth: 650, maxHeight: 450, toFormat: JPG, quality: 80) {
               ...GatsbyContentfulFluid
             }
           }

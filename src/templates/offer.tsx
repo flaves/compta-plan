@@ -83,17 +83,24 @@ export const query = graphql`
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
       fluid(
-        maxWidth: 384
-        maxHeight: 500
-        quality: 70
-        cropFocus: LEFT
+        maxWidth: 768
+        maxHeight: 1000
+        quality: 60
         toFormat: JPG
+        resizingBehavior: FILL
       ) {
         ...GatsbyContentfulFluid
       }
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(maxWidth: 720, maxHeight: 400, quality: 80, toFormat: JPG) {
+      fluid(
+        maxWidth: 1440
+        maxHeight: 800
+        quality: 60
+        toFormat: JPG
+        cropFocus: TOP
+        resizingBehavior: FILL
+      ) {
         ...GatsbyContentfulFluid
       }
     }
