@@ -54,7 +54,7 @@ const Bonus: React.FC = () => {
           maximum de 15000 EUR sur 3 ans ;
         </li>
         <li>
-          Diagnostic de cession ou de reprise d’une entreprise, 80%
+          Diagnostic de cession ou de reprise d’une entreprise, 75%
           d’intervention, montant maximum de 7000 EUR ;
         </li>
         <li>
