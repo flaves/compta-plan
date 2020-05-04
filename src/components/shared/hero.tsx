@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({
           }
         `}
         style={{
-          transform: `translate3d(0, ${value}px, 0)`,
+          transform: `translate3d(0, ${value * 2}px, 0)`,
         }}
       >
         <Img

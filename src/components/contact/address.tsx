@@ -8,7 +8,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerCheck } from '@fortawesome/pro-solid-svg-icons';
 import useMeasure from 'react-use-measure';
-import { ResizeObserver as polyfill } from '@juggle/resize-observer/lib/ResizeObserver';
 
 import mq from '../../styles/mq';
 
@@ -28,7 +27,7 @@ interface AddressProps {
 }
 
 const Address: React.FC<AddressProps> = ({ current }) => {
-  const [ref, bounds] = useMeasure({ polyfill });
+  const [ref, bounds] = useMeasure();
   const { color, fontWeight } = useTheme<ThemeType>();
   const [viewport, setViewport] = useState<ViewportProps>({
     width: 300,
@@ -37,12 +36,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
     longitude: -122.4376,
     zoom: 8,
   });
-  const {
-    allContentfulAddress,
-    site: {
-      siteMetadata: { mapboxAccessToken },
-    },
-  } = useStaticQuery(query);
+  const { allContentfulAddress } = useStaticQuery(query);
   const [marker, setMarker] = useState<{
     latitude: number;
     longitude: number;
@@ -53,7 +47,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
   const [addresses, setAddresses] = useState<AddressType[]>([]);
 
   useEffect(() => {
-    setViewport(viewport => ({
+    setViewport((viewport) => ({
       ...viewport,
       width: bounds?.width,
       height: bounds?.height,
@@ -68,13 +62,13 @@ const Address: React.FC<AddressProps> = ({ current }) => {
   }, [allContentfulAddress]);
 
   useEffect(() => {
-    const address = addresses?.find(address => address?.id === current);
+    const address = addresses?.find((address) => address?.id === current);
 
     setMarker({
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
     });
-    setViewport(viewport => ({
+    setViewport((viewport) => ({
       ...viewport,
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
@@ -83,7 +77,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
 
   const fade = useSprings(
     addresses?.length,
-    addresses?.map(item => ({
+    addresses?.map((item) => ({
       opacity: item?.id === current ? 1 : 0,
       position: `absolute`,
     }))
@@ -117,7 +111,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       >
         <ReactMapGL
           {...viewport}
-          mapboxApiAccessToken={mapboxAccessToken}
+          mapboxApiAccessToken={process.env.GATSBY_MAPBOX_ACCESS_TOKEN}
           onViewportChange={(viewport: ViewportProps) =>
             setViewport({
               ...viewport,
@@ -207,11 +201,6 @@ const Address: React.FC<AddressProps> = ({ current }) => {
 
 const query = graphql`
   {
-    site {
-      siteMetadata {
-        mapboxAccessToken
-      }
-    }
     allContentfulAddress {
       edges {
         node {
