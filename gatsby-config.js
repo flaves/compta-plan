@@ -8,7 +8,6 @@ module.exports = {
     description: `La fiduciaire qui coach votre entreprise.`,
     author: `@flaves`,
     siteUrl: `https://www.comptaplan.be`,
-    mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
   },
   plugins: [
     `gatsby-plugin-catch-links`,
@@ -46,7 +45,15 @@ module.exports = {
     {
       resolve: `gatsby-plugin-polyfill-io`,
       options: {
-        features: [`default`, `es2015`, `es2016`, `es2017`, `es2018`],
+        features: [
+          `default`,
+          `es2015`,
+          `es2016`,
+          `es2017`,
+          `es2018`,
+          `IntersectionObserver`,
+          `ResizeObserver`,
+        ],
       },
     },
     {
