@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { animated as a, useSpring } from 'react-spring';
+import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFolders,
@@ -12,7 +13,6 @@ import {
 import Dashboard from '../../svg/home/dashboard.svg';
 
 import mq from '../../styles/mq';
-import useOnScreen from '../../hooks/useOnScreen';
 import Link from '../shared/link';
 
 import Container from '../shared/styled/container';
@@ -47,9 +47,9 @@ factures`,
 
 const Product: React.FC = () => {
   const { color, fontWeight } = useTheme<ThemeType>();
-  const [ref, onScreen] = useOnScreen(500);
+  const [ref, inView] = useInView();
   const reveal = useSpring({
-    opacity: onScreen ? 1 : 0,
+    opacity: inView ? 1 : 0,
     config: {
       friction: 80,
     },

@@ -6,7 +6,6 @@ import BonusImage from '../../svg/home/bonus.svg';
 
 import mq from '../../styles/mq';
 import Link from '../shared/link';
-import useOnScreen from '../../hooks/useOnScreen';
 
 import H2 from '../shared/styled/h2';
 import Container from '../shared/styled/container';
@@ -15,10 +14,9 @@ import { ThemeType } from '../../styles/theme';
 
 const Bonus: React.FC = () => {
   const { fontWeight } = useTheme<ThemeType>();
-  const [ref] = useOnScreen();
 
   return (
-    <section ref={ref}>
+    <section>
       <Container>
         <div
           css={css`

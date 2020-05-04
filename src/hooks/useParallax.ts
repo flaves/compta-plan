@@ -1,29 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
 import useMeasure, { RectReadOnly } from 'react-use-measure';
-import { ResizeObserver as polyfill } from '@juggle/resize-observer/lib/ResizeObserver';
+import { useInView } from 'react-intersection-observer';
 
 const useParallax = (): [
   (element: HTMLElement | null) => void,
   number,
   RectReadOnly
 ] => {
-  const [ref, bounds] = useMeasure({ polyfill, scroll: true });
+  const [viewRef, inView] = useInView();
+  const [measureRef, bounds] = useMeasure({ scroll: true });
   const [value, setValue] = useState<number>(0);
 
-  const onScroll = useCallback(() => {
+  useEffect(() => {
     const y = Math.abs(bounds?.y);
     const height = bounds?.height;
 
-    setValue(Math.round((y / height) * 100));
+    if (inView) setValue(Math.round((y / height) * 100));
   }, [bounds]);
 
-  useEffect(() => {
-    window.addEventListener(`scroll`, onScroll);
+  const setRefs = useCallback((node) => {
+    measureRef(node);
+    viewRef(node);
+  }, []);
 
-    return () => window.removeEventListener(`scroll`, onScroll);
-  });
-
-  return [ref, value, bounds];
+  return [setRefs, value, bounds];
 };
 
 export default useParallax;
