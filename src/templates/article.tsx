@@ -10,12 +10,13 @@ import ArticleImage from '../components/blog/image';
 import mq from '../styles/mq';
 
 import Container from '../components/shared/styled/container';
+import SEO from '../components/helpers/seo';
 import Hero from '../components/shared/hero';
+import Contact from '../components/shared/contact';
 import H1 from '../components/shared/styled/h1';
 import SubTitle from '../components/shared/styled/sub-title';
 
 import ArticleType from '../types/article';
-import Contact from '../components/shared/contact';
 
 const options = {
   renderNode: {
@@ -53,6 +54,7 @@ const Article: React.FC<ArticleProps> = ({
 
   return (
     <Layout>
+      <SEO title={article.name} description={article.description} />
       <Hero background={sources}>
         <div
           css={css`

@@ -6,6 +6,7 @@ import H1 from '../components/shared/styled/h1';
 import Hero from '../components/shared/hero';
 
 import Layout from '../components/layout';
+import SEO from '../components/helpers/seo';
 import Link from '../components/shared/link';
 import Intro from '../components/shared/intro';
 import Services from '../components/service/services';
@@ -40,6 +41,7 @@ const Offer: React.FC<ServicesProps> = ({
 
   return (
     <Layout>
+      <SEO title={offer.name} description={offer.description} />
       <section>
         <Hero background={sources}>
           <div

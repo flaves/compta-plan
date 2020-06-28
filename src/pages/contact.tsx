@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../components/layout';
+import SEO from '../components/helpers/seo';
 import Hero from '../components/shared/hero';
 import Tabs from '../components/contact/tabs';
 import Address from '../components/contact/address';
@@ -32,6 +33,7 @@ const Contact: React.FC = () => {
 
   return (
     <Layout>
+      <SEO title="Contact" description="Contact" />
       <Hero background={sources}>
         <div
           css={css`

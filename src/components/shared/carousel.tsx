@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import { Link as GatsbyLink } from 'gatsby';
 import Img from 'gatsby-image';
+import AliceCarousel from 'react-alice-carousel';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {
 //   faArrowCircleLeft,
@@ -36,20 +37,30 @@ const Carousel: React.FC<CarouselProps> = ({
   const { fontWeight } = useTheme<ThemeType>();
 
   const renderItems = (items: Items) => (
-    <ul
-      css={css`
-        display: flex;
-        margin: 0 -20px;
-      `}
+    <AliceCarousel
+      buttonsDisabled
+      dotsDisabled
+      autoPlay
+      autoPlayInterval={2000}
+      responsive={{
+        0: {
+          items: 1,
+        },
+        768: {
+          items: 2,
+        },
+        1200: {
+          items: 3,
+        },
+      }}
     >
       {items?.map((item, key) => (
-        <li
+        <div
           key={item?.id || key}
           css={css`
-            flex: 0 0 280px;
-            max-width: 280px;
-            height: 350px;
-            padding: 0 20px;
+            ${mq(`md`)} {
+              padding: 0 20px;
+            }
           `}
         >
           <div
@@ -62,9 +73,9 @@ const Carousel: React.FC<CarouselProps> = ({
               <Img fluid={item?.cover?.fluid} />
             </GatsbyLink>
           </div>
-        </li>
+        </div>
       ))}
-    </ul>
+    </AliceCarousel>
   );
 
   return (

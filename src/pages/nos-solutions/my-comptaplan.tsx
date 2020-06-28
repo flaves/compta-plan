@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../../components/layout';
+import SEO from '../../components/helpers/seo';
 import Hero from '../../components/shared/hero';
 
 import H1 from '../../components/shared/styled/h1';
@@ -27,6 +28,7 @@ const MyComptaplan: React.FC = () => {
 
   return (
     <Layout>
+      <SEO title="My Compta Plan" description="Votre outil de gestion." />
       <Hero background={sources} defaultHeight="800px">
         <div
           css={css`
