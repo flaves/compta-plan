@@ -21,7 +21,6 @@ import ArticleType from '../types/article';
 const options = {
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
-      console.log(node);
       const { fileName } = node.data.target.fields.file[`fr-BE`];
       return <ArticleImage fileName={fileName} />;
     },
@@ -112,6 +111,15 @@ const Article: React.FC<ArticleProps> = ({
           h6,
           p {
             font-size: 16px;
+          }
+
+          ul,
+          li {
+            list-style: initial;
+          }
+
+          ul {
+            padding-left: 40px !important;
           }
         `}
       >
