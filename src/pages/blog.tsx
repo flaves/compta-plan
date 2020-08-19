@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
 import { css } from '@emotion/core';
 import { graphql, useStaticQuery } from 'gatsby';
+import Container from '@material-ui/core/Container';
 
 import Layout from '../components/layout';
 import Hero from '../components/shared/hero';
 
 import H1 from '../components/shared/styled/h1';
 import SEO from '../components/helpers/seo';
-import Container from '../components/shared/styled/container';
 import Contact from '../components/shared/contact';
 import Featured from '../components/blog/featured';
 import Carousel from '../components/shared/carousel';
 
 import CategoryType from '../types/category';
+import mq from '../styles/mq';
 
 const Blog: React.FC = () => {
   const { mobileHero, desktopHero, allContentfulCategories } = useStaticQuery(
@@ -39,17 +40,27 @@ const Blog: React.FC = () => {
         `}
       >
         <Container>
-          {categories?.map((category) => (
-            <div key={category?.id}>
-              <Carousel
-                items={category?.articles}
-                title={category?.name}
-                desc="Découvrez les dernères actualités comptables."
-                to="blog"
-                prefix="blog"
-              />
-            </div>
-          ))}
+          <div
+            css={css`
+              padding: 40px 0;
+
+              ${mq(`md`)} {
+                padding: 70px 0;
+              }
+            `}
+          >
+            {categories?.map((category) => (
+              <div key={category?.id}>
+                <Carousel
+                  items={category?.articles}
+                  title={category?.name}
+                  desc="Découvrez les dernères actualités comptables."
+                  to="blog"
+                  prefix="blog"
+                />
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
     ),
