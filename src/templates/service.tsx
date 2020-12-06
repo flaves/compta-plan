@@ -29,7 +29,7 @@ interface ServicesProps {
 const Service: React.FC<ServicesProps> = ({
   data: { service, mobileHero, desktopHero },
 }) => {
-  const content = service?.content?.raw;
+  const { content } = service;
 
   const sources = [
     mobileHero.fluid,

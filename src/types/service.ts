@@ -4,7 +4,8 @@ interface ServiceType {
   slug: string;
   description: string;
   content: {
-    raw: any;
+    raw: string;
+    references: any;
   };
   services: string[];
   cover: {
