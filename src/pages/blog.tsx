@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Container from '@material-ui/core/Container';
 

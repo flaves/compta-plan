@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { Link as GatsbyLink } from 'gatsby';
 import Img from 'gatsby-image';
 import AliceCarousel from 'react-alice-carousel';

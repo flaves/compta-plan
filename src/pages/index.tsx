@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../components/layout';
@@ -15,10 +14,8 @@ import Link from '../components/shared/link';
 
 import mq from '../styles/mq';
 
-import { ThemeType } from '../styles/theme';
-
 const Home: React.FC = () => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const { mobileHero, desktopHero } = useStaticQuery(query);
 
   const sources = [

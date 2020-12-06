@@ -4,7 +4,7 @@ interface ArticleType {
   description: string;
   slug: string;
   content: {
-    json: any;
+    raw: any;
   };
   cover: {
     fluid: any;

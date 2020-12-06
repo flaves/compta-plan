@@ -1,6 +1,5 @@
 import React from 'react';
-import { Global } from '@emotion/core';
-import { ThemeProvider } from 'emotion-theming';
+import { Global, ThemeProvider } from '@emotion/react';
 import { Provider as ReduxProvider } from 'react-redux';
 
 import store from './src/store';

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'gatsby';
 import { animated as a, useSpring, useTrail } from 'react-spring';
 
@@ -54,7 +53,7 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
               activeStyle={{
                 color: color.primary,
               }}
-              onClick={e => {
+              onClick={(e) => {
                 if (link?.dropdown) {
                   e.preventDefault();
                   setCurrent(current === key ? undefined : key);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
@@ -124,7 +124,7 @@ const Article: React.FC<ArticleProps> = ({
         `}
       >
         <Container>
-          {documentToReactComponents(article?.content?.json, options)}
+          {documentToReactComponents(article?.content?.raw, options)}
         </Container>
       </section>
       <Contact />
@@ -139,7 +139,7 @@ export const query = graphql`
       name
       description
       content {
-        json
+        raw
       }
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {

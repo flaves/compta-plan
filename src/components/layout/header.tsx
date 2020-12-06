@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'gatsby';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
 import { animated as a, useSpring } from 'react-spring';
 
 import Dropdown from './dropdown';
@@ -108,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ mobileOpen }) => {
                 fill: `${color.primary}`,
               }}
               partiallyActive
-              onClick={e => {
+              onClick={(e) => {
                 if (link?.dropdown) {
                   e.preventDefault();
                   if (open === key) {

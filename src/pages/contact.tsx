@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../components/layout';

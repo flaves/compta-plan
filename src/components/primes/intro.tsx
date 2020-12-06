@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import H2 from '../shared/styled/h2';
 import Container from '../shared/styled/container';
