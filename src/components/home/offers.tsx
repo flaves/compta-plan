@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 
@@ -10,12 +9,11 @@ import H2 from '../shared/styled/h2';
 
 import Chevron from '../../svg/chevron.svg';
 
-import { ThemeType } from '../../styles/theme';
 import OfferType from '../../types/offer';
 import ServiceType from '../../types/service';
 
 const Offers: React.FC = () => {
-  const { color } = useTheme<ThemeType>();
+  const { color } = useTheme();
   const { allContentfulOffer, allContentfulService } = useStaticQuery(query);
 
   const offers: OfferType[] = allContentfulOffer?.edges?.map(
@@ -207,7 +205,7 @@ const query = graphql`
           name
           description
           content {
-            json
+            raw
           }
           slug
           cover {
@@ -234,7 +232,7 @@ const query = graphql`
           name
           description
           content {
-            json
+            raw
           }
           slug
           cover {

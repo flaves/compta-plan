@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'gatsby';
 import { animated as a, useSpring } from 'react-spring';
 
@@ -37,7 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({ links, open }) => {
       style={dropdownOpen}
     >
       <ul>
-        {links.map(link => (
+        {links.map((link) => (
           <li
             key={link?.label}
             css={css`

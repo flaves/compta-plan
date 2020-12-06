@@ -1,23 +1,23 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Document } from '@contentful/rich-text-types';
+import { css, useTheme } from '@emotion/react';
+import {
+  ContentfulRichTextGatsbyReference,
+  renderRichText,
+  RenderRichTextData,
+} from 'gatsby-source-contentful/rich-text';
 
 import mq from '../../styles/mq';
 
 import H2 from './styled/h2';
 import Container from './styled/container';
 
-import { ThemeType } from '../../styles/theme';
-
 interface IntroProps {
   title: string;
-  content: Document;
+  content: RenderRichTextData<ContentfulRichTextGatsbyReference>;
 }
 
 const Intro: React.FC<IntroProps> = ({ title, content }) => {
-  const { fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme();
 
   return (
     <section
@@ -40,7 +40,7 @@ const Intro: React.FC<IntroProps> = ({ title, content }) => {
             }
           `}
         >
-          {documentToReactComponents(content)}
+          {renderRichText(content)}
         </div>
       </Container>
     </section>

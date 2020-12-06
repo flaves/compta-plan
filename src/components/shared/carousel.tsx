@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 import { Link as GatsbyLink } from 'gatsby';
 import Img from 'gatsby-image';
 import AliceCarousel from 'react-alice-carousel';
@@ -15,7 +14,6 @@ import mq from '../../styles/mq';
 import H2 from './styled/h2';
 
 import ArticleType from '../../types/article';
-import { ThemeType } from '../../styles/theme';
 
 type Items = ArticleType[];
 
@@ -34,12 +32,12 @@ const Carousel: React.FC<CarouselProps> = ({
   to,
   prefix,
 }) => {
-  const { fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme();
 
   const renderItems = (items: Items) => (
     <AliceCarousel
-      buttonsDisabled
-      dotsDisabled
+      disableButtonsControls
+      disableDotsControls
       autoPlay
       autoPlayInterval={2000}
       responsive={{

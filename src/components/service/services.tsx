@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 
 import mq from '../../styles/mq';
 
@@ -28,7 +27,7 @@ const Services: React.FC<ServicesProps> = ({ title, services }) => {
           }
         `}
       >
-        {services?.map(service => (
+        {services?.map((service) => (
           <li
             key={service}
             css={css`

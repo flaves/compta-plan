@@ -1,7 +1,6 @@
 import React from 'react';
+import { css, useTheme } from '@emotion/react';
 import { Link, GatsbyLinkProps } from 'gatsby';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
 
 import { ThemeType } from '../../styles/theme';
 

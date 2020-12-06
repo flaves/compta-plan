@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Container from '@material-ui/core/Container';
 
@@ -25,9 +25,9 @@ const Blog: React.FC = () => {
   );
 
   const sources = [
-    mobileHero.childImageSharp.fluid,
+    mobileHero?.childImageSharp?.fluid,
     {
-      ...desktopHero.childImageSharp.fluid,
+      ...desktopHero?.childImageSharp?.fluid,
       media: `(min-width: 768px)`,
     },
   ];

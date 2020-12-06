@@ -4,7 +4,8 @@ interface OfferType {
   slug: string;
   description: string;
   content: {
-    json: any;
+    raw: string;
+    references: any;
   };
   services: string[];
   cover: {

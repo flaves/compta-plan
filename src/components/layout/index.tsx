@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css, useTheme } from '@emotion/react';
 
 import Header from './header';
 import Footer from './footer';

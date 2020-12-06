@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 // Fonts
 import Regular from './galano-grotesque.otf';

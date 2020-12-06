@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 
 import H1 from '../components/shared/styled/h1';
@@ -29,7 +29,7 @@ interface ServicesProps {
 const Service: React.FC<ServicesProps> = ({
   data: { service, mobileHero, desktopHero },
 }) => {
-  const content = service?.content?.json;
+  const { content } = service;
 
   const sources = [
     mobileHero.fluid,
@@ -79,7 +79,7 @@ export const query = graphql`
       name
       description
       content {
-        json
+        raw
       }
       services
     }
