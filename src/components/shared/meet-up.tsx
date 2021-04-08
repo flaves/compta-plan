@@ -8,12 +8,10 @@ import Link from './link';
 import mq from '../../styles/mq';
 import useParallax from '../../hooks/useParallax';
 
-import { ThemeType } from '../../styles/theme';
-
 const MeetUp: React.FC = () => {
   const [ref, parallax] = useParallax();
   const { mobileHero, desktopHero } = useStaticQuery(query);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
 
   const sources = [
     mobileHero.childImageSharp.fluid,

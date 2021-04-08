@@ -6,11 +6,9 @@ import Img from 'gatsby-image';
 import Button from './button';
 import useParallax from '../../hooks/useParallax';
 
-import { ThemeType } from '../../styles/theme';
-
 const Advice: React.FC = () => {
   const { background } = useStaticQuery(query);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const [ref, value] = useParallax();
 
   return (

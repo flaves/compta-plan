@@ -9,10 +9,8 @@ import Link from '../shared/link';
 import H2 from '../shared/styled/h2';
 import Container from '../shared/styled/container';
 
-import { ThemeType } from '../../styles/theme';
-
 const Bonus: React.FC = () => {
-  const { fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme();
 
   return (
     <section>

@@ -5,8 +5,6 @@ import Img from 'gatsby-image';
 import useParallax from '../../hooks/useParallax';
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
-
 interface HeroProps {
   background: any;
   children: React.ReactNode;
@@ -18,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({
   children,
   defaultHeight = `600px`,
 }) => {
-  const { color } = useTheme<ThemeType>();
+  const { color } = useTheme();
   const [ref, value] = useParallax();
 
   return (

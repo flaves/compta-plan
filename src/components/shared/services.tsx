@@ -5,15 +5,13 @@ import mq from '../../styles/mq';
 
 import H2 from './styled/h2';
 
-import { ThemeType } from '../../styles/theme';
-
 interface ServicesProps {
   title: string;
   services: string[];
 }
 
 const Services: React.FC<ServicesProps> = ({ title, services }) => {
-  const { fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme();
 
   const renderServices = useCallback(
     () => (

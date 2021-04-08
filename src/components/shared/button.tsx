@@ -3,8 +3,6 @@ import { css, useTheme } from '@emotion/react';
 
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
-
 export type Size = `sm` | `md` | `lg`;
 export type Variant = `primary` | `accent` | `success` | `white`;
 
@@ -93,7 +91,7 @@ const Button: React.FC<ButtonProps> = ({
   variant,
   ...props
 }) => {
-  const theme = useTheme<ThemeType>();
+  const theme = useTheme();
 
   const { color, fontWeight } = theme;
 

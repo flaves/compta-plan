@@ -1,10 +1,9 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
-import { ThemeType } from '../../styles/theme';
 import mq from '../../styles/mq';
 
 const Email: React.FC = () => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
 
   return (
     <section

@@ -1,30 +1,34 @@
-export interface ThemeType {
-  color: {
-    primary: string;
-    accent: string;
-    background: string;
-    heading: string;
-    text: string;
-    success: string;
-    warning: string;
-    error: string;
-    black: string;
-    white: string;
-  };
-  fontWeight: {
-    thin: number;
-    extraLight: number;
-    light: number;
-    regular: number;
-    medium: number;
-    semiBold: number;
-    bold: number;
-    black: number;
-    heavy: number;
-  };
+import '@emotion/react';
+
+declare module '@emotion/react' {
+  export interface Theme {
+    color: {
+      primary: string;
+      accent: string;
+      background: string;
+      heading: string;
+      text: string;
+      success: string;
+      warning: string;
+      error: string;
+      black: string;
+      white: string;
+    };
+    fontWeight: {
+      thin: number;
+      extraLight: number;
+      light: number;
+      regular: number;
+      medium: number;
+      semiBold: number;
+      bold: number;
+      black: number;
+      heavy: number;
+    };
+  }
 }
 
-const theme: ThemeType = {
+const theme = {
   color: {
     primary: `hsl(34, 98%, 49%)`,
     accent: `hsl(215, 70%, 37%)`,

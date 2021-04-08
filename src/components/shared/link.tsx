@@ -5,15 +5,13 @@ import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby';
 import mq from '../../styles/mq';
 import { renderSize, renderVariant, Size, Variant } from './button';
 
-import { ThemeType } from '../../styles/theme';
-
 interface LinkProps extends GatsbyLinkProps<any> {
   size?: Size;
   variant?: Variant;
 }
 
 const Link: React.FC<LinkProps> = ({ children, size, variant, ...props }) => {
-  const theme = useTheme<ThemeType>();
+  const theme = useTheme();
 
   const { color, fontWeight } = theme;
 

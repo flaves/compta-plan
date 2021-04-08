@@ -7,14 +7,13 @@ import mq from '../../styles/mq';
 import useGetNavLinks from '../../hooks/useGetNavLinks';
 
 import { LinkType } from './header';
-import { ThemeType } from '../../styles/theme';
 
 interface MobileProps {
   open: boolean;
 }
 
 const Mobile: React.FC<MobileProps> = ({ open }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const translate = useSpring({
     transform: `translate3d(0px, ${open ? `0%` : `-100%`}, 0px)`,
   });

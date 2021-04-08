@@ -17,8 +17,6 @@ import Link from '../shared/link';
 import Container from '../shared/styled/container';
 import H2 from '../shared/styled/h2';
 
-import { ThemeType } from '../../styles/theme';
-
 interface FeatureType {
   icon: any;
   label: string;
@@ -45,7 +43,7 @@ factures`,
 ];
 
 const Product: React.FC = () => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const [ref, inView] = useInView();
   const reveal = useSpring({
     opacity: inView ? 1 : 0,

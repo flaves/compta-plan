@@ -2,15 +2,13 @@ import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { Link, GatsbyLinkProps } from 'gatsby';
 
-import { ThemeType } from '../../styles/theme';
-
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 const More: React.FC<Omit<GatsbyLinkProps<{}>, 'ref'>> = ({
   children,
   ...props
 }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
 
   return (
     <Link

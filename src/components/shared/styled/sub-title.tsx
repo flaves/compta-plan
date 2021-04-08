@@ -2,13 +2,7 @@ import styled from '@emotion/styled';
 
 import mq from '../../../styles/mq';
 
-import { ThemeType } from '../../../styles/theme';
-
-interface H1Props {
-  theme?: ThemeType;
-}
-
-const SubTitle = styled.p<H1Props>`
+const SubTitle = styled.p`
   color: #a9a9a9;
   font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};

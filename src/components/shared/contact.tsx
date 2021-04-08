@@ -7,12 +7,10 @@ import useParallax from '../../hooks/useParallax';
 import Link from './link';
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
-
 const Contact: React.FC = () => {
   const [ref, value] = useParallax();
   const { mobileHero, desktopHero } = useStaticQuery(query);
-  const { color } = useTheme<ThemeType>();
+  const { color } = useTheme();
 
   const sources = [
     mobileHero.childImageSharp.fluid,

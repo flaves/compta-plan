@@ -11,8 +11,6 @@ import useOutsideClick from '../../hooks/useOutsideClick';
 
 import Logo from '../../svg/ball.svg';
 
-import { ThemeType } from '../../styles/theme';
-
 import Chevron from '../../svg/chevron.svg';
 
 export interface LinkType {
@@ -37,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ mobileOpen }) => {
       ? `0 5px 10px hsla(0, 0%, 0%, .1)`
       : `0 0 0 hsla(0, 0%, 0%, 0%)`,
   });
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const links = useGetNavLinks();
   const nav = useRef(null);
   useOutsideClick(nav, () => open && setOpen(undefined));

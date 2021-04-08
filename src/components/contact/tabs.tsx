@@ -5,7 +5,6 @@ import { animated as a, useTrail } from 'react-spring';
 
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
 import AddressType from '../../types/address';
 
 interface TabsProps {
@@ -14,7 +13,7 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const { allContentfulAddress } = useStaticQuery(query);
   const addresses: AddressType[] = allContentfulAddress?.edges?.map(
     (item: { node: any }) => item?.node

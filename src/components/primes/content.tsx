@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { css, useTheme } from '@emotion/react';
-import { ThemeType } from '../../styles/theme';
 import mq from '../../styles/mq';
 import Container from '../shared/styled/container';
 
@@ -129,7 +128,7 @@ const Jobs: React.FC = () => {
 
 const Content: React.FC = () => {
   const [current, setCurrent] = useState<number>(0);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
 
   const renderTabs = (tabs: TabType[]) => (
     <ul

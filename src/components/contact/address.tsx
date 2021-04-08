@@ -10,7 +10,6 @@ import useMeasure from 'react-use-measure';
 
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
 import AddressType from '../../types/address';
 
 interface ViewportProps {
@@ -27,7 +26,7 @@ interface AddressProps {
 
 const Address: React.FC<AddressProps> = ({ current }) => {
   const [ref, bounds] = useMeasure();
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const [viewport, setViewport] = useState<ViewportProps>({
     width: 300,
     height: 300,

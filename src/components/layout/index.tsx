@@ -7,15 +7,13 @@ import Mobile from './mobile';
 
 import mq from '../../styles/mq';
 
-import { ThemeType } from '../../styles/theme';
-
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
 
   return (
     <section>

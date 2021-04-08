@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import { animated as a, useSpring } from 'react-spring';
 
 import { LinkType } from './header';
-import { ThemeType } from '../../styles/theme';
 
 interface DropdownProps {
   links: LinkType[];
@@ -12,7 +11,7 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ links, open }) => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const dropdownOpen = useSpring({
     opacity: open ? 1 : 0,
     visibility: open ? `visible` : `hidden`,

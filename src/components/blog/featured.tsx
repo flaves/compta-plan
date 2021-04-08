@@ -10,12 +10,11 @@ import H2 from '../shared/styled/h2';
 import Link from '../shared/link';
 
 import ArticleType from '../../types/article';
-import { ThemeType } from '../../styles/theme';
 
 const Featured: React.FC = () => {
   const [featured, setFeatured] = useState<ArticleType>();
   const { allContentfulArticles } = useStaticQuery(query);
-  const { fontWeight } = useTheme<ThemeType>();
+  const { fontWeight } = useTheme();
 
   useEffect(() => {
     setFeatured([...allContentfulArticles?.edges]?.shift()?.node);

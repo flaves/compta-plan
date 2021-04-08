@@ -83,6 +83,7 @@ const Article: React.FC<ArticleProps> = ({
         css={css`
           max-width: 1200px;
           margin: auto;
+          word-break: break-word;
 
           h1,
           h2,

@@ -7,7 +7,6 @@ import mq from '../../styles/mq';
 import Flaves from '../../svg/flaves.svg';
 
 import { LinkType } from './header';
-import { ThemeType } from '../../styles/theme';
 import OfferType from '../../types/offer';
 import ServiceType from '../../types/service';
 
@@ -27,13 +26,17 @@ const bottomLinks: LinkType[] = [
 ];
 
 const Footer: React.FC = () => {
-  const { color, fontWeight } = useTheme<ThemeType>();
+  const { color, fontWeight } = useTheme();
   const { allContentfulOffer, allContentfulService } = useStaticQuery(query);
 
   const pages = [
     {
       label: `Accueil`,
       path: ``,
+    },
+    {
+      label: `Accès Cloudbizz`,
+      path: `cloudbizz`,
     },
     {
       label: `Blog`,
