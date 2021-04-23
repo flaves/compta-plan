@@ -16,7 +16,7 @@ const bottomLinks: LinkType[] = [
     path: `/`,
   },
   {
-    label: `Politque de cookies`,
+    label: `Politique de cookies`,
     path: `/`,
   },
   {
@@ -220,7 +220,7 @@ const Footer: React.FC = () => {
       >
         {renderLinks(pages)(`Pages`)(``)}
         {renderLinks(solutions)(`Nos Solutions`)(`nos-solutions`)}
-        {renderLinks(offers)(`Nos Offers`)(`nos-offres`)}
+        {renderLinks(offers)(`Nos Offres`)(`nos-offres`)}
         {renderLinks(services)(`Nos Services`)(`nos-services`)}
         <div
           css={css`
