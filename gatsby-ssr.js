@@ -2,7 +2,14 @@ import wrapWithProvider from './wrapWithProvider';
 
 export const wrapRootElement = wrapWithProvider;
 
-export const onRenderBody = ({ setPostBodyComponents }) => {
+export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+  setHeadComponents([
+    <meta
+      name="facebook-domain-verification"
+      content="mshqnysyajum67o96wq3piyuu4cq4g"
+    />,
+  ]);
+
   setPostBodyComponents([
     <script
       key="zendesk"
