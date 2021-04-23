@@ -11,7 +11,7 @@ interface SEOProps {
 
 const SEO: React.FC<SEOProps> = ({
   description,
-  lang = `en`,
+  lang = `fr`,
   meta = [],
   title,
 }) => {
