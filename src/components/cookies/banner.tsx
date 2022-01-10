@@ -34,6 +34,7 @@ export const CookiesBanner = (): JSX.Element => {
         background: black;
         padding: 20px;
         border-radius: 10px;
+        z-index: 1001;
       `}
     >
       <p
