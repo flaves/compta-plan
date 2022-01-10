@@ -6,6 +6,7 @@ import Footer from './footer';
 import Mobile from './mobile';
 
 import mq from '../../styles/mq';
+import { CookiesBanner } from '../cookies/banner';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <section>
+      <CookiesBanner />
       <Header mobileOpen={open} />
       <main role="main">{children}</main>
       <Footer />

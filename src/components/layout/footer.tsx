@@ -10,24 +10,29 @@ import { LinkType } from './header';
 import OfferType from '../../types/offer';
 import ServiceType from '../../types/service';
 
-const bottomLinks: LinkType[] = [
-  {
-    label: `Mentions légales`,
-    path: `/`,
-  },
-  {
-    label: `Politique de cookies`,
-    path: `/`,
-  },
-  {
-    label: `Traitement des données`,
-    path: `/`,
-  },
-];
-
 const Footer: React.FC = () => {
   const { color, fontWeight } = useTheme();
-  const { allContentfulOffer, allContentfulService } = useStaticQuery(query);
+  const {
+    privacyPdf,
+    allContentfulOffer,
+    allContentfulService,
+  } = useStaticQuery(query);
+
+  const bottomLinks: LinkType[] = [
+    {
+      label: `Mentions légales`,
+      path: `/mentions-legales`,
+    },
+    /*    {
+      label: `Politique de cookies`,
+      path: `/`,
+    },*/
+    {
+      label: `Traitement des données`,
+      path: privacyPdf.file.url,
+      external: true,
+    },
+  ];
 
   const pages = [
     {
@@ -143,6 +148,17 @@ const Footer: React.FC = () => {
     </div>
   );
 
+  const renderLink = (link: LinkType) => {
+    if (link.external) {
+      return (
+        <a href={link.path} target="_blank" rel="noopener noreferrer">
+          {link.label}
+        </a>
+      );
+    }
+    return <Link to={link?.path}>{link?.label}</Link>;
+  };
+
   const renderBottomLinks = () => (
     <ul
       css={css`
@@ -174,7 +190,7 @@ const Footer: React.FC = () => {
             }
           `}
         >
-          <Link to={link?.path}>{link?.label}</Link>
+          {renderLink(link)}
         </li>
       ))}
       <li
@@ -272,6 +288,13 @@ const Footer: React.FC = () => {
 
 const query = graphql`
   {
+    privacyPdf: contentfulAsset(title: { eq: "Privacy" }) {
+      id
+      title
+      file {
+        url
+      }
+    }
     allContentfulOffer {
       edges {
         node {

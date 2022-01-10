@@ -17,6 +17,7 @@ export interface LinkType {
   label: string;
   path: string;
   dropdown?: LinkType[];
+  external?: boolean;
 }
 
 interface HeaderProps {
