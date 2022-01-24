@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'gatsby';
 import { css } from '@emotion/react';
+import mq from '../../styles/mq';
 
 const LS_KEY = `cp.has_dismissed_alert`;
 
@@ -31,10 +32,16 @@ export const Banner = (): JSX.Element => {
         text-align: center;
         position: fixed;
         bottom: 50px;
-        left: 50%;
-        transform: translateX(-50%);
         z-index: 9999;
         border-radius: 10px;
+        left: 10px;
+        right: 10px;
+
+        ${mq(`md`)} {
+          left: 50%;
+          transform: translateX(-50%);
+          right: auto;
+        }
       `}
     >
       <p

@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/pro-regular-svg-icons';
+import mq from '../../styles/mq';
 
 const LS_KEY = `cp.has_accepted_cookie`;
 
@@ -29,12 +30,18 @@ export const CookiesBanner = (): JSX.Element => {
     <div
       css={css`
         position: fixed;
+        left: 10px;
+        right: 10px;
         bottom: 50px;
-        left: 50px;
         background: black;
         padding: 20px;
         border-radius: 10px;
         z-index: 1001;
+
+        ${mq(`md`)} {
+          left: 50px;
+          right: auto;
+        }
       `}
     >
       <p
@@ -42,6 +49,11 @@ export const CookiesBanner = (): JSX.Element => {
           color: white;
           display: flex;
           align-items: center;
+          flex-direction: column;
+
+          ${mq(`md`)} {
+            flex-direction: row;
+          }
 
           & > span {
             font-size: 24px;
@@ -64,10 +76,13 @@ export const CookiesBanner = (): JSX.Element => {
           css={css`
             appearance: none;
             background: transparent;
-            margin-left: 20px;
             padding-top: 3px;
             border: 0;
             cursor: pointer;
+
+            ${mq(`md`)} {
+              margin-left: 20px;
+            }
           `}
         >
           <FontAwesomeIcon icon={faTimes} size="lg" color="white" />
