@@ -71,7 +71,7 @@ const query = graphql`
       relativeDirectory: { eq: "contact" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 800, cropFocus: ATTENTION) {
+        fluid(maxWidth: 1440, maxHeight: 600, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid
         }
       }

@@ -56,13 +56,13 @@ const Services: React.FC<ServicesProps> = ({ title, services }) => {
       `}
     >
       <Container>
-        <H2
+        {/*        <H2
           css={css`
             margin-bottom: 50px;
           `}
         >
           {title}
-        </H2>
+        </H2>*/}
         {renderServices(services)}
       </Container>
     </section>
