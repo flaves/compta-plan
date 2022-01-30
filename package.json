@@ -17,6 +17,7 @@
     "@types/react-helmet": "^6.1.0",
     "@types/react-map-gl": "^5.2.9",
     "@types/react-redux": "^7.1.16",
+    "dayjs": "^1.10.7",
     "gatsby": "^2.32.3",
     "gatsby-image": "^2.11.0",
     "gatsby-plugin-catch-links": "^2.10.0",

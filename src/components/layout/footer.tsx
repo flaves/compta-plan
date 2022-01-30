@@ -48,6 +48,10 @@ const Footer: React.FC = () => {
       path: `blog`,
     },
     {
+      label: `Offres d'emploi`,
+      path: `offres-d-emploi`,
+    },
+    {
       label: `Contact`,
       path: `contact`,
     },

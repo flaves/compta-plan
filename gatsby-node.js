@@ -4,6 +4,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const articleTemplate = path.resolve(`src/templates/article.tsx`);
   const offerTemplate = path.resolve(`src/templates/offer.tsx`);
   const serviceTemplate = path.resolve(`src/templates/service.tsx`);
+  const jobTemplate = path.resolve(`src/templates/Job/Job.tsx`);
 
   const articles = await graphql(`
     {
@@ -82,6 +83,29 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
       context: {
         id: node.id,
         cover: node.cover.id,
+      },
+    });
+  });
+
+  const jobs = await graphql(`
+    {
+      allContentfulJobs {
+        edges {
+          node {
+            id
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  jobs.data.allContentfulJobs.edges.forEach(({ node }) => {
+    createPage({
+      path: `/offres-d-emploi/${node.slug}`,
+      component: jobTemplate,
+      context: {
+        id: node.id,
       },
     });
   });
