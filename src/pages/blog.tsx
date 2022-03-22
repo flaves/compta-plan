@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import Container from '@material-ui/core/Container';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 import Hero from '../components/shared/hero';
@@ -15,6 +16,16 @@ import Carousel from '../components/shared/carousel';
 import CategoryType from '../types/category';
 import mq from '../styles/mq';
 
+const Container = styled.div`
+  margin: auto;
+  max-width: 1280px;
+  padding: 0 16px;
+  ${mq('sm')} {
+    max-width: 1280px;
+    padding: 0 24px;
+  }
+`;
+
 const Blog: React.FC = () => {
   const { mobileHero, desktopHero, allContentfulCategories } = useStaticQuery(
     query
@@ -24,13 +35,12 @@ const Blog: React.FC = () => {
     (item: { node: CategoryType }) => item?.node
   );
 
-  const sources = [
-    mobileHero?.childImageSharp?.fluid,
-    {
-      ...desktopHero?.childImageSharp?.fluid,
+  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
+    [{
+      image: desktopHero?.childImageSharp?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   const renderCategories = useCallback(
     () => (
@@ -96,48 +106,44 @@ const Blog: React.FC = () => {
   );
 };
 
-const query = graphql`
-  {
-    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "blog" }) {
-      childImageSharp {
-        fluid(maxWidth: 768, maxHeight: 600, cropFocus: ATTENTION) {
-          ...GatsbyImageSharpFluid
-        }
-      }
+const query = graphql`{
+  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "blog"}) {
+    childImageSharp {
+      gatsbyImageData(
+        width: 768
+        height: 600
+        transformOptions: {cropFocus: ATTENTION}
+        layout: CONSTRAINED
+      )
     }
-    desktopHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "blog" }) {
-      childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 800, cropFocus: ATTENTION) {
-          ...GatsbyImageSharpFluid
-        }
-      }
+  }
+  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "blog"}) {
+    childImageSharp {
+      gatsbyImageData(transformOptions: {cropFocus: ATTENTION}, layout: FULL_WIDTH)
     }
-    allContentfulCategories {
-      edges {
-        node {
+  }
+  allContentfulCategories {
+    edges {
+      node {
+        id
+        name
+        articles {
           id
           name
-          articles {
-            id
-            name
-            slug
-            cover {
-              fluid(
-                maxWidth: 240
-                maxHeight: 300
+          slug
+          cover {
+            gatsbyImageData(
+                aspectRatio: 0.8
                 quality: 90
-                toFormat: JPG
                 cropFocus: CENTER
                 resizingBehavior: FILL
-              ) {
-                ...GatsbyContentfulFluid
-              }
-            }
+              )
           }
         }
       }
     }
   }
+}
 `;
 
 export default Blog;

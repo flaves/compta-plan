@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { Link as GatsbyLink } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 import AliceCarousel from 'react-alice-carousel';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {
@@ -65,10 +65,15 @@ const Carousel: React.FC<CarouselProps> = ({
             css={css`
               border-radius: 5px;
               overflow: hidden;
+              height: 100%;
+              .gatsby-image-wrapper, img, .alice-carousel__stage-item {
+                width: 100%;
+                height: 100%;
+              }
             `}
           >
             <GatsbyLink to={`/${prefix}/${item?.slug}`}>
-              <Img fluid={item?.cover?.fluid} />
+              <GatsbyImage image={item?.cover?.gatsbyImageData} />
             </GatsbyLink>
           </div>
         </div>

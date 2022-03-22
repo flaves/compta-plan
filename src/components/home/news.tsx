@@ -44,16 +44,12 @@ const query = graphql`
           name
           slug
           cover {
-            fluid(
-              maxWidth: 240
-              maxHeight: 300
-              quality: 90
-              toFormat: JPG
-              cropFocus: CENTER
-              resizingBehavior: FILL
-            ) {
-              ...GatsbyContentfulFluid
-            }
+            gatsbyImageData(
+                aspectRatio: 0.8
+                quality: 90
+                cropFocus: CENTER
+                resizingBehavior: FILL
+              )
           }
         }
       }

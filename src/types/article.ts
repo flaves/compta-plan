@@ -2,6 +2,7 @@ import {
   ContentfulRichTextGatsbyReference,
   RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text';
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 interface ArticleType {
   id: string;
@@ -10,7 +11,7 @@ interface ArticleType {
   slug: string;
   content: RenderRichTextData<ContentfulRichTextGatsbyReference>;
   cover: {
-    fluid: any;
+    gatsbyImageData: IGatsbyImageData;
   };
 }
 

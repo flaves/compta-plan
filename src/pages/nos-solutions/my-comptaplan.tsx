@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import Layout from '../../components/layout';
 import SEO from '../../components/helpers/seo';
@@ -18,13 +19,12 @@ import Video from '../../videos/dashboard.mp4';
 const MyComptaplan: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);
 
-  const sources = [
-    mobileHero.childImageSharp.fluid,
-    {
-      ...desktopHero.childImageSharp.fluid,
+  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
+    [{
+      image: desktopHero?.childImageSharp?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -62,6 +62,7 @@ const MyComptaplan: React.FC = () => {
           autoPlay
           css={css`
             max-width: 800px;
+            width: 100%;
           `}
         >
           <source src={Video} type="video/mp4" />
@@ -73,29 +74,18 @@ const MyComptaplan: React.FC = () => {
   );
 };
 
-const query = graphql`
-  {
-    mobileHero: file(
-      name: { eq: "hero" }
-      relativeDirectory: { eq: "solutions" }
-    ) {
-      childImageSharp {
-        fluid(maxWidth: 768, maxHeight: 800) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    desktopHero: file(
-      name: { eq: "hero" }
-      relativeDirectory: { eq: "solutions" }
-    ) {
-      childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 1000) {
-          ...GatsbyImageSharpFluid
-        }
-      }
+const query = graphql`{
+  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "solutions"}) {
+    childImageSharp {
+      gatsbyImageData(width: 768, height: 800, layout: CONSTRAINED)
     }
   }
+  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "solutions"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+}
 `;
 
 export default MyComptaplan;

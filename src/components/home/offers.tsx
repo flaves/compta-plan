@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import mq from '../../styles/mq';
 
@@ -59,9 +59,9 @@ const Offers: React.FC = () => {
               border-radius: 10px;
               overflow: hidden;
               transition: background-color 0.5s,
-                transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+              transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
               box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-
+              
               &:hover {
                 background-color: black;
                 transform: translate3d(0px, -5px, 0px);
@@ -88,7 +88,7 @@ const Offers: React.FC = () => {
             `}
           >
             <div>
-              <Img fluid={offer?.cover?.fluid} />
+              <GatsbyImage image={offer?.cover?.gatsbyImageData} />
             </div>
             <div
               css={css`
@@ -209,15 +209,12 @@ const query = graphql`
           }
           slug
           cover {
-            fluid(
-              maxWidth: 420
-              maxHeight: 200
-              cropFocus: CENTER
-              quality: 90
-              resizingBehavior: FILL
-            ) {
-              ...GatsbyContentfulFluid
-            }
+            gatsbyImageData(
+                aspectRatio: 2.1
+                cropFocus: CENTER
+                quality: 90
+                resizingBehavior: FILL
+              )
           }
           internal {
             type
@@ -236,15 +233,12 @@ const query = graphql`
           }
           slug
           cover {
-            fluid(
-              maxWidth: 420
-              maxHeight: 200
-              cropFocus: CENTER
-              quality: 90
-              resizingBehavior: FILL
-            ) {
-              ...GatsbyContentfulFluid
-            }
+            gatsbyImageData(
+                aspectRatio: 2.1
+                cropFocus: CENTER
+                quality: 90
+                resizingBehavior: FILL
+              )
           }
           internal {
             type

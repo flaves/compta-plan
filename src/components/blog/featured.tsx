@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { css, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
-import Container from '@material-ui/core/Container';
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import mq from '../../styles/mq';
 
@@ -10,6 +10,18 @@ import H2 from '../shared/styled/h2';
 import Link from '../shared/link';
 
 import ArticleType from '../../types/article';
+
+
+const Container = styled.div`
+  margin: auto;
+  max-width: 1280px;
+  padding: 0 16px;
+  ${mq('sm')} {
+    max-width: 1280px;
+    padding: 0 24px;
+  }
+`;
+
 
 const Featured: React.FC = () => {
   const [featured, setFeatured] = useState<ArticleType>();
@@ -56,7 +68,7 @@ const Featured: React.FC = () => {
                 }
               `}
             >
-              {featured && <Img fluid={featured?.cover?.fluid} />}
+              {featured && <GatsbyImage image={featured?.cover?.gatsbyImageData} />}
             </div>
             <div
               css={css`
@@ -114,9 +126,7 @@ const query = graphql`
           description
           slug
           cover {
-            fluid(maxWidth: 650, maxHeight: 450, toFormat: JPG, quality: 100) {
-              ...GatsbyContentfulFluid
-            }
+            gatsbyImageData(width: 650, height: 450, quality: 100)
           }
         }
       }
