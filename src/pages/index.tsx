@@ -1,6 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 import SEO from '../components/helpers/seo';
@@ -18,13 +19,12 @@ const Home: React.FC = () => {
   const { color, fontWeight } = useTheme();
   const { mobileHero, desktopHero } = useStaticQuery(query);
 
-  const sources = [
-    mobileHero.childImageSharp.fluid,
-    {
-      ...desktopHero.childImageSharp.fluid,
+  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData, 
+    [{
+      image: desktopHero?.childImageSharp?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -113,24 +113,24 @@ const Home: React.FC = () => {
     </Layout>
   );
 };
-
-const query = graphql`
-  {
-    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
-      childImageSharp {
-        fluid(maxWidth: 768, maxHeight: 1000, cropFocus: CENTER) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    desktopHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
-      childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 1000) {
-          ...GatsbyImageSharpFluid
-        }
-      }
+ 
+const query = graphql`{
+  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "home"}) {
+    childImageSharp {
+      gatsbyImageData(
+        width: 768
+        height: 1000
+        transformOptions: {cropFocus: CENTER}
+        layout: CONSTRAINED
+      )
     }
   }
+  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "home"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+}
 `;
 
 export default Home;

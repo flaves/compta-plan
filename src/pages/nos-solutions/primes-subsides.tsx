@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import Layout from '../../components/layout';
 import SEO from '../../components/helpers/seo';
@@ -20,13 +21,12 @@ import SubTitle from '../../components/shared/styled/sub-title';
 const PrimesSubsides: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);
 
-  const sources = [
-    mobileHero.childImageSharp.fluid,
-    {
-      ...desktopHero.childImageSharp.fluid,
+  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
+    [{
+      image: desktopHero?.childImageSharp?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -73,26 +73,18 @@ const PrimesSubsides: React.FC = () => {
   );
 };
 
-const query = graphql`
-  {
-    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "bonus" }) {
-      childImageSharp {
-        fluid(maxWidth: 500, maxHeight: 600) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    desktopHero: file(
-      name: { eq: "hero" }
-      relativeDirectory: { eq: "bonus" }
-    ) {
-      childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 800) {
-          ...GatsbyImageSharpFluid
-        }
-      }
+const query = graphql`{
+  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "bonus"}) {
+    childImageSharp {
+      gatsbyImageData(width: 500, height: 600, layout: CONSTRAINED)
     }
   }
+  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "bonus"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+}
 `;
 
 export default PrimesSubsides;

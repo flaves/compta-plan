@@ -1,7 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { withArtDirection } from 'gatsby-plugin-image';
+import { BLOCKS,INLINES } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 
 import Layout from '../components/layout';
@@ -43,13 +44,12 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({
   data: { contentfulArticles: article, mobileHero, desktopHero },
 }) => {
-  const sources = [
-    mobileHero.fluid,
-    {
-      ...desktopHero.fluid,
+  const sources = withArtDirection(mobileHero?.gatsbyImageData,
+    [{
+      image: desktopHero?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -142,27 +142,21 @@ export const query = graphql`
       }
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(
-        maxWidth: 768
-        maxHeight: 1000
-        quality: 60
-        toFormat: JPG
-        resizingBehavior: FILL
-      ) {
-        ...GatsbyContentfulFluid
-      }
+      gatsbyImageData(
+          width: 768
+          height: 1000
+          quality: 60
+          resizingBehavior: FILL
+        )
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(
-        maxWidth: 1440
-        maxHeight: 800
-        quality: 60
-        toFormat: JPG
-        cropFocus: TOP
-        resizingBehavior: FILL
-      ) {
-        ...GatsbyContentfulFluid
-      }
+      gatsbyImageData(
+          width: 1440
+          height: 800
+          quality: 60
+          cropFocus: TOP
+          resizingBehavior: FILL
+        )
     }
   }
 `;

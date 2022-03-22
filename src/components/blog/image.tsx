@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 
 interface ArticleImageProps {
   fileName: string;
@@ -17,7 +17,7 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ fileName }) => {
     return <div />;
   }
 
-  return <Img fluid={match?.node?.fluid} />;
+  return <GatsbyImage image={match?.gatsbyImageData} />;
 };
 
 const query = graphql`
@@ -25,15 +25,13 @@ const query = graphql`
     allContentfulAsset {
       edges {
         node {
-          fluid(
-            quality: 100
-            maxWidth: 800
-            maxHeight: 300
-            cropFocus: CENTER
-            resizingBehavior: FILL
-          ) {
-            ...GatsbyContentfulFluid
-          }
+          gatsbyImageData(
+              quality: 100
+              width: 800
+              height: 300
+              cropFocus: CENTER
+              resizingBehavior: FILL
+            )
           file {
             fileName
           }

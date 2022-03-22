@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 import SEO from '../components/helpers/seo';
@@ -23,13 +24,12 @@ const Contact: React.FC = () => {
     });
   }, [allContentfulAddress]);
 
-  const sources = [
-    mobileHero.childImageSharp.fluid,
-    {
-      ...desktopHero.childImageSharp.fluid,
+  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
+    [{
+      image: desktopHero?.childImageSharp?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -61,9 +61,7 @@ const query = graphql`
       relativeDirectory: { eq: "contact" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 768, maxHeight: 600, cropFocus: ATTENTION) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 768, height: 600, transformOptions: { cropFocus: ATTENTION})
       }
     }
     desktopHero: file(
@@ -71,9 +69,7 @@ const query = graphql`
       relativeDirectory: { eq: "contact" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 1440, maxHeight: 600, cropFocus: CENTER) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 1440, height: 600, transformOptions: { cropFocus: CENTER})
       }
     }
     allContentfulAddress(limit: 1, sort: { fields: name, order: ASC }) {

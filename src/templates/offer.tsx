@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
+import { withArtDirection } from 'gatsby-plugin-image';
 
 import H1 from '../components/shared/styled/h1';
 import Hero from '../components/shared/hero';
@@ -31,13 +32,12 @@ const Offer: React.FC<ServicesProps> = ({
 }) => {
   const { content } = offer;
 
-  const sources = [
-    mobileHero.fluid,
-    {
-      ...desktopHero.fluid,
+  const sources = withArtDirection(mobileHero?.gatsbyImageData,
+    [{
+      image: desktopHero?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    },
-  ];
+    }]
+  )
 
   return (
     <Layout>
@@ -84,27 +84,21 @@ export const query = graphql`
       services
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(
-        maxWidth: 768
-        maxHeight: 1000
-        quality: 60
-        toFormat: JPG
-        resizingBehavior: FILL
-      ) {
-        ...GatsbyContentfulFluid
-      }
+      gatsbyImageData(
+          width: 768
+          height: 1000
+          quality: 60
+          resizingBehavior: FILL
+        )
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
-      fluid(
-        maxWidth: 1440
-        maxHeight: 800
-        quality: 60
-        toFormat: JPG
-        cropFocus: TOP
-        resizingBehavior: FILL
-      ) {
-        ...GatsbyContentfulFluid
-      }
+      gatsbyImageData(
+          width: 1440
+          height: 800
+          quality: 60
+          cropFocus: TOP
+          resizingBehavior: FILL
+        )
     }
   }
 `;

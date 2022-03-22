@@ -1,3 +1,5 @@
+import { IGatsbyImageData } from 'gatsby-plugin-image';
+
 interface ServiceType {
   id: string;
   name: string;
@@ -9,7 +11,7 @@ interface ServiceType {
   };
   services: string[];
   cover: {
-    fluid: any;
+    gatsbyImageData: IGatsbyImageData;
   };
   internal: {
     type: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import useParallax from '../../hooks/useParallax';
 import mq from '../../styles/mq';
@@ -49,8 +49,8 @@ const Hero: React.FC<HeroProps> = ({
           transform: `translate3d(0, ${value * 2}px, 0)`,
         }}
       >
-        <Img
-          fluid={background}
+        <GatsbyImage
+          image={background}
           css={css`
             position: initial !important;
             max-width: 768px;
@@ -60,8 +60,7 @@ const Hero: React.FC<HeroProps> = ({
               max-width: initial;
               margin: initial;
             }
-          `}
-        />
+          `} />
       </div>
       <div
         css={css`
