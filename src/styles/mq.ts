@@ -1,6 +1,7 @@
 const breakpoints: {
   [key: string]: number;
 } = {
+  xs: 379,
   sm: 576,
   md: 768,
   lg: 992,

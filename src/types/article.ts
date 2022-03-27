@@ -13,6 +13,10 @@ interface ArticleType {
   cover: {
     gatsbyImageData: IGatsbyImageData;
   };
+  category?: {
+    id: string;
+    name: string;
+  }
 }
 
 export default ArticleType;
