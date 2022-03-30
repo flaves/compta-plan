@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { css, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 import { animated as a, useSpring } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +15,6 @@ import Dashboard from '../../svg/home/dashboard.svg';
 import mq from '../../styles/mq';
 import Link from '../shared/link';
 
-import Container from '../shared/styled/container';
 import H2 from '../shared/styled/h2';
 
 interface FeatureType {
@@ -41,6 +41,16 @@ factures`,
     content: `Gestion de vos contact clients, de vos devis, factures et rappels.`,
   },
 ];
+
+const FeatureContainer = styled.div`
+  margin: auto;
+  max-width: 1280px;
+  padding: 0 16px;
+  ${mq('sm')} {
+    max-width: 1280px;
+    padding: 0 24px;
+  }
+`;
 
 const Product: React.FC = () => {
   const { color, fontWeight } = useTheme();
@@ -114,7 +124,7 @@ const Product: React.FC = () => {
                     }
                   `}
                 >
-                  {feature?.label}
+                  {feature?.label} 
                 </h3>
               </div>
               <p
@@ -135,14 +145,15 @@ const Product: React.FC = () => {
 
   return (
     <a.section ref={ref} style={reveal}>
-      <Container>
+      <FeatureContainer>
         <div
           css={css`
             margin-bottom: 120px;
             padding-top: 50px;
-
+            
             ${mq(`md`)} {
               display: flex;
+
               margin: 0 -2rem 120px -2rem;
             }
           `}
@@ -158,6 +169,7 @@ const Product: React.FC = () => {
                 flex: 0 0 50%;
                 max-width: 50%;
                 padding: 0 2rem;
+                justify-content: flex-start;
               }
             `}
           >
@@ -203,8 +215,9 @@ const Product: React.FC = () => {
             </Link>
           </div>
         </div>
-        <div>{renderFeatures()}</div>
-      </Container>
+        {/* <div>{renderFeatures()}</div> */}
+        <FeatureContainer>{renderFeatures()}</FeatureContainer>
+      </FeatureContainer>
     </a.section>
   );
 };

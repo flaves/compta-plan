@@ -10,6 +10,7 @@ interface ArticleType {
   description: string;
   slug: string;
   content: RenderRichTextData<ContentfulRichTextGatsbyReference>;
+  updatedAt: string;
   cover: {
     gatsbyImageData: IGatsbyImageData;
   };
