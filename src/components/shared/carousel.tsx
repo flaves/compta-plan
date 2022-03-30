@@ -148,7 +148,7 @@ const Carousel: React.FC<CarouselProps> = ({
     const newFormat = d[2] + '.' + d[1] + '.' + d[0];
     return newFormat;
   }
-  console.log(items[0]?.updatedAt, 'DATETETET')
+
   const renderItems = (items: Items) => (
     <AliceCarousel
       disableButtonsControls

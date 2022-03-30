@@ -90,7 +90,7 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
     const [currentArticles, setCurrentArticles] = useState([]);
     let currentPageRef = useRef(null);
 
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
     const updateURL = (pageNumber: number) => {
         if(typeof window !== 'undefined') {

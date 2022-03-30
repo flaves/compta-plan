@@ -133,7 +133,6 @@ const Offers: React.FC = () => {
                     width 0.3s;
                   display: flex;
                   justify-content: center;
-
                   align-items: center;
                 `}
               >
