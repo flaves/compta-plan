@@ -45,7 +45,7 @@ const MyComptaplan: React.FC = () => {
               Si vous êtes client chez Compta Plan, vous bénéficiez gratuitement
               d’un accès illimités à nos outils digitaux.
             </SubTitle>
-            <Link to="/">Demander une démo</Link>
+            <Link to="/contact">Demander une démo</Link>
           </div>
         </div>
       </Hero>
