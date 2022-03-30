@@ -178,7 +178,6 @@ const query = graphql`
           cover {
             gatsbyImageData(
               aspectRatio: 0.8
-              quality: 90
               cropFocus: CENTER
               resizingBehavior: FILL
               placeholder: BLURRED

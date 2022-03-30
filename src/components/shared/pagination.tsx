@@ -21,13 +21,17 @@ const PaginationContainer = styled.ul`
   display: flex;
   justify-content: center;
   padding: 0 0 10px 0;
+  margin-top: 30px;
+  ${mq('sm')}{
+    margin-top: 0;
+  }
 `;
 
 const PaginationItem = styled.li`
   padding: 0 12px;
   height: 32px;
   text-align: center;
-  margin: auto 0px;
+  margin: auto 5px;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   box-sizing: border-box;
@@ -39,11 +43,15 @@ const PaginationItem = styled.li`
   cursor: pointer;
   display: flex;
   justify-content: center;
-  transition: 0.3s;
+  transition: background-color 0.3s;
   &:hover {
       background-color: ${({ theme }) => theme.color.primary};
+      color: white;
   }
   ${mq('sm')} {
+    margin: auto 5px;
+  }
+  ${mq('md')} {
     margin: auto 20px;
   }
 `;
@@ -141,7 +149,7 @@ const Pagination = ({
         }
 
         return (
-          <PaginationItem onClick={() => onPageChange(pageNumber)} css={pageNumber === currentPage && css`background-color: ${color.primary};`}>
+          <PaginationItem onClick={() => onPageChange(pageNumber)} css={pageNumber === currentPage && css`background-color: ${color.primary}; color: white;`}>
             {pageNumber}
           </PaginationItem>
         );

@@ -17,7 +17,7 @@ interface PaginatedArticlesProps {
 }
 
 const PaginatedArticlesContainer = styled.section`
-    margin-top: 50px;
+    margin: 50px 0 100px 0;
 `;
 
 const Container = styled.div`
@@ -33,7 +33,12 @@ const Container = styled.div`
 const ArticlesHeader = styled.div`
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
+    ${mq('sm')} {
+        flex-direction: row;
+    }
 `;
 
 const Articles = styled.div`
@@ -57,6 +62,26 @@ const Articles = styled.div`
     }
 `;
 
+const customStyles = {
+    option: () => ({
+        //Si je laisse pas _hover bg !! RED !! le hover fonctionne pas
+        _hover: 'background-color: red;',
+        padding: 10,
+        cursor: 'pointer',
+    }),
+    control: () => ({
+        border: '2px solid rgba(149, 149, 149, 0.8)',
+        display: 'flex',
+        cursor: 'pointer',
+        borderRadius: '5px',
+    }),
+    singleValue: () => {
+        const cursor = 'pointer';
+        const transition = 'opacity 300ms';
+        return { cursor, transition };
+    }
+}
+
 
 const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX.Element => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +89,32 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
     const [currentCategory, setCurrentCategory] = useState<any>({ label: 'Tous les articles', value: 'all'});
     const [currentArticles, setCurrentArticles] = useState([]);
     let currentPageRef = useRef(null);
+
+    const params = new URLSearchParams(window.location.search);
+
+    const updateURL = (pageNumber: number) => {
+        if(typeof window !== 'undefined') {
+            if(pageNumber === 1) {
+                if(params.get('page') !== null) {
+                    localStorage.removeItem('param')
+                    params.delete('page');
+                    window.history.pushState({}, '', window.location.href.split('?')[0]);
+                }
+            } else {
+                params.set('page', pageNumber.toString())
+                window.history.pushState({}, '', `?${params.toString()}`);
+                //@ts-ignore
+                localStorage.setItem('param', params.get('page'))
+            }
+        }
+    }
+
+    const cleanParams = () => {
+        if (params.get('page') !== null){
+            params.delete('page');
+            window.history.pushState({}, '', window.location.href.split('?')[0]);
+        }
+    }
 
     let PageSize = 9;
     const setCurrentTable = useCallback((articles) => {
@@ -80,30 +131,51 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
     selectCategories.unshift({ label: 'Tous les articles', value: 'all' })
 
     const triggerAnim = () => {
+        //@ts-ignore
         currentPageRef.current.style.animation = "Anim 0.3s ease-in-out";
     }
 
     const handleChange = (selectedOption: any) => {
         setCurrentCategory(selectedOption);
+        localStorage.setItem('category', JSON.stringify(selectedOption));
         setCurrentPage(1);
     };
 
-    useEffect(() => {
-        setCurrentTable(articles);
-        triggerAnim();
-    }, [])
+    const setCategory = () => {
+        if(!localStorage.getItem('category')) {
+            localStorage.setItem('category', JSON.stringify(currentCategory));
+            setCurrentCategory(JSON.parse(localStorage.getItem('category') as string));
+        } else {
+            setCurrentCategory(JSON.parse(localStorage.getItem('category') as string));
+        }
+    }
 
-    useEffect(() => {
-        if(currentCategory?.value === 'all') {
+    const filterArticlesByCategory = () => {
+        if (currentCategory?.value === 'all') {
             setCurrentTable(articles);
             setTotalCount(articles?.length);
             triggerAnim();
         } else {
-           const filteredArticles = articles?.filter(article => article?.category?.id === currentCategory?.value);
-           setTotalCount(filteredArticles?.length);
-           setCurrentTable(filteredArticles);
-           triggerAnim();
+            const filteredArticles = articles?.filter(article => article?.category?.id === currentCategory.value);
+            setTotalCount(filteredArticles?.length);
+            setCurrentTable(filteredArticles);
+            triggerAnim();
         }
+    } 
+
+    useEffect(() => {
+        setCategory();
+        if (localStorage.getItem('param')) {
+            setCurrentPage(Number(localStorage.getItem('param')))
+        }
+        setCurrentTable(articles);
+        triggerAnim();
+        updateURL(currentPage);
+    }, [])
+
+    useEffect(() => {
+        filterArticlesByCategory();
+        updateURL(currentPage);
     }, [currentCategory, currentPage])
 
     return (
@@ -111,6 +183,7 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
            <Container>
                 <ArticlesHeader>
                     <Select
+                        styles={customStyles}
                         isSearchable={false}
                         placeholder="Filtrer par catégories"
                         value={currentCategory}
@@ -120,6 +193,13 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
                         options={selectCategories}
                         css={css`
                             width: 300px;
+                            font-family: Galano, sans-serif !important;
+                            color: rgba(105, 105, 105, 1);
+                            .css-319lph-ValueContainer {
+                                display: flex;
+                                justify-content: flex-start;
+                                align-items: center;
+                            }
                             .css-1s2u09g-control {
                                 border: 1px solid rgba(149, 149, 149);
                                 cursor: pointer;
@@ -129,6 +209,12 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
                             }
                             .css-tlfecz-indicatorContainer svg {
                                 fill: rgba(149, 149, 149);
+                            }
+                            .css-ad28gj-Option {
+                                transition: 0.5s;
+                                &:hover {
+                                    background-color: hsla(34, 98%, 49%, 60%);
+                                }
                             }
                         `}
                     />
@@ -143,11 +229,12 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
                 </ArticlesHeader>
                 <Articles ref={currentPageRef} onAnimationEnd={() => {
                     if (currentPageRef.current) {
+                        //@ts-ignore
                         currentPageRef.current.style.animation = "";
                     }
                 }}>
                     {currentArticles?.map((article: ArticleType) => (
-                        <BlogArticle key={article?.id} article={article} />
+                        <BlogArticle key={article?.id} article={article} cleanParams={cleanParams} />
                     ))}
                 </Articles>
            </Container>

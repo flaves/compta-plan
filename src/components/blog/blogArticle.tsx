@@ -11,6 +11,7 @@ import ArticleType from '../../types/article';
 
 interface BlogArticlesProps {
     article: ArticleType;
+    cleanParams: () => void;
 }
 
 const TitleContainer = styled.div`
@@ -18,7 +19,6 @@ const TitleContainer = styled.div`
     bottom: 0;
     width: 100%;
     height: 43%;
-    padding: 10px 20px;
     background-color: rgba(255, 255, 255, 0.7);
     display: flex;
     justify-content: center;
@@ -26,6 +26,8 @@ const TitleContainer = styled.div`
     transition: .3s;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    overflow: hidden;
 `;
 
 const Title = styled.h2`
@@ -33,6 +35,7 @@ const Title = styled.h2`
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     font-size: 18px;
+    font-weight: 500;
     ${mq('xs')} {
         font-size: 22px;
     }
@@ -43,10 +46,10 @@ const Title = styled.h2`
         font-size: 18px;
     }
     ${mq('lg')} {
-        font-size: 18px;
+        font-size: 14px;
     }
     ${mq('xl')} {
-        font-size: 22px;
+        font-size: 20px;
     }
 `;
 
@@ -103,10 +106,10 @@ const Category = styled(Button)`
 
 
 
-const BlogArticle = ({ article }: BlogArticlesProps): JSX.Element => {
+const BlogArticle = ({ article, cleanParams }: BlogArticlesProps): JSX.Element => {
 
     return (
-        <BlogArticleContainer to={`/blog/${article?.slug}`}>
+        <BlogArticleContainer to={`/blog/${article?.slug}`} onClick={cleanParams}>
             {article?.category?.name && <Category size="sm" variant="white">{article?.category?.name}</Category>}
             <TitleContainer>
                 <Title>{article?.name}</Title>
