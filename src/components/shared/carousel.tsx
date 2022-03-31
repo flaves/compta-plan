@@ -27,13 +27,14 @@ interface CarouselProps {
 }
 
 const CarouselContainer = styled.div`
+  border-radius: 10px;
   ${mq(`md`)} {
     padding: 0 20px;
   }
 `;
 
 const CardContainer = styled.div`
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
   height: 100%;
   /* .gatsby-image-wrapper,
@@ -43,6 +44,10 @@ const CardContainer = styled.div`
     height: 100%;
   }
   position: relative;
+  .gatsby-image-wrapper img {
+    border-radius: 10px;
+    z-index: -2;
+  }
 `;
 
 const CardHeader = styled.div`
@@ -51,19 +56,19 @@ const CardHeader = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 0 5px 0 5px;
+  padding: 0 20px 0 20px;
+  ${mq('md')} {
+    padding: 0 10px 0 10px;
+  }
 `;
 
 const OverLay = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   align-items: flex-end;
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 1;
-  /* background-color: rgba(255, 255, 255, 0.7); */
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(0,0,0,0.9009978991596639) 0%, rgba(99,99,99,0.5984768907563025) 40%, rgba(169,169,169,0.5032387955182073) 70%, rgba(255,255,255,0) 100%);
   /* background: rgb(0,0,0);
@@ -74,13 +79,14 @@ const ItemTitle = styled.h2`
   z-index: 1;
   width: 100%;
   height: 100%;
+  padding: 0 20px 20px 20px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   font-weight: 500;
-  padding: 10px;
   font-size: 14px;
   color: white;
+  border-radius: 10px;
     ${mq('xs')} {
         font-size: 18px;
     }
@@ -89,6 +95,7 @@ const ItemTitle = styled.h2`
     }
     ${mq('md')} {
         font-size: 16px;
+        padding: 0 10px 10px 10px;
     }
     ${mq('lg')} {
         font-size: 14px;
@@ -107,12 +114,13 @@ const Category = styled.div`
     font-size: 12px;
     border-radius: 40px;
     background-color: white;
-    margin-top: 5px;
+    margin-top: 20px;
     ${mq('xs')}{
     font-size: 16px;
   }
     ${mq('md')}{
       font-size: 12px;
+      margin-top: 10px;
     }
 `;
 
@@ -122,12 +130,13 @@ const Date = styled.div`
   border-radius: 40px;
   padding: 8px;
   font-size: 12px;
-  margin-top: 5px;
+  margin-top: 20px;
   ${mq('xs')}{
     font-size: 16px;
   }
   ${mq('md')}{
     font-size: 12px;
+    margin-top: 10px;
   }
 `;
 

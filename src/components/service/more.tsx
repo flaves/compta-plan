@@ -48,6 +48,7 @@ const query = graphql`
                 quality: 10
                 cropFocus: CENTER
                 resizingBehavior: FILL
+                placeholder: BLURRED
               )
           }
         }

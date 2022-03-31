@@ -66,6 +66,7 @@ const Product: React.FC = () => {
     () => (
       <ul
         css={css`
+          padding-bottom: 70px;
           ${mq(`md`)} {
             display: flex;
             flex-wrap: wrap;
@@ -150,7 +151,6 @@ const Product: React.FC = () => {
           css={css`
             margin-bottom: 120px;
             padding-top: 50px;
-            
             ${mq(`md`)} {
               display: flex;
 

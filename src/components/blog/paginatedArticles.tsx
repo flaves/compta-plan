@@ -195,7 +195,7 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
                             width: 300px;
                             font-family: Galano, sans-serif !important;
                             color: rgba(105, 105, 105, 1);
-                            .css-319lph-ValueContainer {
+                            .css-319lph-ValueContainer, .css-1d8n9bt {
                                 display: flex;
                                 justify-content: flex-start;
                                 align-items: center;
@@ -210,11 +210,14 @@ const PaginatedArticles = ({ articles, categories }: PaginatedArticlesProps):JSX
                             .css-tlfecz-indicatorContainer svg {
                                 fill: rgba(149, 149, 149);
                             }
-                            .css-ad28gj-Option {
+                            .css-ad28gj-Option, .css-173hzmz {
                                 transition: 0.5s;
                                 &:hover {
                                     background-color: hsla(34, 98%, 49%, 60%);
                                 }
+                            }
+                            .css-1d8n9bt {
+                                
                             }
                         `}
                     />

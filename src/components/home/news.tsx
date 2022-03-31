@@ -49,6 +49,7 @@ const query = graphql`
                 quality: 5
                 cropFocus: CENTER
                 resizingBehavior: FILL
+                placeholder: BLURRED
               )
           }
           category {
