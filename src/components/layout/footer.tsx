@@ -4,8 +4,6 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 
 import mq from '../../styles/mq';
 
-import Flaves from '../../svg/flaves.svg';
-
 import { LinkType } from './header';
 import OfferType from '../../types/offer';
 import ServiceType from '../../types/service';
