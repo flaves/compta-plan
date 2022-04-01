@@ -3,14 +3,18 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import GatsbyLink from 'gatsby-link';
 
 import mq from '../../styles/mq';
 
 
-interface SocialsProps {
-    
+interface StaticQuery {
+    [key: string]: {
+        childImageSharp: {
+            gatsbyImageData: IGatsbyImageData;
+        }
+    }
 }
 
 const SocialsContainer = styled.div`
@@ -24,8 +28,8 @@ const Icon = styled(GatsbyImage)`
     cursor: pointer;
 `;
 
-const Socials: React.FC<SocialsProps> = ({}) => {
-    const icons = useStaticQuery(query);
+const Socials: React.FC = ({}) => {
+    const icons = useStaticQuery<StaticQuery>(query);
 
     const socials = [
         {
