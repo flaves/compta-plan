@@ -276,16 +276,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
       <div>{renderBottomLinks()}</div>
-      <div
-        css={css`
-          text-align: center;
-          margin-top: 50px;
-        `}
-      >
-        <a href="https://flav.es" target="_blank" rel="noopener noreferrer">
-          <Flaves />
-        </a>
-      </div>
     </footer>
   );
 };
