@@ -26,7 +26,6 @@ const Icon = styled(GatsbyImage)`
 
 const Socials: React.FC<SocialsProps> = ({}) => {
     const icons = useStaticQuery(query);
-    console.log(icons, 'SOCIALS')
 
     const socials = [
         {
@@ -48,7 +47,7 @@ const Socials: React.FC<SocialsProps> = ({}) => {
     return (
         <SocialsContainer>
             {socials?.map(social => (
-                <GatsbyLink to={social?.link}>
+                <GatsbyLink to={social?.link} target="_blank" rel="noopener noreferrer">
                     <Icon image={social?.icon} alt={social?.alt} />
                 </GatsbyLink>
             ))}
