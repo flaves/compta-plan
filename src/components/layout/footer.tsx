@@ -3,8 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 
 import mq from '../../styles/mq';
-
-import Flaves from '../../svg/flaves.svg';
+import Socials from '../shared/socials';
 
 import { LinkType } from './header';
 import OfferType from '../../types/offer';
@@ -272,20 +271,11 @@ const Footer: React.FC = () => {
           >
             <li>+32 10 65 07 76</li>
             <li>info@comptaplan.be</li>
+            <Socials />
           </ul>
         </div>
       </div>
       <div>{renderBottomLinks()}</div>
-      <div
-        css={css`
-          text-align: center;
-          margin-top: 50px;
-        `}
-      >
-        <a href="https://flav.es" target="_blank" rel="noopener noreferrer">
-          <Flaves />
-        </a>
-      </div>
     </footer>
   );
 };

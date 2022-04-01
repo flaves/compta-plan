@@ -44,11 +44,11 @@ const query = graphql`
           slug
           cover {
             gatsbyImageData(
-                width: 240
-                height: 300
-                quality: 90
+                aspectRatio: 0.8
+                quality: 10
                 cropFocus: CENTER
                 resizingBehavior: FILL
+                placeholder: BLURRED
               )
           }
         }

@@ -24,8 +24,7 @@ const News: React.FC = () => {
       <Container>
         <Carousel
           items={articles}
-          title="Les dernières
-actualités."
+          title="Les dernières actualités."
           desc="Découvrez les dernières nouveautés en matière de comptabilité, fiscalité, droit, etc."
           to="blog"
           prefix="blog"
@@ -43,13 +42,19 @@ const query = graphql`
           id
           name
           slug
+          updatedAt
           cover {
             gatsbyImageData(
                 aspectRatio: 0.8
-                quality: 90
+                quality: 5
                 cropFocus: CENTER
                 resizingBehavior: FILL
+                placeholder: BLURRED
               )
+          }
+          category {
+            id
+            name
           }
         }
       }

@@ -10,9 +10,14 @@ interface ArticleType {
   description: string;
   slug: string;
   content: RenderRichTextData<ContentfulRichTextGatsbyReference>;
+  updatedAt: string;
   cover: {
     gatsbyImageData: IGatsbyImageData;
   };
+  category?: {
+    id: string;
+    name: string;
+  }
 }
 
 export default ArticleType;
