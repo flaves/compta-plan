@@ -95,7 +95,7 @@ const ItemTitle = styled.h2`
     }
     ${mq('md')} {
         font-size: 16px;
-        padding: 0 10px 10px 10px;
+        padding: 0 16px 16px 16px;
     }
     ${mq('lg')} {
         font-size: 14px;
@@ -120,7 +120,7 @@ const Category = styled.div`
   }
     ${mq('md')}{
       font-size: 12px;
-      margin-top: 10px;
+      margin-top: 16px;
     }
 `;
 
@@ -136,7 +136,7 @@ const Date = styled.div`
   }
   ${mq('md')}{
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: 16px;
   }
 `;
 
@@ -185,7 +185,7 @@ const Carousel: React.FC<CarouselProps> = ({
             <CardContainer>
               <OverLay>
                 <CardHeader>
-                  {item?.updatedAt && <Date>{formatDate(item?.updatedAt)}</Date>}
+                  {/*{item?.updatedAt && <Date>{formatDate(item?.updatedAt)}</Date>}*/}
                   {item?.category?.name && <Category>{item?.category?.name}</Category>}
                 </CardHeader>
                 <ItemTitle>{item?.name}</ItemTitle>
