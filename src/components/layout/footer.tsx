@@ -3,6 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 
 import mq from '../../styles/mq';
+import Socials from '../shared/socials';
 
 import Flaves from '../../svg/flaves.svg';
 
@@ -272,6 +273,7 @@ const Footer: React.FC = () => {
           >
             <li>+32 10 65 07 76</li>
             <li>info@comptaplan.be</li>
+            <Socials />
           </ul>
         </div>
       </div>
