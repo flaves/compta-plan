@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-import { BLOCKS,INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 
 import Layout from '../components/layout';
@@ -44,16 +44,27 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({
   data: { contentfulArticles: article, mobileHero, desktopHero },
 }) => {
-  const sources = withArtDirection(mobileHero?.gatsbyImageData,
-    [{
+  const sources = withArtDirection(mobileHero?.gatsbyImageData, [
+    {
       image: desktopHero?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    }]
-  )
+    },
+  ]);
+
+  const ogImage = desktopHero?.gatsbyImageData.images.fallback.src || ``;
 
   return (
     <Layout>
-      <SEO title={article.name} description={article.description} />
+      <SEO
+        title={article.name}
+        description={article.description}
+        meta={[
+          {
+            property: `og:image`,
+            content: ogImage,
+          },
+        ]}
+      />
       <Hero background={sources}>
         <div
           css={css`
@@ -132,7 +143,7 @@ const Article: React.FC<ArticleProps> = ({
 };
 
 export const query = graphql`
-  query($id: String!, $cover: String!) {
+  query ($id: String!, $cover: String!) {
     contentfulArticles(id: { eq: $id }) {
       id
       name
@@ -143,20 +154,20 @@ export const query = graphql`
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
       gatsbyImageData(
-          width: 768
-          height: 1000
-          quality: 60
-          resizingBehavior: FILL
-        )
+        width: 768
+        height: 1000
+        quality: 60
+        resizingBehavior: FILL
+      )
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
       gatsbyImageData(
-          width: 1440
-          height: 800
-          quality: 60
-          cropFocus: TOP
-          resizingBehavior: FILL
-        )
+        width: 1440
+        height: 800
+        quality: 60
+        cropFocus: TOP
+        resizingBehavior: FILL
+      )
     }
   }
 `;
