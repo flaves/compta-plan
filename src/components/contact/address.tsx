@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { animated as a, useSprings } from 'react-spring';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import { Map, Marker, ViewState } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerCheck } from '@fortawesome/pro-solid-svg-icons';
@@ -12,14 +12,6 @@ import mq from '../../styles/mq';
 
 import AddressType from '../../types/address';
 
-interface ViewportProps {
-  width: number;
-  height: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
 interface AddressProps {
   current: string;
 }
@@ -27,9 +19,7 @@ interface AddressProps {
 const Address: React.FC<AddressProps> = ({ current }) => {
   const [ref, bounds] = useMeasure();
   const { color, fontWeight } = useTheme();
-  const [viewport, setViewport] = useState<ViewportProps>({
-    width: 300,
-    height: 300,
+  const [viewState, setViewState] = useState<Partial<ViewState>>({
     latitude: 37.7577,
     longitude: -122.4376,
     zoom: 8,
@@ -45,8 +35,8 @@ const Address: React.FC<AddressProps> = ({ current }) => {
   const [addresses, setAddresses] = useState<AddressType[]>([]);
 
   useEffect(() => {
-    setViewport((viewport) => ({
-      ...viewport,
+    setViewState((viewState) => ({
+      ...viewState,
       width: bounds?.width,
       height: bounds?.height,
     }));
@@ -66,8 +56,8 @@ const Address: React.FC<AddressProps> = ({ current }) => {
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
     });
-    setViewport((viewport) => ({
-      ...viewport,
+    setViewState((viewState) => ({
+      ...viewState,
       latitude: address?.position?.lat || 0,
       longitude: address?.position?.lon || 0,
     }));
@@ -107,16 +97,15 @@ const Address: React.FC<AddressProps> = ({ current }) => {
           }
         `}
       >
-        <ReactMapGL
-          {...viewport}
-          mapboxApiAccessToken={process.env.GATSBY_MAPBOX_ACCESS_TOKEN}
-          onViewportChange={(viewport: ViewportProps) =>
-            setViewport({
-              ...viewport,
-              width: bounds?.width,
-              height: bounds?.height,
-            })
-          }
+        <Map
+          {...viewState}
+          mapboxAccessToken={process.env.GATSBY_MAPBOX_ACCESS_TOKEN}
+          onMove={(evt) => setViewState(evt.viewState)}
+          style={{
+            width: bounds?.width,
+            height: bounds?.height,
+          }}
+          mapStyle="mapbox://styles/mapbox/light-v10"
         >
           <Marker longitude={marker?.longitude} latitude={marker?.latitude}>
             <FontAwesomeIcon
@@ -125,7 +114,7 @@ const Address: React.FC<AddressProps> = ({ current }) => {
               color={color.primary}
             />
           </Marker>
-        </ReactMapGL>
+        </Map>
       </div>
       <div
         css={css`
