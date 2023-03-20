@@ -176,7 +176,7 @@ const Header: React.FC<HeaderProps> = ({ mobileOpen }) => {
         {renderLinks()}
         <div>
           <a
-            href="https://comptaplan.mydigitalaccountant.be/auth"
+            href="https://my.comptaplan.be/login"
             target="_blank"
             rel="noopener noreferrer"
             css={css`
