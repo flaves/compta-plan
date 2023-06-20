@@ -96,7 +96,7 @@ const Tabs: React.FC<TabsProps> = ({ current, setCurrent }) => {
 
 const query = graphql`
   {
-    allContentfulAddress(sort: { fields: name, order: ASC }) {
+    allContentfulAddress(sort: { name: ASC }) {
       edges {
         node {
           id

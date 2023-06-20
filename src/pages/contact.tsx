@@ -14,9 +14,8 @@ import H1 from '../components/shared/styled/h1';
 
 const Contact: React.FC = () => {
   const [current, setCurrent] = useState<string>(``);
-  const { mobileHero, desktopHero, allContentfulAddress } = useStaticQuery(
-    query
-  );
+  const { mobileHero, desktopHero, allContentfulAddress } =
+    useStaticQuery(query);
 
   useEffect(() => {
     allContentfulAddress?.edges?.map((item: { node: { id: string } }) => {
@@ -24,12 +23,15 @@ const Contact: React.FC = () => {
     });
   }, [allContentfulAddress]);
 
-  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
-    [{
-      image: desktopHero?.childImageSharp?.gatsbyImageData,
-      media: `(min-width: 768px)`,
-    }]
-  )
+  const sources = withArtDirection(
+    mobileHero?.childImageSharp?.gatsbyImageData,
+    [
+      {
+        image: desktopHero?.childImageSharp?.gatsbyImageData,
+        media: `(min-width: 768px)`,
+      },
+    ]
+  );
 
   return (
     <Layout>
@@ -61,7 +63,11 @@ const query = graphql`
       relativeDirectory: { eq: "contact" }
     ) {
       childImageSharp {
-        gatsbyImageData(width: 768, height: 600, transformOptions: { cropFocus: ATTENTION})
+        gatsbyImageData(
+          width: 768
+          height: 600
+          transformOptions: { cropFocus: ATTENTION }
+        )
       }
     }
     desktopHero: file(
@@ -69,10 +75,14 @@ const query = graphql`
       relativeDirectory: { eq: "contact" }
     ) {
       childImageSharp {
-        gatsbyImageData(width: 1440, height: 600, transformOptions: { cropFocus: CENTER})
+        gatsbyImageData(
+          width: 1440
+          height: 600
+          transformOptions: { cropFocus: CENTER }
+        )
       }
     }
-    allContentfulAddress(limit: 1, sort: { fields: name, order: ASC }) {
+    allContentfulAddress(limit: 1, sort: { name: ASC }) {
       edges {
         node {
           id

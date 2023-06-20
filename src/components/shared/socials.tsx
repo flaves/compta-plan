@@ -1,9 +1,8 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
-
+import { Link } from 'gatsby-link';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
-import GatsbyLink from 'gatsby-link';
 
 interface StaticQuery {
   [key: string]: {
@@ -47,14 +46,14 @@ const Socials: React.FC = ({}) => {
   return (
     <SocialsContainer>
       {socials?.map((social, key) => (
-        <GatsbyLink
+        <Link
           key={key}
           to={social?.link}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Icon image={social?.icon} alt={social?.alt} />
-        </GatsbyLink>
+        </Link>
       ))}
     </SocialsContainer>
   );

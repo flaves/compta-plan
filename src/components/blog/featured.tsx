@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import mq from '../../styles/mq';
 
@@ -11,17 +11,16 @@ import Link from '../shared/link';
 
 import ArticleType from '../../types/article';
 
-
 const Container = styled.div`
   margin: auto;
   max-width: 1280px;
   padding: 0 16px;
+
   ${mq('sm')} {
     max-width: 1280px;
     padding: 0 24px;
   }
 `;
-
 
 const Featured: React.FC = () => {
   const [featured, setFeatured] = useState<ArticleType>();
@@ -68,7 +67,9 @@ const Featured: React.FC = () => {
                 }
               `}
             >
-              {featured && <GatsbyImage image={featured?.cover?.gatsbyImageData} />}
+              {featured && (
+                <GatsbyImage image={featured?.cover?.gatsbyImageData} />
+              )}
             </div>
             <div
               css={css`
@@ -118,7 +119,7 @@ const Featured: React.FC = () => {
 
 const query = graphql`
   {
-    allContentfulArticles(sort: { order: DESC, fields: date }, limit: 1) {
+    allContentfulArticles(sort: { date: DESC }, limit: 1) {
       edges {
         node {
           id

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { css, useTheme } from '@emotion/react';
-
 import Header from './header';
 import Footer from './footer';
 import Mobile from './mobile';
-
 import mq from '../../styles/mq';
 import { CookiesBanner } from '../cookies/banner';
-import { Banner } from '../banner/banner';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -19,7 +16,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <section>
-      <Banner />
       <CookiesBanner />
       <Header mobileOpen={open} />
       <main role="main">{children}</main>
