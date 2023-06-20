@@ -20,15 +20,15 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: `UA-65960416-13`,
+        trackingIds: [process.env.GA_TRACKING_ID],
       },
     },
     {
       resolve: `gatsby-plugin-facebook-pixel`,
       options: {
-        pixelId: '282543972281371',
+        pixelId: process.env.FACEBOOK_PIXEL_ID,
       },
     },
     {
