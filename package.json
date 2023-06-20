@@ -8,7 +8,8 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "start": "npm run develop"
+    "start": "npm run develop",
+    "code:check": "npx tsc"
   },
   "dependencies": {
     "@contentful/rich-text-types": "^16.2.0",

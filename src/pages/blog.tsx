@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -12,10 +12,10 @@ import H2 from '../components/shared/styled/h2';
 import SEO from '../components/helpers/seo';
 import Contact from '../components/shared/contact';
 import Featured from '../components/blog/featured';
-import Carousel from '../components/shared/carousel';
 import PaginatedArticles from '../components/blog/paginatedArticles';
 
 import CategoryType from '../types/category';
+
 import mq from '../styles/mq';
 import ArticleType from '../types/article';
 
@@ -23,6 +23,7 @@ const Container = styled.div`
   margin: auto;
   max-width: 1280px;
   padding: 0 16px;
+
   ${mq('sm')} {
     max-width: 1280px;
     padding: 0 24px;
@@ -90,14 +91,17 @@ const Blog: React.FC = () => {
   //   [categories]
   // );
 
-  const renderArticles = useCallback(() => (
-    <section>
-      <Container>
-        <H2>Articles</H2>
-      </Container>
-      <PaginatedArticles categories={categories} articles={articles} />
-    </section>
-  ), [articles])
+  const renderArticles = useCallback(
+    () => (
+      <section>
+        <Container>
+          <H2>Articles</H2>
+        </Container>
+        <PaginatedArticles categories={categories} articles={articles} />
+      </section>
+    ),
+    [articles]
+  );
 
   return (
     <Layout>
