@@ -59,7 +59,7 @@ const Socials: React.FC = ({}) => {
   );
 };
 
-export default React.memo(Socials);
+export default Socials;
 
 export const query = graphql`
   query MyQuery {

@@ -64,4 +64,4 @@ const Services: React.FC<ServicesProps> = ({ title, services }) => {
   );
 };
 
-export default React.memo(Services);
+export default Services;

@@ -4,7 +4,6 @@ import { css, useTheme } from '@emotion/react';
 import mq from '../../styles/mq';
 
 import Container from '../shared/styled/container';
-import H2 from '../shared/styled/h2';
 
 interface ServicesProps {
   title: string;
@@ -69,4 +68,4 @@ const Services: React.FC<ServicesProps> = ({ title, services }) => {
   );
 };
 
-export default React.memo(Services);
+export default Services;

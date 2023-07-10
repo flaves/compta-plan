@@ -1,8 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage, withArtDirection } from "gatsby-plugin-image";
-
+import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image';
 import useParallax from '../../hooks/useParallax';
 import Link from './link';
 import mq from '../../styles/mq';
@@ -12,12 +11,15 @@ const Contact: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);
   const { color } = useTheme();
 
-  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
-    [{
-      image: desktopHero?.childImageSharp?.gatsbyImageData,
-      media: `(min-width: 768px)`,
-    }]
-  )
+  const sources = withArtDirection(
+    mobileHero?.childImageSharp?.gatsbyImageData,
+    [
+      {
+        image: desktopHero?.childImageSharp?.gatsbyImageData,
+        media: `(min-width: 768px)`,
+      },
+    ]
+  );
 
   return (
     <section
@@ -47,7 +49,8 @@ const Contact: React.FC = () => {
               max-width: initial;
               margin: initial;
             }
-          `} />
+          `}
+        />
       </div>
       <div
         css={css`
@@ -118,23 +121,33 @@ const Contact: React.FC = () => {
   );
 };
 
-const query = graphql`{
-  mobileHero: file(relativeDirectory: {eq: "shared"}, name: {eq: "contact"}) {
-    childImageSharp {
-      gatsbyImageData(
-        width: 768
-        height: 700
-        transformOptions: {cropFocus: CENTER}
-        layout: CONSTRAINED
-      )
+const query = graphql`
+  {
+    mobileHero: file(
+      relativeDirectory: { eq: "shared" }
+      name: { eq: "contact" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 768
+          height: 700
+          transformOptions: { cropFocus: CENTER }
+          layout: CONSTRAINED
+        )
+      }
+    }
+    desktopHero: file(
+      relativeDirectory: { eq: "shared" }
+      name: { eq: "contact" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(
+          transformOptions: { cropFocus: CENTER }
+          layout: FULL_WIDTH
+        )
+      }
     }
   }
-  desktopHero: file(relativeDirectory: {eq: "shared"}, name: {eq: "contact"}) {
-    childImageSharp {
-      gatsbyImageData(transformOptions: {cropFocus: CENTER}, layout: FULL_WIDTH)
-    }
-  }
-}
 `;
 
-export default React.memo(Contact);
+export default Contact;

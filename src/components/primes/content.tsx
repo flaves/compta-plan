@@ -114,7 +114,7 @@ const Jobs: React.FC = () => {
         Vous souhaitez bénéficier d’un incitant financier pour l’engagement d’un
         demandeur d’emploi.
         <br />
-        L’incitant financier « Sesam » a pour objectif de soutenir les petites
+        L’incitant financier « Sesam » a pour objectif de soutenir les petites
         entreprises qui engagent des demandeurs d’emplois inscrits auprès du
         Forem. Cet incitant se compose d’un montant forfaitaire dégressif sur 3
         ans. En outre, il peut être majoré d’un montant complémentaire et non
@@ -178,4 +178,4 @@ const Content: React.FC = () => {
   );
 };
 
-export default React.memo(Content);
+export default Content;

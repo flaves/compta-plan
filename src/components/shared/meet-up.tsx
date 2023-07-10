@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage, withArtDirection } from "gatsby-plugin-image";
+import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image';
 
 import Link from './link';
 
@@ -13,12 +13,15 @@ const MeetUp: React.FC = () => {
   const { mobileHero, desktopHero } = useStaticQuery(query);
   const { color, fontWeight } = useTheme();
 
-  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
-    [{
-      image: desktopHero?.childImageSharp?.gatsbyImageData,
-      media: `(min-width: 768px)`,
-    }]
-  )
+  const sources = withArtDirection(
+    mobileHero?.childImageSharp?.gatsbyImageData,
+    [
+      {
+        image: desktopHero?.childImageSharp?.gatsbyImageData,
+        media: `(min-width: 768px)`,
+      },
+    ]
+  );
 
   return (
     <section
@@ -129,35 +132,43 @@ const MeetUp: React.FC = () => {
                 max-width: initial;
                 margin: initial;
               }
-            `} />
+            `}
+          />
         </div>
       </div>
     </section>
   );
 };
 
-const query = graphql`{
-  mobileHero: file(name: {eq: "meet-up"}, relativeDirectory: {eq: "shared"}) {
-    childImageSharp {
-      gatsbyImageData(
-        width: 768
-        height: 800
-        transformOptions: {cropFocus: WEST}
-        layout: CONSTRAINED
-      )
+const query = graphql`
+  {
+    mobileHero: file(
+      name: { eq: "meet-up" }
+      relativeDirectory: { eq: "shared" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 768
+          height: 800
+          transformOptions: { cropFocus: WEST }
+          layout: CONSTRAINED
+        )
+      }
+    }
+    desktopHero: file(
+      name: { eq: "meet-up" }
+      relativeDirectory: { eq: "shared" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 800
+          height: 800
+          transformOptions: { cropFocus: WEST }
+          layout: CONSTRAINED
+        )
+      }
     }
   }
-  desktopHero: file(name: {eq: "meet-up"}, relativeDirectory: {eq: "shared"}) {
-    childImageSharp {
-      gatsbyImageData(
-        width: 800
-        height: 800
-        transformOptions: {cropFocus: WEST}
-        layout: CONSTRAINED
-      )
-    }
-  }
-}
 `;
 
-export default React.memo(MeetUp);
+export default MeetUp;

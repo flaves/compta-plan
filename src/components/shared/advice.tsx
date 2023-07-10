@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Button from './button';
 import useParallax from '../../hooks/useParallax';
@@ -74,13 +74,17 @@ const Advice: React.FC = () => {
   );
 };
 
-const query = graphql`{
-  background: file(name: {eq: "advice"}) {
-    childImageSharp {
-      gatsbyImageData(transformOptions: {cropFocus: ATTENTION}, layout: FULL_WIDTH)
+const query = graphql`
+  {
+    background: file(name: { eq: "advice" }) {
+      childImageSharp {
+        gatsbyImageData(
+          transformOptions: { cropFocus: ATTENTION }
+          layout: FULL_WIDTH
+        )
+      }
     }
   }
-}
 `;
 
-export default React.memo(Advice);
+export default Advice;
