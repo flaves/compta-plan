@@ -1,47 +1,39 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { graphql } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-
 import H1 from '../components/shared/styled/h1';
 import Hero from '../components/shared/hero';
-
 import Layout from '../components/layout';
-import SEO from '../components/helpers/seo';
 import Link from '../components/shared/link';
 import Intro from '../components/shared/intro';
 import Services from '../components/service/services';
 import MeetUp from '../components/shared/meet-up';
 import Contact from '../components/shared/contact';
 import More from '../components/offer/more';
-
 import SubTitle from '../components/shared/styled/sub-title';
-
 import OfferType from '../types/offer';
 
-interface ServicesProps {
-  data: {
-    offer: OfferType;
-    mobileHero: any;
-    desktopHero: any;
-  };
-}
+type OfferPageData = {
+  offer: OfferType;
+  mobileHero: any;
+  desktopHero: any;
+};
 
-const Offer: React.FC<ServicesProps> = ({
-  data: { offer, mobileHero, desktopHero },
-}) => {
+type OfferPageProps = PageProps<OfferPageData>;
+
+function OfferPage(props: OfferPageProps) {
+  const { data } = props;
+  const { offer, mobileHero, desktopHero } = data;
   const { content } = offer;
-
-  const sources = withArtDirection(mobileHero?.gatsbyImageData,
-    [{
+  const sources = withArtDirection(mobileHero?.gatsbyImageData, [
+    {
       image: desktopHero?.gatsbyImageData,
       media: `(min-width: 768px)`,
-    }]
-  )
-
+    },
+  ]);
   return (
     <Layout>
-      <SEO title={offer.name} description={offer.description} />
       <section>
         <Hero background={sources}>
           <div
@@ -70,10 +62,20 @@ const Offer: React.FC<ServicesProps> = ({
       </section>
     </Layout>
   );
-};
+}
+
+export function Head(props: HeadProps<OfferPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.offer.name}</title>
+      <meta name="description" content={data.offer.description} />
+    </>
+  );
+}
 
 export const query = graphql`
-  query($id: String!, $cover: String!) {
+  query ($id: String!, $cover: String!) {
     offer: contentfulOffer(id: { eq: $id }) {
       id
       name
@@ -85,22 +87,22 @@ export const query = graphql`
     }
     mobileHero: contentfulAsset(id: { eq: $cover }) {
       gatsbyImageData(
-          width: 768
-          height: 1000
-          quality: 60
-          resizingBehavior: FILL
-        )
+        width: 768
+        height: 1000
+        quality: 60
+        resizingBehavior: FILL
+      )
     }
     desktopHero: contentfulAsset(id: { eq: $cover }) {
       gatsbyImageData(
-          width: 1440
-          height: 800
-          quality: 60
-          cropFocus: TOP
-          resizingBehavior: FILL
-        )
+        width: 1440
+        height: 800
+        quality: 60
+        cropFocus: TOP
+        resizingBehavior: FILL
+      )
     }
   }
 `;
 
-export default React.memo(Offer);
+export default OfferPage;

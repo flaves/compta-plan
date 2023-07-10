@@ -5,9 +5,9 @@ import { animated as a, useSpring } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faFolders,
   faChartPie,
   faFileInvoice,
+  faFolders,
 } from '@fortawesome/pro-solid-svg-icons';
 
 import Dashboard from '../../svg/home/dashboard.svg';
@@ -46,6 +46,7 @@ const FeatureContainer = styled.div`
   margin: auto;
   max-width: 1280px;
   padding: 0 16px;
+
   ${mq('sm')} {
     max-width: 1280px;
     padding: 0 24px;
@@ -67,6 +68,7 @@ const Product: React.FC = () => {
       <ul
         css={css`
           padding-bottom: 70px;
+
           ${mq(`md`)} {
             display: flex;
             flex-wrap: wrap;
@@ -125,7 +127,7 @@ const Product: React.FC = () => {
                     }
                   `}
                 >
-                  {feature?.label} 
+                  {feature?.label}
                 </h3>
               </div>
               <p
@@ -151,6 +153,7 @@ const Product: React.FC = () => {
           css={css`
             margin-bottom: 120px;
             padding-top: 50px;
+
             ${mq(`md`)} {
               display: flex;
 
@@ -222,4 +225,4 @@ const Product: React.FC = () => {
   );
 };
 
-export default React.memo(Product);
+export default Product;

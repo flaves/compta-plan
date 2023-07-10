@@ -1,36 +1,43 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-
 import Layout from '../../components/layout';
-import SEO from '../../components/helpers/seo';
 import Hero from '../../components/shared/hero';
 import Intro from '../../components/primes/intro';
 import Content from '../../components/primes/content';
 import MeetUp from '../../components/shared/meet-up';
 import Link from '../../components/shared/link';
-
 import mq from '../../styles/mq';
-
 import H1 from '../../components/shared/styled/h1';
-
 import Contact from '../../components/shared/contact';
 import SubTitle from '../../components/shared/styled/sub-title';
+import { ContentfulPage } from '../../types/contentful';
 
-const PrimesSubsides: React.FC = () => {
-  const { mobileHero, desktopHero } = useStaticQuery(query);
+type BonusesPageData = {
+  contentfulPage: ContentfulPage;
+  mobileHero: any;
+  desktopHero: any;
+};
 
-  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData,
-    [{
-      image: desktopHero?.childImageSharp?.gatsbyImageData,
-      media: `(min-width: 768px)`,
-    }]
-  )
+type BonusesPageProps = PageProps<BonusesPageData>;
+
+function BonusesPage(props: BonusesPageProps) {
+  const { data } = props;
+  const { mobileHero, desktopHero } = data;
+
+  const sources = withArtDirection(
+    mobileHero?.childImageSharp?.gatsbyImageData,
+    [
+      {
+        image: desktopHero?.childImageSharp?.gatsbyImageData,
+        media: `(min-width: 768px)`,
+      },
+    ]
+  );
 
   return (
     <Layout>
-      <SEO title="Primes & Subsides" description="Primes & Subsides" />
       <Hero background={sources}>
         <div
           css={css`
@@ -71,20 +78,39 @@ const PrimesSubsides: React.FC = () => {
       <Contact />
     </Layout>
   );
-};
-
-const query = graphql`{
-  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "bonus"}) {
-    childImageSharp {
-      gatsbyImageData(width: 500, height: 600, layout: CONSTRAINED)
-    }
-  }
-  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "bonus"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
 }
+
+export function Head(props: HeadProps<BonusesPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
+
+export const query = graphql`
+  {
+    contentfulPage(slug: { eq: "bonuses" }) {
+      id
+      seo_title
+      seo_description
+    }
+    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "bonus" }) {
+      childImageSharp {
+        gatsbyImageData(width: 500, height: 600, layout: CONSTRAINED)
+      }
+    }
+    desktopHero: file(
+      name: { eq: "hero" }
+      relativeDirectory: { eq: "bonus" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+  }
 `;
 
-export default PrimesSubsides;
+export default BonusesPage;

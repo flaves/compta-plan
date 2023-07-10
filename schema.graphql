@@ -962,6 +962,88 @@ type ContentfulOfferSysContentTypeSys {
   type: String
 }
 
+type ContentfulPage implements ContentfulEntry & ContentfulReference & Node {
+  children: [Node!]!
+  contentful_id: String!
+  createdAt(
+    "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
+    difference: String,
+    "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
+    formatString: String,
+    "Returns a string generated with Moment.js' `fromNow` function"
+    fromNow: Boolean,
+    "Configures the locale Moment.js will use to format the date."
+    locale: String
+  ): Date
+  id: ID!
+  internal: Internal!
+  node_locale: String!
+  parent: Node
+  seo_description: String
+  seo_title: String
+  slug: String
+  spaceId: String
+  sys: ContentfulPageSys
+  updatedAt(
+    "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
+    difference: String,
+    "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
+    formatString: String,
+    "Returns a string generated with Moment.js' `fromNow` function"
+    fromNow: Boolean,
+    "Configures the locale Moment.js will use to format the date."
+    locale: String
+  ): Date
+}
+
+type ContentfulPageConnection {
+  distinct(field: ContentfulPageFieldSelector!): [String!]!
+  edges: [ContentfulPageEdge!]!
+  group(field: ContentfulPageFieldSelector!, limit: Int, skip: Int): [ContentfulPageGroupConnection!]!
+  max(field: ContentfulPageFieldSelector!): Float
+  min(field: ContentfulPageFieldSelector!): Float
+  nodes: [ContentfulPage!]!
+  pageInfo: PageInfo!
+  sum(field: ContentfulPageFieldSelector!): Float
+  totalCount: Int!
+}
+
+type ContentfulPageEdge {
+  next: ContentfulPage
+  node: ContentfulPage!
+  previous: ContentfulPage
+}
+
+type ContentfulPageGroupConnection {
+  distinct(field: ContentfulPageFieldSelector!): [String!]!
+  edges: [ContentfulPageEdge!]!
+  field: String!
+  fieldValue: String
+  group(field: ContentfulPageFieldSelector!, limit: Int, skip: Int): [ContentfulPageGroupConnection!]!
+  max(field: ContentfulPageFieldSelector!): Float
+  min(field: ContentfulPageFieldSelector!): Float
+  nodes: [ContentfulPage!]!
+  pageInfo: PageInfo!
+  sum(field: ContentfulPageFieldSelector!): Float
+  totalCount: Int!
+}
+
+type ContentfulPageSys {
+  contentType: ContentfulPageSysContentType
+  revision: Int
+  type: String
+}
+
+type ContentfulPageSysContentType {
+  sys: ContentfulPageSysContentTypeSys
+}
+
+type ContentfulPageSysContentTypeSys {
+  id: String
+  linkType: String
+  type: String
+}
+
 type ContentfulService implements ContentfulEntry & ContentfulReference & Node {
   children: [Node!]!
   content: ContentfulServiceContent
@@ -1892,6 +1974,7 @@ type Query {
   allContentfulJobs(filter: ContentfulJobsFilterInput, limit: Int, skip: Int, sort: [ContentfulJobsSortInput]): ContentfulJobsConnection!
   allContentfulJobsDescriptionTextNode(filter: contentfulJobsDescriptionTextNodeFilterInput, limit: Int, skip: Int, sort: [contentfulJobsDescriptionTextNodeSortInput]): contentfulJobsDescriptionTextNodeConnection!
   allContentfulOffer(filter: ContentfulOfferFilterInput, limit: Int, skip: Int, sort: [ContentfulOfferSortInput]): ContentfulOfferConnection!
+  allContentfulPage(filter: ContentfulPageFilterInput, limit: Int, skip: Int, sort: [ContentfulPageSortInput]): ContentfulPageConnection!
   allContentfulService(filter: ContentfulServiceFilterInput, limit: Int, skip: Int, sort: [ContentfulServiceSortInput]): ContentfulServiceConnection!
   allContentfulServices(filter: ContentfulServicesFilterInput, limit: Int, skip: Int, sort: [ContentfulServicesSortInput]): ContentfulServicesConnection!
   allContentfulServicesCp(filter: ContentfulServicesCpFilterInput, limit: Int, skip: Int, sort: [ContentfulServicesCpSortInput]): ContentfulServicesCpConnection!
@@ -1915,6 +1998,7 @@ type Query {
   contentfulJobs(childContentfulJobsDescriptionTextNode: contentfulJobsDescriptionTextNodeFilterInput, children: NodeFilterListInput, childrenContentfulJobsDescriptionTextNode: contentfulJobsDescriptionTextNodeFilterListInput, content: ContentfulJobsContentFilterInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, date: DateQueryOperatorInput, description: contentfulJobsDescriptionTextNodeFilterInput, file: ContentfulAssetFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulJobsSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulJobs
   contentfulJobsDescriptionTextNode(children: NodeFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulJobsDescriptionTextNodeSysFilterInput): contentfulJobsDescriptionTextNode
   contentfulOffer(children: NodeFilterListInput, content: ContentfulOfferContentFilterInput, contentful_id: StringQueryOperatorInput, cover: ContentfulAssetFilterInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, services: StringQueryOperatorInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulOfferSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulOffer
+  contentfulPage(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, seo_description: StringQueryOperatorInput, seo_title: StringQueryOperatorInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulPageSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulPage
   contentfulService(children: NodeFilterListInput, content: ContentfulServiceContentFilterInput, contentful_id: StringQueryOperatorInput, cover: ContentfulAssetFilterInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, services: StringQueryOperatorInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulServiceSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulService
   contentfulServices(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, order: IntQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulServicesSysFilterInput, text: ContentfulServicesTextFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulServices
   contentfulServicesCp(childContentfulServicesCpContentJsonNode: contentfulServicesCpContentJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulServicesCpContentJsonNode: contentfulServicesCpContentJsonNodeFilterListInput, content: contentfulServicesCpContentJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, id: StringQueryOperatorInput, image: ContentfulAssetFilterInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, order: IntQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulServicesCpSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulServicesCp
@@ -3255,6 +3339,102 @@ input ContentfulOfferSysFilterInput {
 
 input ContentfulOfferSysSortInput {
   contentType: ContentfulOfferSysContentTypeSortInput
+  revision: SortOrderEnum
+  type: SortOrderEnum
+}
+
+input ContentfulPageFieldSelector {
+  children: NodeFieldSelector
+  contentful_id: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  id: FieldSelectorEnum
+  internal: InternalFieldSelector
+  node_locale: FieldSelectorEnum
+  parent: NodeFieldSelector
+  seo_description: FieldSelectorEnum
+  seo_title: FieldSelectorEnum
+  slug: FieldSelectorEnum
+  spaceId: FieldSelectorEnum
+  sys: ContentfulPageSysFieldSelector
+  updatedAt: FieldSelectorEnum
+}
+
+input ContentfulPageFilterInput {
+  children: NodeFilterListInput
+  contentful_id: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
+  internal: InternalFilterInput
+  node_locale: StringQueryOperatorInput
+  parent: NodeFilterInput
+  seo_description: StringQueryOperatorInput
+  seo_title: StringQueryOperatorInput
+  slug: StringQueryOperatorInput
+  spaceId: StringQueryOperatorInput
+  sys: ContentfulPageSysFilterInput
+  updatedAt: DateQueryOperatorInput
+}
+
+input ContentfulPageSortInput {
+  children: NodeSortInput
+  contentful_id: SortOrderEnum
+  createdAt: SortOrderEnum
+  id: SortOrderEnum
+  internal: InternalSortInput
+  node_locale: SortOrderEnum
+  parent: NodeSortInput
+  seo_description: SortOrderEnum
+  seo_title: SortOrderEnum
+  slug: SortOrderEnum
+  spaceId: SortOrderEnum
+  sys: ContentfulPageSysSortInput
+  updatedAt: SortOrderEnum
+}
+
+input ContentfulPageSysContentTypeFieldSelector {
+  sys: ContentfulPageSysContentTypeSysFieldSelector
+}
+
+input ContentfulPageSysContentTypeFilterInput {
+  sys: ContentfulPageSysContentTypeSysFilterInput
+}
+
+input ContentfulPageSysContentTypeSortInput {
+  sys: ContentfulPageSysContentTypeSysSortInput
+}
+
+input ContentfulPageSysContentTypeSysFieldSelector {
+  id: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  type: FieldSelectorEnum
+}
+
+input ContentfulPageSysContentTypeSysFilterInput {
+  id: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  type: StringQueryOperatorInput
+}
+
+input ContentfulPageSysContentTypeSysSortInput {
+  id: SortOrderEnum
+  linkType: SortOrderEnum
+  type: SortOrderEnum
+}
+
+input ContentfulPageSysFieldSelector {
+  contentType: ContentfulPageSysContentTypeFieldSelector
+  revision: FieldSelectorEnum
+  type: FieldSelectorEnum
+}
+
+input ContentfulPageSysFilterInput {
+  contentType: ContentfulPageSysContentTypeFilterInput
+  revision: IntQueryOperatorInput
+  type: StringQueryOperatorInput
+}
+
+input ContentfulPageSysSortInput {
+  contentType: ContentfulPageSysContentTypeSortInput
   revision: SortOrderEnum
   type: SortOrderEnum
 }

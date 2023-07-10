@@ -1,23 +1,19 @@
 import React, { useCallback } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-
 import Layout from '../components/layout';
 import Hero from '../components/shared/hero';
-
 import H1 from '../components/shared/styled/h1';
 import H2 from '../components/shared/styled/h2';
-import SEO from '../components/helpers/seo';
 import Contact from '../components/shared/contact';
 import Featured from '../components/blog/featured';
 import PaginatedArticles from '../components/blog/paginatedArticles';
-
 import CategoryType from '../types/category';
-
 import mq from '../styles/mq';
 import ArticleType from '../types/article';
+import { ContentfulPage } from '../types/contentful';
 
 const Container = styled.div`
   margin: auto;
@@ -30,13 +26,24 @@ const Container = styled.div`
   }
 `;
 
-const Blog: React.FC = () => {
+type BlogPageData = {
+  contentfulPage: ContentfulPage;
+  mobileHero: any;
+  desktopHero: any;
+  allContentfulCategories: any;
+  allContentfulArticles: any;
+};
+
+type BlogPageProps = PageProps<BlogPageData>;
+
+function BlogPage(props: BlogPageProps) {
+  const { data } = props;
   const {
     mobileHero,
     desktopHero,
     allContentfulCategories,
     allContentfulArticles,
-  } = useStaticQuery(query);
+  } = data;
 
   const categories: CategoryType[] = allContentfulCategories?.edges?.map(
     (item: { node: CategoryType }) => item?.node
@@ -56,41 +63,6 @@ const Blog: React.FC = () => {
     ]
   );
 
-  // const renderCategories = useCallback(
-  //   () => (
-  //     <section
-  //       css={css`
-  //         overflow: hidden;
-  //       `}
-  //     >
-  //       <Container>
-  //         <div
-  //           css={css`
-  //             padding: 40px 0;
-
-  //             ${mq(`md`)} {
-  //               padding: 70px 0;
-  //             }
-  //           `}
-  //         >
-  //           {categories?.map((category) => (
-  //             <div key={category?.id}>
-  //               <Carousel
-  //                 items={category?.articles}
-  //                 title={category?.name}
-  //                 desc="Découvrez les dernères actualités comptables."
-  //                 to="blog"
-  //                 prefix="blog"
-  //               />
-  //             </div>
-  //           ))}
-  //         </div>
-  //       </Container>
-  //     </section>
-  //   ),
-  //   [categories]
-  // );
-
   const renderArticles = useCallback(
     () => (
       <section>
@@ -105,7 +77,6 @@ const Blog: React.FC = () => {
 
   return (
     <Layout>
-      <SEO title="Blog" description="Nos derniers articles." />
       <Hero background={sources}>
         <div
           css={css`
@@ -130,10 +101,25 @@ const Blog: React.FC = () => {
       <Contact />
     </Layout>
   );
-};
+}
 
-const query = graphql`
+export function Head(props: HeadProps<BlogPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
+
+export const query = graphql`
   {
+    contentfulPage(slug: { eq: "blog" }) {
+      id
+      seo_title
+      seo_description
+    }
     mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "blog" }) {
       childImageSharp {
         gatsbyImageData(
@@ -197,4 +183,4 @@ const query = graphql`
   }
 `;
 
-export default Blog;
+export default BlogPage;

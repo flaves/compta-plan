@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import useParallax from '../../hooks/useParallax';
 import mq from '../../styles/mq';
@@ -60,7 +60,8 @@ const Hero: React.FC<HeroProps> = ({
               max-width: initial;
               margin: initial;
             }
-          `} />
+          `}
+        />
       </div>
       <div
         css={css`
@@ -80,4 +81,4 @@ const Hero: React.FC<HeroProps> = ({
   );
 };
 
-export default React.memo(Hero);
+export default Hero;

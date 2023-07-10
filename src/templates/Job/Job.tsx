@@ -1,32 +1,29 @@
 import React from 'react';
-import { graphql } from 'gatsby';
-
+import { graphql, HeadProps } from 'gatsby';
 import Layout from '../../components/layout';
-import SEO from '../../components/helpers/seo';
 import MeetUp from '../../components/shared/meet-up';
 import Contact from '../../components/shared/contact';
-
 import { JobHero } from './JobHero';
 import { JobIntro } from './JobDescription';
-
 import { JobType } from '../../types';
 
-interface ServicesProps {
-  data: {
-    job: JobType;
-    mobileHero: any;
-    desktopHero: any;
-  };
-}
+type JobPageData = {
+  job: JobType;
+  mobileHero: any;
+  desktopHero: any;
+};
 
-const Job = ({ data: { job } }: ServicesProps): JSX.Element => {
+type JobPageProps = {
+  data: JobPageData;
+};
+
+function JobPage(props: JobPageProps) {
+  const { data } = props;
+  const { job } = data;
   const { content, date } = job;
-
   const file = job.file.file.url;
-
   return (
     <Layout>
-      <SEO title={job.title} description={job.title} />
       <section>
         <JobHero title={job.title} />
         <JobIntro content={content} file={file} date={date} />
@@ -35,10 +32,20 @@ const Job = ({ data: { job } }: ServicesProps): JSX.Element => {
       </section>
     </Layout>
   );
-};
+}
+
+export function Head(props: HeadProps<JobPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.job.title}</title>
+      <meta name="description" content={data.job?.description?.description} />
+    </>
+  );
+}
 
 export const query = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     job: contentfulJobs(id: { eq: $id }) {
       id
       date
@@ -55,4 +62,4 @@ export const query = graphql`
   }
 `;
 
-export default Job;
+export default JobPage;

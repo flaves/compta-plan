@@ -1,27 +1,25 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql, HeadProps, Link, PageProps } from 'gatsby';
 import dayjs from 'dayjs';
-
 import Layout from '../components/layout';
-import SEO from '../components/helpers/seo';
-
 import Container from '../components/shared/styled/container';
-
 import { JobType } from '../types';
 import { css } from '@emotion/react';
 import { JobsHero } from '../components/jobs/JobsHero';
+import { ContentfulPage } from '../types/contentful';
 
-export interface Props {
-  data: {
-    jobs: {
-      edges: {
-        node: JobType;
-      }[];
-    };
+type JobsPageData = {
+  contentfulPage: ContentfulPage;
+  jobs: {
+    edges: {
+      node: JobType;
+    }[];
   };
-}
+};
 
-const Jobs = (props: Props): JSX.Element => {
+export type JobsPageProps = PageProps<JobsPageData>;
+
+function JobsPage(props: JobsPageProps) {
   const jobs = props.data.jobs.edges.map((job) => job.node);
 
   const renderJobs = jobs.map((job) => (
@@ -49,7 +47,6 @@ const Jobs = (props: Props): JSX.Element => {
 
   return (
     <Layout>
-      <SEO title="Offres d'emploi" />
       <section>
         <Container>
           <JobsHero />
@@ -68,10 +65,25 @@ const Jobs = (props: Props): JSX.Element => {
       </section>
     </Layout>
   );
-};
+}
+
+export function Head(props: HeadProps<JobsPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
 
 export const query = graphql`
   query {
+    contentfulPage(slug: { eq: "jobs" }) {
+      id
+      seo_title
+      seo_description
+    }
     jobs: allContentfulJobs {
       edges {
         node {
@@ -88,4 +100,4 @@ export const query = graphql`
   }
 `;
 
-export default Jobs;
+export default JobsPage;

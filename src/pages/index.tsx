@@ -1,10 +1,8 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-
 import Layout from '../components/layout';
-import SEO from '../components/helpers/seo';
 import Hero from '../components/shared/hero';
 import Product from '../components/home/product';
 import Offers from '../components/home/offers';
@@ -12,26 +10,34 @@ import Contact from '../components/shared/contact';
 import Bonus from '../components/home/bonus';
 import News from '../components/home/news';
 import Link from '../components/shared/link';
-
 import mq from '../styles/mq';
+import { ContentfulPage } from '../types/contentful';
 
-const Home: React.FC = () => {
+type HomePageData = {
+  mobileHero: any;
+  desktopHero: any;
+  contentfulPage: ContentfulPage;
+};
+
+type HomePageProps = PageProps<HomePageData>;
+
+function HomePage(props: HomePageProps) {
+  const { data } = props;
+  const { mobileHero, desktopHero } = data;
   const { color, fontWeight } = useTheme();
-  const { mobileHero, desktopHero } = useStaticQuery(query);
 
-  const sources = withArtDirection(mobileHero?.childImageSharp?.gatsbyImageData, 
-    [{
-      image: desktopHero?.childImageSharp?.gatsbyImageData,
-      media: `(min-width: 768px)`,
-    }]
-  )
+  const sources = withArtDirection(
+    mobileHero?.childImageSharp?.gatsbyImageData,
+    [
+      {
+        image: desktopHero?.childImageSharp?.gatsbyImageData,
+        media: `(min-width: 768px)`,
+      },
+    ]
+  );
 
   return (
     <Layout>
-      <SEO
-        title="Home"
-        description="La fiduciaire qui coach votre entreprise."
-      />
       <section>
         <Hero background={sources} defaultHeight="100vh">
           <div
@@ -112,25 +118,41 @@ const Home: React.FC = () => {
       </section>
     </Layout>
   );
-};
- 
-const query = graphql`{
-  mobileHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "home"}) {
-    childImageSharp {
-      gatsbyImageData(
-        width: 768
-        height: 1000
-        transformOptions: {cropFocus: CENTER}
-        layout: CONSTRAINED
-      )
-    }
-  }
-  desktopHero: file(name: {eq: "hero"}, relativeDirectory: {eq: "home"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
 }
+
+export function Head(props: HeadProps<HomePageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
+
+export const query = graphql`
+  {
+    contentfulPage(slug: { eq: "home" }) {
+      id
+      seo_title
+      seo_description
+    }
+    mobileHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 768
+          height: 1000
+          transformOptions: { cropFocus: CENTER }
+          layout: CONSTRAINED
+        )
+      }
+    }
+    desktopHero: file(name: { eq: "hero" }, relativeDirectory: { eq: "home" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+  }
 `;
 
-export default Home;
+export default HomePage;
