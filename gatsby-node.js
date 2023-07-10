@@ -1,11 +1,37 @@
 const path = require(`path`);
 
-exports.createPages = async ({ graphql, actions: { createPage } }) => {
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage, createRedirect } = actions;
   const articleTemplate = path.resolve(`src/templates/article.tsx`);
   const offerTemplate = path.resolve(`src/templates/offer.tsx`);
   const serviceTemplate = path.resolve(`src/templates/service.tsx`);
   const jobTemplate = path.resolve(`src/templates/Job/Job.tsx`);
 
+  // redirects
+  const redirectsQuery = await graphql(`
+    {
+      redirections: allContentfulRedirect {
+        edges {
+          node {
+            from
+            to
+          }
+        }
+      }
+    }
+  `);
+
+  redirectsQuery.data.redirections.edges.map((edge) => {
+    const { from, to } = edge.node;
+    createRedirect({
+      fromPath: from,
+      toPath: to,
+      isPermanent: true,
+      force: true,
+    });
+  });
+
+  // pages
   const articles = await graphql(`
     {
       allContentfulArticles {
