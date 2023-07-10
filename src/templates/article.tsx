@@ -77,6 +77,7 @@ function ArticlePage(props: ArticleProps) {
           max-width: 1200px;
           margin: auto;
           word-break: break-word;
+          text-align: justify;
 
           h1,
           h2,
