@@ -39,7 +39,7 @@ export function Head(props: HeadProps<JobPageData>) {
   return (
     <>
       <title>{data.job.title}</title>
-      <meta name="description" content={data.job.description.description} />
+      <meta name="description" content={data.job?.description?.description} />
     </>
   );
 }
