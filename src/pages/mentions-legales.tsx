@@ -94,7 +94,7 @@ export function Head(props: HeadProps<LegalPageData>) {
 
 export const query = graphql`
   {
-    contentfulPage(slug: { eq: "mentions-legales" }) {
+    contentfulPage(slug: { eq: "legal" }) {
       id
       seo_title
       seo_description
