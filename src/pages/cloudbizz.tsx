@@ -1,8 +1,8 @@
 import React from 'react';
-
 import Layout from '../components/layout';
+import { HeadProps } from 'gatsby';
 
-const CloudBizz = () => {
+function CloudbizzPage() {
   return (
     <Layout>
       <section style={{ height: `100vh` }}>
@@ -16,6 +16,17 @@ const CloudBizz = () => {
       </section>
     </Layout>
   );
-};
+}
 
-export default CloudBizz;
+export function Head(props: HeadProps) {
+  const {} = props;
+  return (
+    <>
+      <title>Cloudbizz</title>
+      <meta name="description" content="Cloudbizz" />
+      <meta name="robots" content="noindex,nofollow" />
+    </>
+  );
+}
+
+export default CloudbizzPage;

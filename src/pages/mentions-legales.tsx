@@ -1,12 +1,11 @@
 import React from 'react';
 import { css } from '@emotion/react';
-
 import Layout from '../components/layout';
-import SEO from '../components/helpers/seo';
 import Container from '../components/shared/styled/container';
-
 import H1 from '../components/shared/styled/h1';
 import styled from '@emotion/styled';
+import { graphql, HeadProps, PageProps } from 'gatsby';
+import { ContentfulPage } from '../types/contentful';
 
 const H3 = styled.h3`
   font-size: 20px;
@@ -15,11 +14,16 @@ const H3 = styled.h3`
 const Block = styled.div`
   margin-bottom: 20px;
 `;
+type LegalPageData = {
+  contentfulPage: ContentfulPage;
+};
 
-const Legal: React.FC = () => {
+type LegalPageProps = PageProps<LegalPageData>;
+
+function LegalPage(props: LegalPageProps) {
+  const {} = props;
   return (
     <Layout>
-      <SEO title="Mentions légales" description="Mentions légales" />
       <section
         css={css`
           padding-top: 50px;
@@ -76,6 +80,26 @@ const Legal: React.FC = () => {
       </section>
     </Layout>
   );
-};
+}
 
-export default Legal;
+export function Head(props: HeadProps<LegalPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
+
+export const query = graphql`
+  {
+    contentfulPage(slug: { eq: "mentions-legales" }) {
+      id
+      seo_title
+      seo_description
+    }
+  }
+`;
+
+export default LegalPage;

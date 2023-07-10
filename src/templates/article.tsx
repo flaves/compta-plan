@@ -1,22 +1,17 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { graphql } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
-
 import Layout from '../components/layout';
 import ArticleImage from '../components/blog/image';
-
 import mq from '../styles/mq';
-
 import Container from '../components/shared/styled/container';
-import SEO from '../components/helpers/seo';
 import Hero from '../components/shared/hero';
 import Contact from '../components/shared/contact';
 import H1 from '../components/shared/styled/h1';
 import SubTitle from '../components/shared/styled/sub-title';
-
 import ArticleType from '../types/article';
 
 const options = {
@@ -33,38 +28,25 @@ const options = {
   },
 };
 
-interface ArticleProps {
-  data: {
-    contentfulArticles: ArticleType;
-    mobileHero: any;
-    desktopHero: any;
-  };
-}
+type ArticleData = {
+  article: ArticleType;
+  mobileHero: any;
+  desktopHero: any;
+};
 
-const Article: React.FC<ArticleProps> = ({
-  data: { contentfulArticles: article, mobileHero, desktopHero },
-}) => {
+type ArticleProps = PageProps<ArticleData>;
+
+function ArticlePage(props: ArticleProps) {
+  const { data } = props;
+  const { article, mobileHero, desktopHero } = data;
   const sources = withArtDirection(mobileHero?.gatsbyImageData, [
     {
       image: desktopHero?.gatsbyImageData,
       media: `(min-width: 768px)`,
     },
   ]);
-
-  const ogImage = desktopHero?.gatsbyImageData.images.fallback.src || ``;
-
   return (
     <Layout>
-      <SEO
-        title={article.name}
-        description={article.description}
-        meta={[
-          {
-            property: `og:image`,
-            content: ogImage,
-          },
-        ]}
-      />
       <Hero background={sources}>
         <div
           css={css`
@@ -140,11 +122,23 @@ const Article: React.FC<ArticleProps> = ({
       <Contact />
     </Layout>
   );
-};
+}
+
+export function Head(props: HeadProps<ArticleData>) {
+  const { data } = props;
+  const ogImage = data.desktopHero.gatsbyImageData.images.fallback.src;
+  return (
+    <>
+      <title>{data.article.name}</title>
+      <meta name="description" content={data.article.description} />
+      <meta property="og:image" content={ogImage} />
+    </>
+  );
+}
 
 export const query = graphql`
   query ($id: String!, $cover: String!) {
-    contentfulArticles(id: { eq: $id }) {
+    article: contentfulArticles(id: { eq: $id }) {
       id
       name
       description
@@ -172,4 +166,4 @@ export const query = graphql`
   }
 `;
 
-export default Article;
+export default ArticlePage;

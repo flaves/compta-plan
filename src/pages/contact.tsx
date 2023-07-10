@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import { withArtDirection } from 'gatsby-plugin-image';
-
 import Layout from '../components/layout';
-import SEO from '../components/helpers/seo';
 import Hero from '../components/shared/hero';
 import Tabs from '../components/contact/tabs';
 import Address from '../components/contact/address';
 import Email from '../components/contact/email';
 
 import H1 from '../components/shared/styled/h1';
+import { ContentfulPage } from '../types/contentful';
 
-const Contact: React.FC = () => {
+type ContactPageData = {
+  mobileHero: any;
+  desktopHero: any;
+  allContentfulAddress: any;
+  contentfulPage: ContentfulPage;
+};
+
+type ContactPageProps = PageProps<ContactPageData>;
+
+function ContactPage(props: ContactPageProps) {
+  const { data } = props;
+  const { mobileHero, desktopHero, allContentfulAddress } = data;
   const [current, setCurrent] = useState<string>(``);
-  const { mobileHero, desktopHero, allContentfulAddress } =
-    useStaticQuery(query);
 
   useEffect(() => {
     allContentfulAddress?.edges?.map((item: { node: { id: string } }) => {
@@ -35,7 +43,6 @@ const Contact: React.FC = () => {
 
   return (
     <Layout>
-      <SEO title="Contact" description="Contact" />
       <Hero background={sources}>
         <div
           css={css`
@@ -54,10 +61,25 @@ const Contact: React.FC = () => {
       <Email />
     </Layout>
   );
-};
+}
 
-const query = graphql`
+export function Head(props: HeadProps<ContactPageData>) {
+  const { data } = props;
+  return (
+    <>
+      <title>{data.contentfulPage.seo_title}</title>
+      <meta name="description" content={data.contentfulPage.seo_description} />
+    </>
+  );
+}
+
+export const query = graphql`
   {
+    contentfulPage(slug: { eq: "contact" }) {
+      id
+      seo_title
+      seo_description
+    }
     mobileHero: file(
       name: { eq: "hero" }
       relativeDirectory: { eq: "contact" }
@@ -92,4 +114,4 @@ const query = graphql`
   }
 `;
 
-export default Contact;
+export default ContactPage;
