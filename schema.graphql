@@ -286,6 +286,8 @@ type ContentfulArticles implements ContentfulEntry & ContentfulReference & Node 
   name: String
   node_locale: String!
   parent: Node
+  seoDescription: String
+  seoTitle: String
   slug: String
   spaceId: String
   sys: ContentfulArticlesSys
@@ -2072,7 +2074,7 @@ type Query {
   allSitePage(filter: SitePageFilterInput, limit: Int, skip: Int, sort: [SitePageSortInput]): SitePageConnection!
   allSitePlugin(filter: SitePluginFilterInput, limit: Int, skip: Int, sort: [SitePluginSortInput]): SitePluginConnection!
   contentfulAddress(children: NodeFilterListInput, city: StringQueryOperatorInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, phone: StringQueryOperatorInput, position: ContentfulAddressPositionFilterInput, spaceId: StringQueryOperatorInput, street: StringQueryOperatorInput, sys: ContentfulAddressSysFilterInput, updatedAt: DateQueryOperatorInput, zip: StringQueryOperatorInput): ContentfulAddress
-  contentfulArticles(category: ContentfulCategoriesFilterInput, children: NodeFilterListInput, content: ContentfulArticlesContentFilterInput, contentful_id: StringQueryOperatorInput, cover: ContentfulAssetFilterInput, createdAt: DateQueryOperatorInput, date: DateQueryOperatorInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulArticlesSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulArticles
+  contentfulArticles(category: ContentfulCategoriesFilterInput, children: NodeFilterListInput, content: ContentfulArticlesContentFilterInput, contentful_id: StringQueryOperatorInput, cover: ContentfulAssetFilterInput, createdAt: DateQueryOperatorInput, date: DateQueryOperatorInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, seoDescription: StringQueryOperatorInput, seoTitle: StringQueryOperatorInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulArticlesSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulArticles
   contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, file: ContentfulAssetFileFilterInput, filename: StringQueryOperatorInput, filesize: IntQueryOperatorInput, gatsbyImage: GatsbyImageDataQueryOperatorInput, gatsbyImageData: GatsbyImageDataQueryOperatorInput, height: IntQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, mimeType: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, placeholderUrl: StringQueryOperatorInput, publicUrl: StringQueryOperatorInput, resize: RemoteFileResizeFilterInput, size: IntQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, url: StringQueryOperatorInput, width: IntQueryOperatorInput): ContentfulAsset
   contentfulCategories(articles: ContentfulArticlesFilterListInput, children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulCategoriesSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulCategories
   contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
@@ -2773,6 +2775,8 @@ input ContentfulArticlesFieldSelector {
   name: FieldSelectorEnum
   node_locale: FieldSelectorEnum
   parent: NodeFieldSelector
+  seoDescription: FieldSelectorEnum
+  seoTitle: FieldSelectorEnum
   slug: FieldSelectorEnum
   spaceId: FieldSelectorEnum
   sys: ContentfulArticlesSysFieldSelector
@@ -2793,6 +2797,8 @@ input ContentfulArticlesFilterInput {
   name: StringQueryOperatorInput
   node_locale: StringQueryOperatorInput
   parent: NodeFilterInput
+  seoDescription: StringQueryOperatorInput
+  seoTitle: StringQueryOperatorInput
   slug: StringQueryOperatorInput
   spaceId: StringQueryOperatorInput
   sys: ContentfulArticlesSysFilterInput
@@ -2817,6 +2823,8 @@ input ContentfulArticlesSortInput {
   name: SortOrderEnum
   node_locale: SortOrderEnum
   parent: NodeSortInput
+  seoDescription: SortOrderEnum
+  seoTitle: SortOrderEnum
   slug: SortOrderEnum
   spaceId: SortOrderEnum
   sys: ContentfulArticlesSysSortInput

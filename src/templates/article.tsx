@@ -130,8 +130,11 @@ export function Head(props: HeadProps<ArticleData>) {
   const ogImage = data.desktopHero.gatsbyImageData.images.fallback.src;
   return (
     <>
-      <title>{data.article.name}</title>
-      <meta name="description" content={data.article.description} />
+      <title>{data.article.seoTitle || data.article.name}</title>
+      <meta
+        name="description"
+        content={data.article.seoDescription || data.article.description}
+      />
       <meta property="og:image" content={ogImage} />
     </>
   );
@@ -141,6 +144,8 @@ export const query = graphql`
   query ($id: String!, $cover: String!) {
     article: contentfulArticles(id: { eq: $id }) {
       id
+      seoTitle
+      seoDescription
       name
       description
       content {
