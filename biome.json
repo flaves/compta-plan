@@ -1,0 +1,94 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "nursery": {
+        "useAriaPropsSupportedByRole": {
+          "level": "error"
+        },
+        "useAtIndex": {
+          "level": "error",
+          "fix": "unsafe"
+        },
+        "useConsistentCurlyBraces": {
+          "level": "error",
+          "fix": "unsafe"
+        },
+        "noNestedTernary": {
+          "level": "error"
+        },
+        "noTemplateCurlyInString": {
+          "level": "error"
+        }
+      },
+      "correctness": {
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "useExhaustiveDependencies": {
+          "level": "off",
+          "options": {}
+        }
+      },
+      "suspicious": {
+        "noConsole": {
+          "level": "error",
+          "fix": "none",
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        }
+      },
+      "style": {
+        "noNonNullAssertion": {
+          "level": "off"
+        },
+        "noUnusedTemplateLiteral": {
+          "fix": "safe",
+          "level": "warn"
+        },
+        "useExportType": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "useImportType": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "useTemplate": {
+          "fix": "safe",
+          "level": "warn"
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
